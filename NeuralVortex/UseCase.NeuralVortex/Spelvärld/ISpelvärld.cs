@@ -12,5 +12,7 @@ namespace UseCase.NeuralVortex.Spelvärld
         Huvudkaraktär Huvudkaraktär { get; set; }
 
         IGrafikfält MiljöGrafik { get; set; }
+
+        IEnumerable<Fiende> Fienden { get; set; }
     }
 }

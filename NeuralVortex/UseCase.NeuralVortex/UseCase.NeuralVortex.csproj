@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fiende.cs" />
     <Compile Include="Visning\IGrafik.cs" />
     <Compile Include="Huvudkaraktär.cs" />
     <Compile Include="Spelvärld\ISpelvärld.cs" />

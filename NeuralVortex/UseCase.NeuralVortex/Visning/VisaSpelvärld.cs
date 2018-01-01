@@ -35,6 +35,17 @@ namespace UseCase.NeuralVortex.Visning
                 var yta = new Yta(_kamera.Topp, _kamera.Botten, _kamera.Vänster, _kamera.Höger);
                 miljögrafik.Visa(yta);
             }
+
+            var fienden = _spelvärld.Fienden;
+            if(fienden != null)
+            {
+                foreach(var fiende in fienden)
+                {
+                    fiende.Grafik.Visa(new Skärmposition(
+                        _kamera.BeräknaXPosition(fiende.Position.X), 
+                        _kamera.BeräknaYPosition(fiende.Position.Y)));
+                }
+            }
         }
     }
 }

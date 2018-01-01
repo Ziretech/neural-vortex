@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UseCase.NeuralVortex.Spelvärld;
 using UseCase.NeuralVortex.Visning;
 
@@ -57,12 +58,39 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(miljögrafik.HarVisatYta.Höger, Is.EqualTo(16));
         }
 
-        // borde visa fienden
+        [Test]
+        public void VisaSpelvärld_borde_visa_fienden()
+        {
+            // Arrange
+            var fiendegrafik = new GrafikMock();
+            var visaSpelvärld = new VisaSpelvärld(
+                new SpelvärldMock
+                {
+                    Fienden = new List<Fiende>
+                    {
+                        new Fiende
+                        {
+                            Grafik = fiendegrafik,
+                            Position = new Spelvärldsposition(2, 3)
+                        }
+                    }
+                }, 
+                new Rektangel(100, 100), 
+                new Spelvärldsposition(5, 12));
+
+            // Act
+            visaSpelvärld.Visa();
+
+            // Assert
+            Assert.That(fiendegrafik.HarVisatsPåPosition.X, Is.EqualTo(7));
+            Assert.That(fiendegrafik.HarVisatsPåPosition.Y, Is.EqualTo(15));
+        }
 
         private class SpelvärldMock : ISpelvärld
         {
             public Huvudkaraktär Huvudkaraktär { get; set; }
             public IGrafikfält MiljöGrafik { get; set; }
+            public IEnumerable<Fiende> Fienden { get; set; }
         }
 
         private class GrafikMock : IGrafik
