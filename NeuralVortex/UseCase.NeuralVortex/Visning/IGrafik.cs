@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UseCase.NeuralVortex
+namespace UseCase.NeuralVortex.Visning
 {
-    public class Class1
+    public interface IGrafik
     {
+        void Visa(Skärmposition position);
     }
 }

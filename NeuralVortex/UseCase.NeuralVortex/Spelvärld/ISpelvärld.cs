@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.NeuralVortex
+namespace UseCase.NeuralVortex.Spelvärld
 {
-    public class Class1
+    public interface ISpelvärld
     {
+        Huvudkaraktär Huvudkaraktär { get; set; }
     }
 }
