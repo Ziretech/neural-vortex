@@ -45,8 +45,10 @@
     <Compile Include="Spelvärld\ISpelvärld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rektangel.cs" />
+    <Compile Include="Visning\IGrafikfält.cs" />
     <Compile Include="Visning\Skärmposition.cs" />
     <Compile Include="Spelvärld\Spelvärldsposition.cs" />
+    <Compile Include="Visning\Skärmyta.cs" />
     <Compile Include="Visning\VisaSpelvärld.cs" />
   </ItemGroup>
   <ItemGroup>

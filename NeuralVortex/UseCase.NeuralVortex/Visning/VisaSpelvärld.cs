@@ -22,13 +22,19 @@ namespace UseCase.NeuralVortex.Visning
         public void Visa()
         {
             var huvudkaraktär = _spelvärld.Huvudkaraktär;
-            if(huvudkaraktär != null)
+            if (huvudkaraktär != null)
             {
                 var x = _kamera.BeräknaXPosition(huvudkaraktär.Position.X);
                 var y = _kamera.BeräknaYPosition(huvudkaraktär.Position.Y);
                 huvudkaraktär.Grafik.Visa(new Skärmposition(x, y));
             }
-            
+
+            var miljögrafik = _spelvärld.MiljöGrafik;
+            if(miljögrafik != null)
+            {
+                var yta = new Yta(_kamera.Topp, _kamera.Botten, _kamera.Vänster, _kamera.Höger);
+                miljögrafik.Visa(yta);
+            }
         }
     }
 }
