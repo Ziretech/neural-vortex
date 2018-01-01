@@ -15,6 +15,15 @@ namespace Entity.NeuralVortex
 
         public Kamera(int x, int y, int bredd, int höjd)
         {
+            if(bredd < 1)
+            {
+                throw new ArgumentException("Kamerans bredd får inte vara mindre än 1.");
+            }
+            if (höjd < 1)
+            {
+                throw new ArgumentException("Kamerans höjd får inte vara mindre än 1.");
+            }
+
             _x = x;
             _y = y;
             _bredd = bredd;
@@ -23,12 +32,17 @@ namespace Entity.NeuralVortex
 
         public int BeräknaXPosition(int x)
         {
-            return x;
+            return x + _x;
         }
 
         public int BeräknaYPosition(int y)
         {
-            return y;
+            return y + _y;
         }
+
+        public int Topp => _y + _höjd;
+        public int Botten => _y;
+        public int Vänster => _x;
+        public int Höger => _x + _bredd;
     }
 }
