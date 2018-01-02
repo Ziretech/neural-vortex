@@ -45,11 +45,21 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="GrafikSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Adapter.OpenTK\Adapter.OpenTK.csproj">
+      <Project>{b0021304-5b4b-4051-8cb6-7058b5bf45f7}</Project>
+      <Name>Adapter.OpenTK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UseCase.NeuralVortex\UseCase.NeuralVortex.csproj">
+      <Project>{0d0a4ee6-c9f6-4a96-bf3a-029573adeab2}</Project>
+      <Name>UseCase.NeuralVortex</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

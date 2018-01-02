@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Adapter.OpenTK
 {
-    public class Class1
+    public interface IBild
     {
+        IBildData LåsBilddata32ARGB();
+        void FrigörBilddata();
+        int Bredd { get; }
+        int Höjd { get; }
     }
 }
