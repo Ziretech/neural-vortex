@@ -19,7 +19,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            var tileset = new BildWrapper("c:/temp/tiles.png");
+            var tileset = new BildWrapper("Images/tiles.png");
 
             var inställningar = new SpelfönsterInställningar { Fullskärm = false, DoldaKanter = true, VSync = true, Bredd = 16 * 32, Höjd = 16 * 32 };
             var tangentmappning = new Dictionary<Key, Tangent> { { Key.Right, Tangent.Höger }, { Key.Left, Tangent.Vänster }, { Key.Up, Tangent.Upp }, { Key.Down, Tangent.Ner }, { Key.Escape, Tangent.Escape } };
