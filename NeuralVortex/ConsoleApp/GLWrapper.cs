@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL;
+using Adapter.OpenTK.Grafik;
 
 namespace ConsoleApp
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Adapter.OpenTK
+namespace Adapter.OpenTK.Grafik
 {
     public interface IVisare
     {

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UseCase.NeuralVortex.Visning;
 
-namespace Adapter.OpenTK
+namespace Adapter.OpenTK.Grafik
 {
-    public class Grafik : IGrafik
+    public class Bricka : IGrafik
     {
         public void Visa(Skärmposition position)
         {

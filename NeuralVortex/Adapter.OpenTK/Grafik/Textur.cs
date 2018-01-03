@@ -1,4 +1,4 @@
-﻿namespace Adapter.OpenTK
+﻿namespace Adapter.OpenTK.Grafik
 {
     class Textur
     {

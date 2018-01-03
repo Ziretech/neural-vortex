@@ -2,6 +2,7 @@
 using System;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing.Imaging;
+using Adapter.OpenTK.Grafik;
 
 namespace ConsoleApp
 {
