@@ -14,5 +14,6 @@ namespace UseCase.NeuralVortex.Spelvärld
         IGrafikfält MiljöGrafik { get; set; }
 
         IEnumerable<Fiende> Fienden { get; set; }
+        Spelvärldsposition KameraPosition { get; set; }
     }
 }

@@ -13,11 +13,11 @@ namespace UseCase.NeuralVortex.Spec
         public void VisaSpelvärld_borde_inte_krascha_när_det_inte_finns_något_att_visa()
         {
             // Arrange
-            var spelvärld = new SpelvärldMock();
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new Rektangel(100, 100), new Spelvärldsposition(0, 0));
+            var spelvärld = new SpelvärldMock { KameraPosition = new Spelvärldsposition(0, 0) };
+            var visaSpelvärld = new VisaSpelvärld(spelvärld);
 
             // Act
-            visaSpelvärld.Visa();
+            visaSpelvärld.Visa(new Rektangel(100, 100));
 
             // Assert
             Assert.Pass("No exceptions thrown.");
@@ -29,11 +29,11 @@ namespace UseCase.NeuralVortex.Spec
             // Arrange
             var huvudkaraktärensGrafik = new GrafikMock();
             var huvudkaraktärensPosition = new Spelvärldsposition(1, 2);
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = huvudkaraktärensPosition } };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new Rektangel(100, 100), new Spelvärldsposition(0, 0));
+            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = huvudkaraktärensPosition }, KameraPosition = new Spelvärldsposition(0, 0) };
+            var visaSpelvärld = new VisaSpelvärld(spelvärld);
 
             // Act
-            visaSpelvärld.Visa();
+            visaSpelvärld.Visa(new Rektangel(100, 100));
 
             // Assert
             Assert.That(huvudkaraktärensGrafik.HarVisatsPåPosition.X, Is.EqualTo(1));
@@ -45,11 +45,11 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange            
             var miljögrafik = new GrafikfältMock();
-            var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new Rektangel(13, 17), new Spelvärldsposition(3, 5));
+            var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik, KameraPosition = new Spelvärldsposition(3, 5) };
+            var visaSpelvärld = new VisaSpelvärld(spelvärld);
 
             // Act
-            visaSpelvärld.Visa();
+            visaSpelvärld.Visa(new Rektangel(13, 17));
 
             // Assert
             Assert.That(miljögrafik.HarVisatYta.Topp, Is.EqualTo(22));
@@ -73,13 +73,12 @@ namespace UseCase.NeuralVortex.Spec
                             Grafik = fiendegrafik,
                             Position = new Spelvärldsposition(2, 3)
                         }
-                    }
-                }, 
-                new Rektangel(100, 100), 
-                new Spelvärldsposition(5, 12));
+                    },
+                    KameraPosition = new Spelvärldsposition(5, 12)
+                });
 
             // Act
-            visaSpelvärld.Visa();
+            visaSpelvärld.Visa(new Rektangel(100, 100));
 
             // Assert
             Assert.That(fiendegrafik.HarVisatsPåPosition.X, Is.EqualTo(7));
@@ -91,6 +90,7 @@ namespace UseCase.NeuralVortex.Spec
             public Huvudkaraktär Huvudkaraktär { get; set; }
             public IGrafikfält MiljöGrafik { get; set; }
             public IEnumerable<Fiende> Fienden { get; set; }
+            public Spelvärldsposition KameraPosition { get; set; }
         }
 
         private class GrafikMock : IGrafik

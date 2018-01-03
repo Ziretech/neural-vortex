@@ -11,28 +11,29 @@ namespace UseCase.NeuralVortex.Visning
     public class VisaSpelvärld
     {
         private ISpelvärld _spelvärld;
-        private Kamera _kamera;
 
-        public VisaSpelvärld(ISpelvärld spelvärld, Rektangel ritytansStorlek, Spelvärldsposition ritytansPosition)
+        public VisaSpelvärld(ISpelvärld spelvärld)
         {
-            _spelvärld = spelvärld;
-            _kamera = new Kamera(ritytansPosition.X, ritytansPosition.Y, ritytansStorlek.Bredd, ritytansStorlek.Höjd);
+            _spelvärld = spelvärld;            
         }
 
-        public void Visa()
+        public void Visa(Rektangel ritytansStorlek)
         {
+            var ritytansPosition = _spelvärld.KameraPosition;
+            var kamera = new Kamera(ritytansPosition.X, ritytansPosition.Y, ritytansStorlek.Bredd, ritytansStorlek.Höjd);
+
             var huvudkaraktär = _spelvärld.Huvudkaraktär;
             if (huvudkaraktär != null)
             {
-                var x = _kamera.BeräknaXPosition(huvudkaraktär.Position.X);
-                var y = _kamera.BeräknaYPosition(huvudkaraktär.Position.Y);
+                var x = kamera.BeräknaXPosition(huvudkaraktär.Position.X);
+                var y = kamera.BeräknaYPosition(huvudkaraktär.Position.Y);
                 huvudkaraktär.Grafik.Visa(new Skärmposition(x, y));
             }
 
             var miljögrafik = _spelvärld.MiljöGrafik;
             if(miljögrafik != null)
             {
-                var yta = new Yta(_kamera.Topp, _kamera.Botten, _kamera.Vänster, _kamera.Höger);
+                var yta = new Yta(kamera.Topp, kamera.Botten, kamera.Vänster, kamera.Höger);
                 miljögrafik.Visa(yta);
             }
 
@@ -42,8 +43,8 @@ namespace UseCase.NeuralVortex.Visning
                 foreach(var fiende in fienden)
                 {
                     fiende.Grafik.Visa(new Skärmposition(
-                        _kamera.BeräknaXPosition(fiende.Position.X), 
-                        _kamera.BeräknaYPosition(fiende.Position.Y)));
+                        kamera.BeräknaXPosition(fiende.Position.X), 
+                        kamera.BeräknaYPosition(fiende.Position.Y)));
                 }
             }
         }
