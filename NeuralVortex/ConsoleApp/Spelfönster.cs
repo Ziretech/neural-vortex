@@ -1,7 +1,11 @@
 ﻿using Adapter.OpenTK;
 using Adapter.OpenTK.Grafik;
+using Adapter.OpenTK.Kontroll;
 using OpenTK;
+using OpenTK.Input;
 using System;
+using System.Collections.Generic;
+using UseCase.NeuralVortex.Kontroll;
 
 namespace ConsoleApp
 {
@@ -9,35 +13,50 @@ namespace ConsoleApp
     {
         private GameWindow _openTKWindow;
         private IStorleksÄndrare _storleksÄndrare;
+        private ITangentmottagare _tangentmottagare;
+        private Dictionary<Key, Tangent> _openTKTangentMappning;
 
-        public Spelfönster()
+        public Spelfönster(Dictionary<Key, Tangent> tangentmappning, SpelfönsterInställningar inställningar = null)
         {
-            _openTKWindow = new GameWindow();
+            _openTKTangentMappning = tangentmappning;
+            _openTKWindow = new GameWindow();            
+
+            if(inställningar != null)
+            {
+                if (inställningar.Bredd > 0)
+                {
+                    _openTKWindow.Width = inställningar.Bredd;
+                }
+                if (inställningar.Höjd > 0)
+                {
+                    _openTKWindow.Height = inställningar.Höjd;
+                }
+                if (inställningar.VSync)
+                {
+                    _openTKWindow.VSync = VSyncMode.On;
+                }
+                if (inställningar.DoldaKanter)
+                {
+                    _openTKWindow.WindowBorder = WindowBorder.Hidden;
+                }
+                if (inställningar.Fullskärm)
+                {
+                    _openTKWindow.WindowState = WindowState.Fullscreen;
+                }
+            }            
         }
 
-        public Spelfönster(SpelfönsterInställningar inställningar)
+        public void Tangentbordsmottagare(ITangentmottagare tangentmottagare)
         {
-            _openTKWindow = new GameWindow();
+            _tangentmottagare = tangentmottagare;
+            _openTKWindow.KeyDown += TangentTrycksNed;
+        }
 
-            if (inställningar.Bredd > 0)
+        public void TangentTrycksNed(object avsändare, KeyboardKeyEventArgs händelse)
+        {
+            if(_openTKTangentMappning.ContainsKey(händelse.Key))
             {
-                _openTKWindow.Width = inställningar.Bredd;
-            }
-            if(inställningar.Höjd > 0)
-            {
-                _openTKWindow.Height = inställningar.Höjd;
-            }
-            if(inställningar.VSync)
-            {
-                _openTKWindow.VSync = VSyncMode.On;
-            }
-            if(inställningar.DoldaKanter)
-            {
-                _openTKWindow.WindowBorder = WindowBorder.Hidden;
-            }
-            if(inställningar.Fullskärm)
-            {
-                _openTKWindow.WindowState = WindowState.Fullscreen;
+                _tangentmottagare.TangentTrycksNed(_openTKTangentMappning[händelse.Key]);
             }
         }
 

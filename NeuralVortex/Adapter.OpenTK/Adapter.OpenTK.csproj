@@ -51,6 +51,8 @@
     <Compile Include="Grafik\IBild.cs" />
     <Compile Include="IUppdaterare.cs" />
     <Compile Include="Grafik\IVisare.cs" />
+    <Compile Include="Kontroll\ITangentmottagare.cs" />
+    <Compile Include="Kontroll\KontrollHändelser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Grafik\Textur.cs" />
     <Compile Include="Grafik\Vektor.cs" />
@@ -61,8 +63,6 @@
       <Name>UseCase.NeuralVortex</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Kontroll\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

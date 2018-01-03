@@ -8,12 +8,14 @@ namespace Entity.NeuralVortex
 {
     public class Kamera
     {
-        private int _x;
-        private int _y;
-        private int _bredd;
-        private int _höjd;
+        private readonly int _x;
+        private readonly int _y;
+        private readonly int _bredd;
+        private readonly int _höjd;
+        private readonly int _brickbredd;
+        private readonly int _brickhöjd;
 
-        public Kamera(int x, int y, int bredd, int höjd)
+        public Kamera(int x, int y, int bredd, int höjd, int brickbredd, int brickhöjd)
         {
             if(bredd < 1)
             {
@@ -28,21 +30,23 @@ namespace Entity.NeuralVortex
             _y = y;
             _bredd = bredd;
             _höjd = höjd;
+            _brickbredd = brickbredd;
+            _brickhöjd = brickhöjd;
         }
 
         public int BeräknaXPosition(int x)
         {
-            return x + _x;
+            return (x + _x) * _brickbredd;
         }
 
         public int BeräknaYPosition(int y)
         {
-            return y + _y;
+            return (y + _y) * _brickhöjd;
         }
 
-        public int Topp => _y + _höjd;
-        public int Botten => _y;
-        public int Vänster => _x;
-        public int Höger => _x + _bredd;
+        public int Topp => (_y + _höjd) * _brickhöjd;
+        public int Botten => _y * _brickhöjd;
+        public int Vänster => _x * _brickbredd;
+        public int Höger => (_x + _bredd) * _brickbredd;
     }
 }

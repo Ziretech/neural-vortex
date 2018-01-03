@@ -11,7 +11,7 @@ namespace Entity.NeuralVortex.Spec
         {
             try
             {
-                new Kamera(0, 0, 0, 1);
+                new Kamera(0, 0, 0, 1, 1, 1);
                 Assert.Fail("Inget undantag gjordes.");
             }
             catch(ArgumentException exception)
@@ -26,7 +26,7 @@ namespace Entity.NeuralVortex.Spec
         {
             try
             {
-                new Kamera(0, 0, 1, 0);
+                new Kamera(0, 0, 1, 0, 1, 1);
                 Assert.Fail("Inget undantag gjordes.");
             }
             catch (ArgumentException exception)
@@ -36,30 +36,32 @@ namespace Entity.NeuralVortex.Spec
             }
         }
 
+        // brickhöjd får inte vara mindre än 1 i någon dimension
+
         [Test]
-        public void Kamera_vid_0_översätter_1_2_till_1_2()
+        public void Kamera_vid_0_översätter_1_2_med_brickstorlek_12_16_till_12_32()
         {
-            var kamera = new Kamera(0, 0, 1, 1);
-            Assert.That(kamera.BeräknaXPosition(1), Is.EqualTo(1));
-            Assert.That(kamera.BeräknaYPosition(2), Is.EqualTo(2));
+            var kamera = new Kamera(0, 0, 1, 1, 12, 16);
+            Assert.That(kamera.BeräknaXPosition(1), Is.EqualTo(12));
+            Assert.That(kamera.BeräknaYPosition(2), Is.EqualTo(32));
         }
 
         [Test]
-        public void Kamera_vid_3_5_översätter_3_5__till_6_10()
+        public void Kamera_vid_3_5_översätter_3_5_med_brickstorlek_11_13_till_66_130()
         {
-            var kamera = new Kamera(3, 5, 1, 1);
-            Assert.That(kamera.BeräknaXPosition(3), Is.EqualTo(6));
-            Assert.That(kamera.BeräknaYPosition(5), Is.EqualTo(10));
+            var kamera = new Kamera(3, 5, 1, 1, 11, 13);
+            Assert.That(kamera.BeräknaXPosition(3), Is.EqualTo(66));
+            Assert.That(kamera.BeräknaYPosition(5), Is.EqualTo(130));
         }
 
         [Test]
-        public void Kamera_vid_1_2_med_dimensioner_3_4_borde_ange_yta_6_2_1_4()
+        public void Kamera_vid_1_2_med_dimensioner_3_4_för_brickstorlek_10_20_borde_ange_yta_120_40_10_40()
         {
-            var kamera = new Kamera(1, 2, 3, 4);
-            Assert.That(kamera.Topp, Is.EqualTo(6));
-            Assert.That(kamera.Botten, Is.EqualTo(2));
-            Assert.That(kamera.Vänster, Is.EqualTo(1));
-            Assert.That(kamera.Höger, Is.EqualTo(4));
+            var kamera = new Kamera(1, 2, 3, 4, 10, 20);
+            Assert.That(kamera.Topp, Is.EqualTo(120));
+            Assert.That(kamera.Botten, Is.EqualTo(40));
+            Assert.That(kamera.Vänster, Is.EqualTo(10));
+            Assert.That(kamera.Höger, Is.EqualTo(40));
         }
     }
 }

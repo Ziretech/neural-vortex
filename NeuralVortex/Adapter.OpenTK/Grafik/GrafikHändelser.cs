@@ -10,7 +10,6 @@ namespace Adapter.OpenTK.Grafik
 {
     public class GrafikHändelser : ILaddare, IStorleksÄndrare, IUppdaterare, IVisare
     {
-        private IAvslutare _avslutare;
         private IGrafikkommandon _gl;
         private IBild _tileset;
         private IBuffertväxlare _buffertväxlare;
@@ -18,9 +17,8 @@ namespace Adapter.OpenTK.Grafik
         private int _bredd;
         private int _höjd;
 
-        public GrafikHändelser(IAvslutare avslutare, IGrafikkommandon grafikkommandon, IBild tileset, IBuffertväxlare buffertväxlare, VisaSpelvärld visaSpelvärld)
+        public GrafikHändelser(IGrafikkommandon grafikkommandon, IBild tileset, IBuffertväxlare buffertväxlare, VisaSpelvärld visaSpelvärld)
         {
-            _avslutare = avslutare;
             _gl = grafikkommandon;
             _tileset = tileset;
             _buffertväxlare = buffertväxlare;
@@ -44,11 +42,8 @@ namespace Adapter.OpenTK.Grafik
 
         public void Visa(object avsändare, EventArgs händelse)
         {
-            _gl.TömRityta();
-
-            //KopieraTexturrektangelTillRityta(0, 0, 0, 0, 32, 32);
+            _gl.TömRityta();            
             _visaSpelvärld.Visa(new Rektangel(_bredd, _höjd));
-
             _buffertväxlare.VäxlaBuffert();
         }
 
