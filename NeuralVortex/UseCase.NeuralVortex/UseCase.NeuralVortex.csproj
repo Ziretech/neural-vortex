@@ -46,7 +46,6 @@
     <Compile Include="Kontroll\Tangent.cs" />
     <Compile Include="Spelvärld\Spelvärldsyta.cs" />
     <Compile Include="UppdateraSpelvärld.cs" />
-    <Compile Include="Visning\Brickposition.cs" />
     <Compile Include="Visning\IGrafik.cs" />
     <Compile Include="Spelvärld\Huvudkaraktär.cs" />
     <Compile Include="Spelvärld\ISpelvärld.cs" />

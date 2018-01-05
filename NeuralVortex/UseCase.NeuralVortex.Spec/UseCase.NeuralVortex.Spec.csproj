@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="GrafikfältMock.cs" />
     <Compile Include="GrafikMock.cs" />
+    <Compile Include="KameraMock.cs" />
+    <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="SpelvärldMock.cs" />
     <Compile Include="UppdateraSpelvärldSpec.cs" />
     <Compile Include="VisaSpelvärldSpec.cs" />

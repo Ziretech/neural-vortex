@@ -18,5 +18,10 @@ namespace Adapter.OpenTK.Grafik
         {
             throw new NotImplementedException();
         }
+
+        internal void ÄndraStorlekPåSynlighetsområde(int bredd, int höjd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

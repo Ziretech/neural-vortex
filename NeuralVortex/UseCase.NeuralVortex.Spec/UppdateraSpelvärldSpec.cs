@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +15,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flytta_huvudkaraktären_uppåt()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(0, 0) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
@@ -27,7 +26,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flytta_huvudkaraktären_nedåt()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 3) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
 
             uppdateraSpelvärld.Uppdatera(Tangent.Ner);
 
@@ -38,7 +37,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flytta_huvudkaraktären_vänster()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 3) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
 
             uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
 
@@ -49,7 +48,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flytta_huvudkaraktären_höger()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 13) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
 
             uppdateraSpelvärld.Uppdatera(Tangent.Höger);
 

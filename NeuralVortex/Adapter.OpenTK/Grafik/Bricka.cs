@@ -29,11 +29,6 @@ namespace Adapter.OpenTK.Grafik
             KopieraTexturrektangelTillRityta(_texturX, _texturY, position.X, position.Y, _bredd, _höjd);
         }
 
-        public void Visa(Brickposition position)
-        {
-            throw new NotImplementedException();
-        }
-
         private void KopieraTexturrektangelTillRityta(int texturX, int texturY, int ritytaX, int ritytaY, int bredd, int höjd)
         {
             var t1 = new Vektor(texturX, texturY);

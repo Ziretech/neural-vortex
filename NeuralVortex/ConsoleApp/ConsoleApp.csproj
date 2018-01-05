@@ -52,6 +52,7 @@
     <Compile Include="BildDataWrapper.cs" />
     <Compile Include="BildWrapper.cs" />
     <Compile Include="GLWrapper.cs" />
+    <Compile Include="Positionskonverterare.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spelfönster.cs" />

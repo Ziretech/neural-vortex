@@ -12,6 +12,7 @@ namespace Adapter.OpenTK.Spec.Grafik
     [TestFixture]
     public class BrickfältSpec
     {
+        [Ignore("Fixa kameran först")]
         [Test]
         public void Bricka_borde_visa_en_bild_på_angiven_position()
         {

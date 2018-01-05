@@ -28,10 +28,11 @@ namespace ConsoleApp
             var glWrapper = new GLWrapper();
             var brickstorlek = new Rektangel(16, 16);
             var kamera = new Kamera();
+            var positionskonverterare = new Positionskonverterare(16, 16);
 
-            var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, brickstorlek);
+            var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, kamera, positionskonverterare);
             var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera);
-            var openTKHanterare = new GrafikHändelser(glWrapper, tileset, fönster, ucVisaSpelvärld);
+            var openTKHanterare = new GrafikHändelser(glWrapper, tileset, fönster, ucVisaSpelvärld, kamera);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, fönster);
 
             fönster.Laddare(openTKHanterare);

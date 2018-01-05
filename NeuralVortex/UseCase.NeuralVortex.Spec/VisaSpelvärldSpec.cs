@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex.Spec
 {
+
     [TestFixture]
     public partial class VisaSpelvärldSpec
     {
@@ -12,11 +12,10 @@ namespace UseCase.NeuralVortex.Spec
         public void VisaSpelvärld_borde_inte_krascha_när_det_inte_finns_något_att_visa()
         {
             // Arrange
-            var spelvärld = new SpelvärldMock { KameraPosition = new Spelvärldsposition(0, 0) };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new Rektangel(16, 16));
+            var visaSpelvärld = new VisaSpelvärld(new SpelvärldMock(), new KameraMock(), new PositionskonverterareMock());
 
             // Act
-            visaSpelvärld.Visa(new Rektangel(100, 100));
+            visaSpelvärld.Visa();
 
             // Assert
             Assert.Pass("No exceptions thrown.");
@@ -27,34 +26,31 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange
             var huvudkaraktärensGrafik = new GrafikMock();
-            var huvudkaraktärensPosition = new Spelvärldsposition(1, 2);
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = huvudkaraktärensPosition }, KameraPosition = new Spelvärldsposition(0, 0) };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new Rektangel(16, 32));
+            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = new Spelvärldsposition(1, 2) } };
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, new KameraMock(), new PositionskonverterareMock());
 
             // Act
-            visaSpelvärld.Visa(new Rektangel(100, 100));
+            visaSpelvärld.Visa();
 
             // Assert
-            Assert.That(huvudkaraktärensGrafik.HarVisatsPåPosition.X, Is.EqualTo(1 * 16));
-            Assert.That(huvudkaraktärensGrafik.HarVisatsPåPosition.Y, Is.EqualTo(2 * 32));
+            Assert.That(huvudkaraktärensGrafik.HarVisatsPåPosition.X, Is.EqualTo(1));
+            Assert.That(huvudkaraktärensGrafik.HarVisatsPåPosition.Y, Is.EqualTo(2));
         }
 
         [Test]
         public void VisaSpelvärld_borde_visa_miljö()
         {
-            // Arrange            
+            // Arrange
+            var kamera = new KameraMock();
             var miljögrafik = new GrafikfältMock();
-            var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik, KameraPosition = new Spelvärldsposition(3, 5) };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new Rektangel(16, 24));
+            var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik };
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, kamera, new PositionskonverterareMock());
 
             // Act
-            visaSpelvärld.Visa(new Rektangel(13, 17));
+            visaSpelvärld.Visa();
 
             // Assert
-            Assert.That(miljögrafik.HarVisatYta.Topp, Is.EqualTo(22*24));
-            Assert.That(miljögrafik.HarVisatYta.Botten, Is.EqualTo(5*24));
-            Assert.That(miljögrafik.HarVisatYta.Vänster, Is.EqualTo(3*16));
-            Assert.That(miljögrafik.HarVisatYta.Höger, Is.EqualTo(16*16));
+            Assert.That(miljögrafik.HarVisats);
         }
 
         [Test]
@@ -62,26 +58,24 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange
             var fiendegrafik = new GrafikMock();
-            var visaSpelvärld = new VisaSpelvärld(
-                new SpelvärldMock
-                {
-                    Fienden = new List<Fiende>
+            var spelvärld = new SpelvärldMock {
+                Fienden = new List<Fiende>
                     {
                         new Fiende
                         {
                             Grafik = fiendegrafik,
                             Position = new Spelvärldsposition(2, 3)
                         }
-                    },
-                    KameraPosition = new Spelvärldsposition(5, 12)
-                }, new Rektangel(16, 16));
+                    }
+            };
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, new KameraMock(), new PositionskonverterareMock());
 
             // Act
-            visaSpelvärld.Visa(new Rektangel(100, 100));
+            visaSpelvärld.Visa();
 
             // Assert
-            Assert.That(fiendegrafik.HarVisatsPåPosition.X, Is.EqualTo(7 * 16));
-            Assert.That(fiendegrafik.HarVisatsPåPosition.Y, Is.EqualTo(15 * 16));
+            Assert.That(fiendegrafik.HarVisatsPåPosition.X, Is.EqualTo(2));
+            Assert.That(fiendegrafik.HarVisatsPåPosition.Y, Is.EqualTo(3));
         }
     }
 }

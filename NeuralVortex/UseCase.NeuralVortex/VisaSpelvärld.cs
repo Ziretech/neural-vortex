@@ -11,20 +11,22 @@ namespace UseCase.NeuralVortex
     public class VisaSpelvärld
     {
         private readonly ISpelvärld _spelvärld;
-        private readonly Rektangel _brickstorlek;
+        private readonly IKamera _kamera;
+        private readonly IPositionskonverterare _konvertera;
 
-        public VisaSpelvärld(ISpelvärld spelvärld, Rektangel brickstorlek)
+        public VisaSpelvärld(ISpelvärld spelvärld, IKamera kamera, IPositionskonverterare konvertera)
         {
             _spelvärld = spelvärld;
-            _brickstorlek = brickstorlek;
+            _kamera = kamera;
+            _konvertera = konvertera;
         }
 
-        public void Visa(Rektangel ritytansStorlek)
+        public void Visa()
         {
             var huvudkaraktär = _spelvärld.Huvudkaraktär;
             if (huvudkaraktär != null)
             {
-                huvudkaraktär.Grafik.Visa(KonverteraTillBrickposition(huvudkaraktär.Position));
+                huvudkaraktär.Grafik.Visa(_konvertera.TillPunkt(huvudkaraktär.Position));
             }
 
             var miljögrafik = _spelvärld.MiljöGrafik;
@@ -38,14 +40,9 @@ namespace UseCase.NeuralVortex
             {
                 foreach(var fiende in fienden)
                 {
-                    fiende.Grafik.Visa(KonverteraTillBrickposition(fiende.Position));
+                    fiende.Grafik.Visa(_konvertera.TillPunkt(fiende.Position));
                 }
             }
-        }
-
-        private Brickposition KonverteraTillBrickposition(Spelvärldsposition position)
-        {
-            return new Brickposition(position.X, position.Y);
         }
     }
 }

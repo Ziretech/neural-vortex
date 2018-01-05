@@ -14,15 +14,15 @@ namespace Adapter.OpenTK.Grafik
         private IBild _tileset;
         private IBuffertväxlare _buffertväxlare;
         private VisaSpelvärld _visaSpelvärld;
-        private int _bredd;
-        private int _höjd;
+        private Kamera _kamera;
 
-        public GrafikHändelser(IGrafikkommandon grafikkommandon, IBild tileset, IBuffertväxlare buffertväxlare, VisaSpelvärld visaSpelvärld)
+        public GrafikHändelser(IGrafikkommandon grafikkommandon, IBild tileset, IBuffertväxlare buffertväxlare, VisaSpelvärld visaSpelvärld, Kamera kamera)
         {
             _gl = grafikkommandon;
             _tileset = tileset;
             _buffertväxlare = buffertväxlare;
             _visaSpelvärld = visaSpelvärld;
+            _kamera = kamera;
         }
 
         public void Ladda(object avsändare, EventArgs händelse)
@@ -43,14 +43,13 @@ namespace Adapter.OpenTK.Grafik
         public void Visa(object avsändare, EventArgs händelse)
         {
             _gl.TömRityta();            
-            _visaSpelvärld.Visa(new Rektangel(_bredd, _höjd));
+            _visaSpelvärld.Visa();
             _buffertväxlare.VäxlaBuffert();
         }
 
         public void ÄndraStorlek(int bredd, int höjd)
         {
-            _bredd = bredd;
-            _höjd = höjd;
+            _kamera.ÄndraStorlekPåSynlighetsområde(bredd, höjd);
 
             _gl.VäljProjektionmatris();
             _gl.NollställMatris();

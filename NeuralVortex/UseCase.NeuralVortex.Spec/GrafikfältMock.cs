@@ -4,16 +4,11 @@ namespace UseCase.NeuralVortex.Spec
 {
     public class GrafikfältMock : IGrafikfält
     {
-        public Yta HarVisatYta { get; private set; }
-
-        public void Visa(Yta ytaAttVisa)
-        {
-            HarVisatYta = ytaAttVisa;
-        }
+        public bool HarVisats { get; private set; }
 
         public void Visa()
         {
-            throw new System.NotImplementedException();
+            HarVisats = true;
         }
     }
 }
