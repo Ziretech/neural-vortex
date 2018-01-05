@@ -24,7 +24,7 @@ namespace Adapter.OpenTK.Grafik
 
         public void Visa(Skärmposition position)
         {
-            KopieraTexturrektangelTillRityta(_texturPosition, position, _dimensioner);
+            KopieraTexturrektangelTillRityta(_texturPosition, _kamera.Transformera(position), _dimensioner);
         }
 
         private void KopieraTexturrektangelTillRityta(Skärmposition texturPosition, Skärmposition brickansPosition, Skärmyta yta)
