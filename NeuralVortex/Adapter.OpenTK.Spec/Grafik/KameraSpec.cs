@@ -89,7 +89,6 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(kamera.Position.Y, Is.EqualTo(34));
         }
 
-        [Ignore("2. Behöver Skärmposition.Minus")]
         [Test]
         public void Transformerar_1_2_till_1_2_när_kameran_befinner_sig_vid_0_0()
         {
@@ -97,6 +96,15 @@ namespace Adapter.OpenTK.Spec.Grafik
             var transformeradPosition = kamera.Transformera(new Skärmposition(1, 2));
             Assert.That(transformeradPosition.X, Is.EqualTo(1));
             Assert.That(transformeradPosition.Y, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Transformerar_35_11_till_15_1_när_kameran_befinner_sig_vid_20_10()
+        {
+            var kamera = new Kamera(new Skärmyta(1, 1), new Skärmposition(20, 10));
+            var transformeradPosition = kamera.Transformera(new Skärmposition(35, 11));
+            Assert.That(transformeradPosition.X, Is.EqualTo(15));
+            Assert.That(transformeradPosition.Y, Is.EqualTo(1));
         }
     }
 }

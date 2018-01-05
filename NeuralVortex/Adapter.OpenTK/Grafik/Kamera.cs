@@ -45,7 +45,7 @@ namespace Adapter.OpenTK.Grafik
 
         public Skärmposition Transformera(Skärmposition skärmposition)
         {
-            throw new NotImplementedException();
+            return skärmposition.Minus(_kameraPosition);
         }
     }
 }
