@@ -28,7 +28,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         //    Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(20, 30));
         //    Assert.That(glMock.Hörnverifierare[0].StämmerHörn2(30, 50));
         //}
-        [Ignore("Fixa brika först")]
+        [Ignore("Fixa bricka först")]
         [Test]
         public void Visar()
         {

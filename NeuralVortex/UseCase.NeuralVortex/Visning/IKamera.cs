@@ -9,6 +9,6 @@ namespace UseCase.NeuralVortex.Visning
     public interface IKamera
     {
         void CentreraKameraMot(Skärmposition position);
-        Skärmyta Synlighetsområde();
+        Skärmyta Synlighetsområde { get; }
     }
 }

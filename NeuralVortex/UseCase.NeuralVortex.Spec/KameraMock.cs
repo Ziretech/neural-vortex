@@ -8,14 +8,11 @@ namespace UseCase.NeuralVortex.Spec
         public Skärmyta ReturneratSynlighetsområde { private get; set; }
         public Skärmposition CentreradMot { get; private set; }
 
+        public Skärmyta Synlighetsområde => ReturneratSynlighetsområde;
+
         public void CentreraKameraMot(Skärmposition position)
         {
             CentreradMot = position;
-        }
-
-        public Skärmyta Synlighetsområde()
-        {
-            return ReturneratSynlighetsområde;
         }
     }
 }

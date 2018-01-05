@@ -106,5 +106,14 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(transformeradPosition.X, Is.EqualTo(15));
             Assert.That(transformeradPosition.Y, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Ändrar_storlek_på_synlighetsområdet_till_200_100()
+        {
+            var kamera = new Kamera(new Skärmyta(1, 1));
+            kamera.Synlighetsområde = new Skärmyta(200, 100);
+            Assert.That(kamera.Synlighetsområde.Bredd, Is.EqualTo(200));
+            Assert.That(kamera.Synlighetsområde.Höjd, Is.EqualTo(100));
+        }
     }
 }
