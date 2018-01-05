@@ -45,7 +45,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="PositionskonverterareSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +55,10 @@
     <ProjectReference Include="..\ConsoleApp\ConsoleApp.csproj">
       <Project>{c8d2efc1-4eb0-4406-bf10-3d829bd1ebd4}</Project>
       <Name>ConsoleApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UseCase.NeuralVortex\UseCase.NeuralVortex.csproj">
+      <Project>{0D0A4EE6-C9F6-4A96-BF3A-029573ADEAB2}</Project>
+      <Name>UseCase.NeuralVortex</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

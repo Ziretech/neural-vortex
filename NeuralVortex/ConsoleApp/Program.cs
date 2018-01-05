@@ -28,7 +28,7 @@ namespace ConsoleApp
             var glWrapper = new GLWrapper();
             var brickstorlek = new Rektangel(16, 16);
             var kamera = new Kamera(new Skärmyta(100, 100));
-            var positionskonverterare = new Positionskonverterare(16, 16);
+            var positionskonverterare = new Positionskonverterare(new Skärmyta(16, 16));
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, kamera, positionskonverterare);
             var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera);
