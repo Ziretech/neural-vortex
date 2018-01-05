@@ -10,5 +10,10 @@ namespace UseCase.NeuralVortex.Spec
         {
             HarVisatYta = ytaAttVisa;
         }
+
+        public void Visa()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

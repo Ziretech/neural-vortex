@@ -27,9 +27,10 @@ namespace ConsoleApp
             var spelvärld = new Spelvärld();
             var glWrapper = new GLWrapper();
             var brickstorlek = new Rektangel(16, 16);
+            var kamera = new Kamera();
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, brickstorlek);
-            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera);
             var openTKHanterare = new GrafikHändelser(glWrapper, tileset, fönster, ucVisaSpelvärld);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, fönster);
 
@@ -44,6 +45,7 @@ namespace ConsoleApp
                 Position = new Spelvärldsposition(0, 0),
                 Grafik = new Bricka(glWrapper, 0, 0, 16, 16)
             };
+            
 
             fönster.Kör(60.0, 60.0);
         }

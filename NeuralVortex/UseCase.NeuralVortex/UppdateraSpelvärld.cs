@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using UseCase.NeuralVortex.Kontroll;
 using UseCase.NeuralVortex.Spelvärld;
+using UseCase.NeuralVortex.Visning;
 
 namespace UseCase.NeuralVortex
 {
     public class UppdateraSpelvärld
     {
         private ISpelvärld _spelvärld;
+        private IKamera _kamera;
 
-        public UppdateraSpelvärld(ISpelvärld spelvärld)
+        public UppdateraSpelvärld(ISpelvärld spelvärld, IKamera kamera)
         {
             _spelvärld = spelvärld;
+            _kamera = kamera;
         }
 
         public SpeletsFortsättning Uppdatera(Tangent tangent)

@@ -1,5 +1,4 @@
-﻿using Entity.NeuralVortex;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,22 +21,16 @@ namespace UseCase.NeuralVortex
 
         public void Visa(Rektangel ritytansStorlek)
         {
-            var ritytansPosition = _spelvärld.KameraPosition;
-            var kamera = new Kamera(ritytansPosition.X, ritytansPosition.Y, ritytansStorlek.Bredd, ritytansStorlek.Höjd, _brickstorlek.Bredd, _brickstorlek.Höjd);
-
             var huvudkaraktär = _spelvärld.Huvudkaraktär;
             if (huvudkaraktär != null)
             {
-                var x = kamera.BeräknaXPosition(huvudkaraktär.Position.X);
-                var y = kamera.BeräknaYPosition(huvudkaraktär.Position.Y);
-                huvudkaraktär.Grafik.Visa(new Skärmposition(x, y));
+                huvudkaraktär.Grafik.Visa(KonverteraTillBrickposition(huvudkaraktär.Position));
             }
 
             var miljögrafik = _spelvärld.MiljöGrafik;
             if(miljögrafik != null)
             {
-                var yta = new Yta(kamera.Topp, kamera.Botten, kamera.Vänster, kamera.Höger);
-                miljögrafik.Visa(yta);
+                miljögrafik.Visa();
             }
 
             var fienden = _spelvärld.Fienden;
@@ -45,11 +38,14 @@ namespace UseCase.NeuralVortex
             {
                 foreach(var fiende in fienden)
                 {
-                    fiende.Grafik.Visa(new Skärmposition(
-                        kamera.BeräknaXPosition(fiende.Position.X), 
-                        kamera.BeräknaYPosition(fiende.Position.Y)));
+                    fiende.Grafik.Visa(KonverteraTillBrickposition(fiende.Position));
                 }
             }
+        }
+
+        private Brickposition KonverteraTillBrickposition(Spelvärldsposition position)
+        {
+            return new Brickposition(position.X, position.Y);
         }
     }
 }

@@ -40,18 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPositionskonverterare.cs" />
     <Compile Include="Speltillstånd.cs" />
     <Compile Include="Spelvärld\Fiende.cs" />
     <Compile Include="Kontroll\Tangent.cs" />
+    <Compile Include="Spelvärld\Spelvärldsyta.cs" />
     <Compile Include="UppdateraSpelvärld.cs" />
+    <Compile Include="Visning\Brickposition.cs" />
     <Compile Include="Visning\IGrafik.cs" />
     <Compile Include="Spelvärld\Huvudkaraktär.cs" />
     <Compile Include="Spelvärld\ISpelvärld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Visning\IKamera.cs" />
     <Compile Include="Visning\Rektangel.cs" />
     <Compile Include="Visning\IGrafikfält.cs" />
     <Compile Include="Visning\Skärmposition.cs" />
     <Compile Include="Spelvärld\Spelvärldsposition.cs" />
+    <Compile Include="Visning\Skärmyta.cs" />
     <Compile Include="Visning\Yta.cs" />
     <Compile Include="VisaSpelvärld.cs" />
   </ItemGroup>

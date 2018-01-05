@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Grafik\Bricka.cs" />
+    <Compile Include="Grafik\Brickfält.cs" />
     <Compile Include="Grafik\GrafikHändelser.cs" />
+    <Compile Include="Grafik\Kamera.cs" />
     <Compile Include="IAvslutare.cs" />
     <Compile Include="Grafik\IBildData.cs" />
     <Compile Include="Grafik\IBufferväxlare.cs" />

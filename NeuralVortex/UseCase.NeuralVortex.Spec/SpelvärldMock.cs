@@ -9,6 +9,5 @@ namespace UseCase.NeuralVortex.Spec
         public Huvudkaraktär Huvudkaraktär { get; set; }
         public IGrafikfält MiljöGrafik { get; set; }
         public IEnumerable<Fiende> Fienden { get; set; }
-        public Spelvärldsposition KameraPosition { get; set; }
     }
 }

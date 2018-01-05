@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace UseCase.NeuralVortex.Visning
 {
-    public interface IGrafikfält
+    public interface IKamera
     {
-        void Visa();
+        void CentreraKameraMot(Skärmposition position);
+        Skärmyta Synlighetsområde();
     }
 }

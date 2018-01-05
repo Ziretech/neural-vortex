@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace UseCase.NeuralVortex.Visning
 {
-    public interface IGrafikfält
+    public class Skärmyta
     {
-        void Visa();
     }
 }
