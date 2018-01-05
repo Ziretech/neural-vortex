@@ -56,7 +56,6 @@
     <Compile Include="Visning\Skärmposition.cs" />
     <Compile Include="Spelvärld\Spelvärldsposition.cs" />
     <Compile Include="Visning\Skärmyta.cs" />
-    <Compile Include="Visning\Yta.cs" />
     <Compile Include="VisaSpelvärld.cs" />
   </ItemGroup>
   <ItemGroup>

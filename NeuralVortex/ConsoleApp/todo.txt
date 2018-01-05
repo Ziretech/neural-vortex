@@ -1,0 +1,4 @@
+﻿Bricka transformeras av kamera
+Lägg till funktionalitet för Brickfält
+Brickor med flera bilder
+Borde Brickor (och annan IGrafik) ta emot ett högnivåobjekt? @undersök

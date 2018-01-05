@@ -49,6 +49,7 @@
     <Compile Include="Grafik\BrickfältSpec.cs" />
     <Compile Include="Grafik\FyrkantVerifierare.cs" />
     <Compile Include="Grafik\GrafikkommandonMock.cs" />
+    <Compile Include="Grafik\KameraSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

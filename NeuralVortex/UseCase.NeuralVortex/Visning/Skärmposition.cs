@@ -19,5 +19,20 @@ namespace UseCase.NeuralVortex.Visning
 
         public int X => _x;
         public int Y => _y;
+
+        public Skärmposition Plus(Skärmposition andraPositionen)
+        {
+            return new Skärmposition(_x + andraPositionen.X, _y + andraPositionen.Y);
+        }
+
+        public Skärmposition Plus(Skärmyta yta)
+        {
+            return new Skärmposition(_x + yta.Bredd, _y + yta.Höjd);
+        }
+
+        public Skärmposition Minus(Skärmposition skärmposition)
+        {
+            return new Skärmposition(_x - skärmposition.X, _y - skärmposition.Y);
+        }
     }
 }

@@ -53,6 +53,8 @@
     <Compile Include="UppdateraSpelvärldSpec.cs" />
     <Compile Include="VisaSpelvärldSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Visning\SkärmpositionSpec.cs" />
+    <Compile Include="Visning\SkärmytaSpec.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

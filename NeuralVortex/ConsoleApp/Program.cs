@@ -27,7 +27,7 @@ namespace ConsoleApp
             var spelvärld = new Spelvärld();
             var glWrapper = new GLWrapper();
             var brickstorlek = new Rektangel(16, 16);
-            var kamera = new Kamera();
+            var kamera = new Kamera(new Skärmyta(100, 100));
             var positionskonverterare = new Positionskonverterare(16, 16);
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, kamera, positionskonverterare);
@@ -44,7 +44,7 @@ namespace ConsoleApp
             spelvärld.Huvudkaraktär = new Huvudkaraktär
             {
                 Position = new Spelvärldsposition(0, 0),
-                Grafik = new Bricka(glWrapper, 0, 0, 16, 16)
+                Grafik = new Bricka(glWrapper, kamera, new Skärmposition(0, 0), new Skärmyta(16, 16))
             };
             
 
