@@ -54,57 +54,30 @@ namespace Adapter.OpenTK.Spec.Grafik
             }
         }
 
-        [Test]
-        public void Finns_på_0_0_efter_att_ha_centererats_på_1_1_när_ytan_är_2_2()
+        [TestCase(1, 1, 2, 2, 0, 0)]
+        [TestCase(2, 2, 2, 2, 1, 1)]
+        [TestCase(2, 2, 4, 4, 0, 0)]
+        public void Placeras_korrekt_efter_centrering(int centreradX, int centreradY, int bredd, int höjd, int resultatX, int resultatY)
         {
-            var kamera = new Kamera(new Skärmyta(2, 2));
-            kamera.CentreraKameraMot(new Skärmposition(1, 1));
-            Assert.That(kamera.Position.X, Is.EqualTo(0));
-            Assert.That(kamera.Position.Y, Is.EqualTo(0));
-        }
-
-        [Test]
-        public void Finns_på_1_1_efter_att_ha_centererats_på_2_2_när_ytan_är_2_2()
-        {
-            var kamera = new Kamera(new Skärmyta(2, 2));
-            kamera.CentreraKameraMot(new Skärmposition(2, 2));
-            Assert.That(kamera.Position.X, Is.EqualTo(1));
-            Assert.That(kamera.Position.Y, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Finns_på_0_0_efter_att_ha_centererats_på_2_2_när_ytan_är_4_4()
-        {
-            var kamera = new Kamera(new Skärmyta(4, 4));
-            kamera.CentreraKameraMot(new Skärmposition(2, 2));
-            Assert.That(kamera.Position.X, Is.EqualTo(0));
-            Assert.That(kamera.Position.Y, Is.EqualTo(0));
+            var kamera = new Kamera(new Skärmyta(bredd, höjd));
+            kamera.CentreraKameraMot(new Skärmposition(centreradX, centreradY));
+            Assert.That(kamera.Position, Is.EqualTo(new Skärmposition(resultatX, resultatY)));
         }
 
         [Test]
         public void Finns_på_12_34_när_kameran_startar_på_12_34()
         {
             var kamera = new Kamera(new Skärmyta(1, 1), new Skärmposition(12, 34));
-            Assert.That(kamera.Position.X, Is.EqualTo(12));
-            Assert.That(kamera.Position.Y, Is.EqualTo(34));
+            Assert.That(kamera.Position, Is.EqualTo(new Skärmposition(12, 34)));
         }
 
-        [Test]
-        public void Transformerar_1_2_till_1_2_när_kameran_befinner_sig_vid_0_0()
+        [TestCase(0, 0, 1, 2, 1, 2)]
+        [TestCase(20, 10, 35, 11, 15, 1)]
+        public void Transformerar_1_2_till_1_2_när_kameran_befinner_sig_vid_0_0(int kameraX, int kameraY, int positionX, int positionY, int resultatX, int resultatY)
         {
-            var kamera = new Kamera(new Skärmyta(1, 1), new Skärmposition(0, 0));
-            var transformeradPosition = kamera.Transformera(new Skärmposition(1, 2));
-            Assert.That(transformeradPosition.X, Is.EqualTo(1));
-            Assert.That(transformeradPosition.Y, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void Transformerar_35_11_till_15_1_när_kameran_befinner_sig_vid_20_10()
-        {
-            var kamera = new Kamera(new Skärmyta(1, 1), new Skärmposition(20, 10));
-            var transformeradPosition = kamera.Transformera(new Skärmposition(35, 11));
-            Assert.That(transformeradPosition.X, Is.EqualTo(15));
-            Assert.That(transformeradPosition.Y, Is.EqualTo(1));
+            var kamera = new Kamera(new Skärmyta(1, 1), new Skärmposition(kameraX, kameraY));
+            var transformeradPosition = kamera.Transformera(new Skärmposition(positionX, positionY));
+            Assert.That(transformeradPosition, Is.EqualTo(new Skärmposition(resultatX, resultatY)));
         }
 
         [Test]

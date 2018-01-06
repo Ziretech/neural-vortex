@@ -25,60 +25,38 @@ namespace UseCase.NeuralVortex.Spec.Visning
             Assert.That(position.Y, Is.EqualTo(2));
         }
 
-        [Test]
-        public void Ha_position_11_22_som_resultat_av_1_2_plus_10_20()
+        [TestCase(1, 2, 10, 20, 11, 22)]
+        [TestCase(1, 2, 5, 8, 6, 10)]
+        public void Addera_positioner(int x1, int y1, int x2, int y2, int resultatX, int resultatY)
         {
-            var position1 = new Skärmposition(1, 2);
-            var position2 = new Skärmposition(10, 20);
-            var resultat = position1.Plus(position2);
-            Assert.That(resultat.X, Is.EqualTo(11));
-            Assert.That(resultat.Y, Is.EqualTo(22));
+            var förstaPositionen = new Skärmposition(x1, y1);
+            var andraPositionen = new Skärmposition(x2, y2);
+
+            var resultat = förstaPositionen.Plus(andraPositionen);
+
+            Assert.That(resultat, Is.EqualTo(new Skärmposition(resultatX, resultatY)));
         }
 
-        [Test]
-        public void Ha_position_6_10_som_resultat_av_1_2_plus_5_8()
+        [TestCase(1, 2, 10, 20, 11, 22)]
+        [TestCase(1, 2, 5, 8, 6, 10)]
+        public void Addera_position_med_yta(int x, int y, int bredd, int höjd, int resultatX, int resultatY)
         {
-            var position1 = new Skärmposition(1, 2);
-            var position2 = new Skärmposition(5, 8);
-            var resultat = position1.Plus(position2);
-            Assert.That(resultat.X, Is.EqualTo(6));
-            Assert.That(resultat.Y, Is.EqualTo(10));
-        }
+            var position = new Skärmposition(x, y);
+            var yta = new Skärmyta(bredd, höjd);
 
-        [Test]
-        public void Ha_position_11_22_som_resultat_av_1_2_plus_yta_med_dimensioner_10_20()
-        {
-            var position = new Skärmposition(1, 2);
-            var yta = new Skärmyta(10, 20);
             var resultat = position.Plus(yta);
-            Assert.That(resultat.X, Is.EqualTo(11));
-            Assert.That(resultat.Y, Is.EqualTo(22));
+
+            Assert.That(resultat, Is.EqualTo(new Skärmposition(resultatX, resultatY)));
         }
 
-        [Test]
-        public void Ha_position_6_10_som_resultat_av_1_2_plus_yta_med_dimensioner_5_8()
+        [TestCase(1, 2, 0, 0, 1, 2)]
+        [TestCase(4, 8, 1, 2, 3, 6)]
+        public void Subtrahera_från_position(int x1, int y1, int x2, int y2, int resultatX, int resultatY)
         {
-            var position = new Skärmposition(1, 2);
-            var yta = new Skärmyta(5, 8);
-            var resultat = position.Plus(yta);
-            Assert.That(resultat.X, Is.EqualTo(6));
-            Assert.That(resultat.Y, Is.EqualTo(10));
-        }
-
-        [Test]
-        public void Har_position_1_2_som_resultat_av_1_2_minus_0_0()
-        {
-            var resultat = new Skärmposition(1, 2).Minus(new Skärmposition(0, 0));
-            Assert.That(resultat.X, Is.EqualTo(1));
-            Assert.That(resultat.Y, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void Har_position_3_6_som_resultat_av_4_8_minus_1_2()
-        {
-            var resultat = new Skärmposition(4, 8).Minus(new Skärmposition(1, 2));
-            Assert.That(resultat.X, Is.EqualTo(3));
-            Assert.That(resultat.Y, Is.EqualTo(6));
+            var förstaPosition = new Skärmposition(x1, y1);
+            var andraPosition = new Skärmposition(x2, y2);
+            var resultat = förstaPosition.Minus(andraPosition);
+            Assert.That(resultat, Is.EqualTo(new Skärmposition(resultatX, resultatY)));
         }
 
         [TestCase(0, 0, 0, 0)]

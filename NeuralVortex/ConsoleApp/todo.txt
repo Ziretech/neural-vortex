@@ -1,6 +1,6 @@
 ﻿+ Bricka transformeras av kamera
 + Funktionalitet för positionskonverteraren
-@Refaktor Skärmpositioner kan jämföras, uppdatera tester
++ @Refaktor Skärmpositioner kan jämföras, uppdatera tester
 @Refaktor Spelvärldspositioner kan jämföras, uppdatera tester
 @Refaktor Skärmytor kan jämföras, uppdatera tester
 @Userstory Lägg till funktionalitet för Brickfält
