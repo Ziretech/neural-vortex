@@ -1,8 +1,8 @@
 ﻿+ Bricka transformeras av kamera
-Funktionalitet för positionskonverteraren
-Skärmpositioner kan jämföras
-Spelvärldspositioner kan jämföras
-Skärmytor kan jämföras
-Lägg till funktionalitet för Brickfält
-Brickor med flera bilder
-Borde Brickor (och annan IGrafik) ta emot ett högnivåobjekt? @undersök
++ Funktionalitet för positionskonverteraren
+@Refaktor Skärmpositioner kan jämföras, uppdatera tester
+@Refaktor Spelvärldspositioner kan jämföras, uppdatera tester
+@Refaktor Skärmytor kan jämföras, uppdatera tester
+@Userstory Lägg till funktionalitet för Brickfält
+@Improv Brickor med flera bilder
+@Undersök Borde Brickor (och annan IGrafik) ta emot ett högnivåobjekt?

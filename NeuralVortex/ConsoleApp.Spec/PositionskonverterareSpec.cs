@@ -54,8 +54,5 @@ namespace ConsoleApp.Spec
             Assert.That(resultat.X, Is.EqualTo(skärmX));
             Assert.That(resultat.Y, Is.EqualTo(skärmY));
         }
-        
-        //public Skärmyta TillYta(Spelvärldsposition position)
-        //public Spelvärldsyta TillYta(Skärmyta yta)
     }
 }

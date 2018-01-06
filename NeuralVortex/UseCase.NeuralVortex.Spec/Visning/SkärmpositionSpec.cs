@@ -80,5 +80,36 @@ namespace UseCase.NeuralVortex.Spec.Visning
             Assert.That(resultat.X, Is.EqualTo(3));
             Assert.That(resultat.Y, Is.EqualTo(6));
         }
+
+        [TestCase(0, 0, 0, 0)]
+        [TestCase(1, 0, 1, 0)]
+        [TestCase(14, 9999, 14, 9999)]
+        public void Är_likvärdig_med_position_med_samma_x_y_värden(int p1x, int p1y, int p2x, int p2y)
+        {
+            Assert.That(new Skärmposition(p1x, p1y).Equals(new Skärmposition(p2x, p2y)));
+        }
+
+        [TestCase(0, 0, 1, 0)]
+        [TestCase(0, 0, 0, 1)]
+        [TestCase(14, 9999, 14, 9998)]
+        public void Inte_är_likvärdig_med_position_med_andra_x_y_värden(int p1x, int p1y, int p2x, int p2y)
+        {
+            Assert.That(new Skärmposition(p1x, p1y).Equals(new Skärmposition(p2x, p2y)) == false);
+        }
+
+        [TestCase(0, 0, 0, 0)]
+        [TestCase(1, 0, 1, 0)]
+        [TestCase(14, 9999, 14, 9999)]
+        public void Har_samma_hash_code_när_de_är_likvärdiga(int p1x, int p1y, int p2x, int p2y)
+        {
+            Assert.That(new Skärmposition(p1x, p1y).GetHashCode(), Is.EqualTo(new Skärmposition(p2x, p2y).GetHashCode()));
+        }
+
+        [TestCase(1, 2, "1x2")]
+        [TestCase(13, 24, "13x24")]
+        public void Beskriver_sig_med_XxY(int x, int y, string beskrivning)
+        {
+            Assert.That(new Skärmposition(x, y).ToString(), Is.EqualTo(beskrivning));
+        }
     }
 }

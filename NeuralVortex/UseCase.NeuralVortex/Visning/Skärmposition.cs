@@ -34,5 +34,26 @@ namespace UseCase.NeuralVortex.Visning
         {
             return new Skärmposition(_x - skärmposition.X, _y - skärmposition.Y);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var position = (Skärmposition)obj;
+            return position._x.Equals(_x) && position._y.Equals(_y);
+        }
+        
+        public override int GetHashCode()
+        {
+            return _x ^ _y;
+        }
+
+        public override string ToString()
+        {
+            return $"{_x}x{_y}";
+        }
     }
 }
