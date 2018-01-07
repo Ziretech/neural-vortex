@@ -80,13 +80,37 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(transformeradPosition, Is.EqualTo(new Skärmposition(resultatX, resultatY)));
         }
 
-        [Test]
-        public void Ändrar_storlek_på_synlighetytan_till_200_100()
+        [TestCase(200, 100)]
+        [TestCase(1, 1)]
+        public void Ändrar_storlek_på_kamerans_dimensioner(int bredd, int höjd)
         {
             var kamera = new Kamera(new Skärmyta(1, 1));
-            kamera.Dimensioner = new Skärmyta(200, 100);
-            Assert.That(kamera.Dimensioner.Bredd, Is.EqualTo(200));
-            Assert.That(kamera.Dimensioner.Höjd, Is.EqualTo(100));
+            kamera.Dimensioner = new Skärmyta(bredd, höjd);
+            Assert.That(kamera.Dimensioner.Bredd, Is.EqualTo(bredd));
+            Assert.That(kamera.Dimensioner.Höjd, Is.EqualTo(höjd));
         }
+
+        [TestCase(0, 1, "bredd")]
+        [TestCase(1, 0, "höjd")]
+        [TestCase(0, 0, "bredd")]
+        [TestCase(10000, -10000, "höjd")]
+        public void Gör_undantag_för_om_kamerans_dimensioner_skulle_ändras_till_mindre_än_1(int bredd, int höjd, string felaktigDimension)
+        {
+            var kamera = new Kamera(new Skärmyta(1, 1));
+            try
+            {
+                kamera.Dimensioner = new Skärmyta(bredd, höjd);
+                Assert.Fail("Inget undantag gjordes.");
+            }
+            catch(ArgumentException undantag)
+            {
+                Assert.That(undantag.Message.ToLower(), Does.Contain("kamera"));
+                Assert.That(undantag.Message.ToLower(), Does.Contain("skärmyta"));
+                Assert.That(undantag.Message.ToLower(), Does.Contain(felaktigDimension));
+                Assert.That(undantag.Message.ToLower(), Does.Contain("mindre än 1"));
+            }
+        }
+
+        // test för synlighetsområde
     }
 }
