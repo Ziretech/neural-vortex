@@ -55,11 +55,16 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(resultat.Y, Is.EqualTo(skärmY));
         }
 
-        [Ignore("Behöver implementera method i kamera för att mata ut synlighetsområdet")]
+        [Ignore("todo")]
         [Test]
         public void Konverterar_skärmområde_till_spelvärldsområde()
         {
-            
+            var konverterare = new Positionskonverterare(new Skärmyta(4, 4));
+            var område = konverterare.TillOmråde(new Skärmområde(0, 0, 1, 1));
+            Assert.That(område.Vänster, Is.EqualTo(0));
+            Assert.That(område.Botten, Is.EqualTo(0));
+            Assert.That(område.Höger, Is.EqualTo(0));
+            Assert.That(område.Topp, Is.EqualTo(0));
         }
     }
 }

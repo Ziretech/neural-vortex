@@ -11,7 +11,7 @@ namespace UseCase.NeuralVortex.Spec
             return new Skärmposition(position.X, position.Y);
         }
 
-        public Spelvärldsyta TillYta(Skärmyta yta)
+        public Spelvärldsområde TillOmråde(Skärmområde område)
         {
             throw new NotImplementedException();
         }

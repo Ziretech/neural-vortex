@@ -11,6 +11,6 @@ namespace UseCase.NeuralVortex
     public interface IPositionskonverterare
     {
         Skärmposition TillPunkt(Spelvärldsposition position);
-        Spelvärldsyta TillYta(Skärmyta yta);
+        Spelvärldsområde TillOmråde(Skärmområde område);
     }
 }

@@ -26,7 +26,7 @@ namespace UseCase.NeuralVortex
             return new Skärmposition(position.X * _brickyta.Bredd, position.Y * _brickyta.Höjd);
         }
 
-        public Spelvärldsyta TillYta(Skärmyta yta)
+        public Spelvärldsområde TillOmråde(Skärmområde område)
         {
             throw new System.NotImplementedException();
         }

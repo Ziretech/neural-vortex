@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPositionskonverterare.cs" />
+    <Compile Include="Område.cs" />
     <Compile Include="Positionskonverterare.cs" />
     <Compile Include="Speltillstånd.cs" />
+    <Compile Include="Spelvärldsområde.cs" />
     <Compile Include="Spelvärld\Fiende.cs" />
     <Compile Include="Kontroll\Tangent.cs" />
     <Compile Include="Spelvärld\Spelvärldsyta.cs" />
