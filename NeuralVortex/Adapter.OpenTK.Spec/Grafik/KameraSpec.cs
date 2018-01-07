@@ -111,6 +111,16 @@ namespace Adapter.OpenTK.Spec.Grafik
             }
         }
 
-        // test för synlighetsområde
+        [TestCase(1, 1, 3, 8, 1, 1, 4, 9)]
+        [TestCase(4, 7, 13, 2, 4, 7, 17, 9)]
+        public void Kameran_anger_sitt_synlighetsområde(int x, int y, int bredd, int höjd, int vänster, int botten, int höger, int topp)
+        {
+            var kamera = new Kamera(new Skärmyta(bredd, höjd), new Skärmposition(x, y));
+            var synlighetsområde = kamera.Synlighetsområde;
+            Assert.That(synlighetsområde.Vänster, Is.EqualTo(x), "vänster");
+            Assert.That(synlighetsområde.Botten, Is.EqualTo(y), "botten");
+            Assert.That(synlighetsområde.Höger, Is.EqualTo(x + bredd), "höger");
+            Assert.That(synlighetsområde.Topp, Is.EqualTo(y + höjd), "topp");
+        }
     }
 }

@@ -9,10 +9,14 @@ namespace Adapter.OpenTK.Grafik
 {
     public class Kamera : IKamera
     {
-        private Skärmposition _kameraPosition;
-
-        public Skärmposition Position => _kameraPosition;
-        public Skärmområde Synlighetsområde { get; }
+        public Skärmposition Position { get; private set; }
+        public Skärmområde Synlighetsområde
+        {
+            get
+            {
+                return new Skärmområde(Position.X, Position.Y, Position.X + _dimensioner.Bredd, Position.Y + _dimensioner.Höjd);
+            }
+        }
 
         private Skärmyta _dimensioner;
         public Skärmyta Dimensioner
@@ -32,17 +36,17 @@ namespace Adapter.OpenTK.Grafik
         {
             ValideraDimensioner(dimensioner);
             Dimensioner = dimensioner;
-            _kameraPosition = skärmposition ?? new Skärmposition(0, 0);
+            Position = skärmposition ?? new Skärmposition(0, 0);
         }
 
         public void CentreraKameraMot(Skärmposition position)
         {
-            _kameraPosition = new Skärmposition(position.X - Dimensioner.Bredd / 2, position.Y - Dimensioner.Höjd / 2);
+            Position = new Skärmposition(position.X - Dimensioner.Bredd / 2, position.Y - Dimensioner.Höjd / 2);
         }
 
         public Skärmposition Transformera(Skärmposition skärmposition)
         {
-            return skärmposition.Minus(_kameraPosition);
+            return skärmposition.Minus(Position);
         }
 
         private void ValideraDimensioner(Skärmyta dimensioner)

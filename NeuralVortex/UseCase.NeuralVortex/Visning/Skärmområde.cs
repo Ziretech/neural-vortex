@@ -7,7 +7,7 @@
         private readonly int _vänster;
         private readonly int _höger;
 
-        public Skärmområde(int topp, int botten, int vänster, int höger)
+        public Skärmområde(int vänster, int botten, int höger, int topp)
         {
             _topp = topp;
             _botten = botten;
