@@ -11,11 +11,6 @@ namespace UseCase.NeuralVortex.Spec
             return new Skärmposition(position.X, position.Y);
         }
 
-        public Skärmyta TillYta(Spelvärldsposition position)
-        {
-            throw new NotImplementedException();
-        }
-
         public Spelvärldsyta TillYta(Skärmyta yta)
         {
             throw new NotImplementedException();

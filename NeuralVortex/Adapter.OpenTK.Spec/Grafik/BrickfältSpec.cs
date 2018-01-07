@@ -32,7 +32,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(gl.Texturverifierare[0].StämmerHörn1(4, 4 + 4));
         }
 
-        [Ignore("Todo")]
+        [Ignore("Implementera Positionskonverterare.TillYta(Skärmyta)")]
         [Test]
         public void Visar_brickfält_när_två_brickor_på_bredden_syns()
         {
