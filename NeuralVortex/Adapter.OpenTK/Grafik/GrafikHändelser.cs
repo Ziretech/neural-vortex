@@ -49,7 +49,7 @@ namespace Adapter.OpenTK.Grafik
 
         public void ÄndraStorlek(int bredd, int höjd)
         {
-            _kamera.Synlighetsområde = new Skärmyta(bredd, höjd);
+            _kamera.Dimensioner = new Skärmyta(bredd, höjd);
 
             _gl.VäljProjektionmatris();
             _gl.NollställMatris();

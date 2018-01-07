@@ -12,25 +12,26 @@ namespace Adapter.OpenTK.Grafik
         private Skärmposition _kameraPosition;
 
         public Skärmposition Position => _kameraPosition;
-        public Skärmyta Synlighetsområde { get; set; }
+        public Skärmområde Synlighetsområde { get; }
+        public Skärmyta Dimensioner { get; set; }
 
-        public Kamera(Skärmyta skärmyta, Skärmposition skärmposition = null)
+        public Kamera(Skärmyta dimensioner, Skärmposition skärmposition = null)
         {
-            if(skärmyta.Bredd < 1)
+            if(dimensioner.Bredd < 1)
             {
-                throw new ArgumentException($"Kamerans bredd på skärmytan kan inte vara mindre än 1 (skärmytans dimensioner: {skärmyta.Bredd}x{skärmyta.Höjd}).");
+                throw new ArgumentException($"Kamerans bredd på skärmytan kan inte vara mindre än 1 (skärmytans dimensioner: {dimensioner.Bredd}x{dimensioner.Höjd}).");
             }
-            if (skärmyta.Höjd < 1)
+            if (dimensioner.Höjd < 1)
             {
-                throw new ArgumentException($"Kamerans höjd på skärmytan kan inte vara mindre än 1 (skärmytans dimensioner: {skärmyta.Bredd}x{skärmyta.Höjd}).");
+                throw new ArgumentException($"Kamerans höjd på skärmytan kan inte vara mindre än 1 (skärmytans dimensioner: {dimensioner.Bredd}x{dimensioner.Höjd}).");
             }
-            Synlighetsområde = skärmyta;
+            Dimensioner = dimensioner;
             _kameraPosition = skärmposition ?? new Skärmposition(0, 0);
         }
 
         public void CentreraKameraMot(Skärmposition position)
         {
-            _kameraPosition = new Skärmposition(position.X - Synlighetsområde.Bredd / 2, position.Y - Synlighetsområde.Höjd / 2);
+            _kameraPosition = new Skärmposition(position.X - Dimensioner.Bredd / 2, position.Y - Dimensioner.Höjd / 2);
         }
 
         public Skärmposition Transformera(Skärmposition skärmposition)

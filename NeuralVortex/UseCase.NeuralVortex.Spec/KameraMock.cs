@@ -5,10 +5,9 @@ namespace UseCase.NeuralVortex.Spec
 {
     public class KameraMock : IKamera
     {
-        public Skärmyta ReturneratSynlighetsområde { private get; set; }
         public Skärmposition CentreradMot { get; private set; }
 
-        public Skärmyta Synlighetsområde => ReturneratSynlighetsområde;
+        public Skärmområde Synlighetsområde => throw new NotImplementedException();
 
         public void CentreraKameraMot(Skärmposition position)
         {
