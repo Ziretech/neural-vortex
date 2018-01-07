@@ -28,7 +28,7 @@ namespace UseCase.NeuralVortex
 
         public Spelvärldsområde TillOmråde(Skärmområde område)
         {
-            throw new System.NotImplementedException();
+            return new Spelvärldsområde(område.Vänster / _brickyta.Bredd, område.Botten / _brickyta.Höjd, område.Höger / _brickyta.Bredd, område.Topp / _brickyta.Höjd);
         }
     }
 }

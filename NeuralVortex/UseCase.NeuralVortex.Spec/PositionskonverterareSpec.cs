@@ -55,16 +55,21 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(resultat.Y, Is.EqualTo(skärmY));
         }
 
-        [Ignore("todo")]
-        [Test]
-        public void Konverterar_skärmområde_till_spelvärldsområde()
+        [TestCase(0, 0, 1, 1, 4, 4, 0, 0, 0, 0)]
+        [TestCase(0, 0, 4, 1, 4, 4, 0, 0, 1, 0)]
+        [TestCase(0, 0, 1, 4, 4, 4, 0, 0, 0, 1)]
+        [TestCase(0, 0, 7, 7, 4, 4, 0, 0, 1, 1)]
+        [TestCase(4, 0, 7, 7, 4, 4, 1, 0, 1, 1)]
+        [TestCase(4, 4, 7, 7, 4, 4, 1, 1, 1, 1)]
+        [TestCase(4, 15, 16, 32, 16, 16, 0, 0, 1, 2)]
+        public void Konverterar_skärmområde_till_spelvärldsområde(int vänster, int botten, int höger, int topp, int brickbredd, int brickhöjd, int resultatVänster, int resultatBotten, int resultatHöger, int resultatTopp)
         {
-            var konverterare = new Positionskonverterare(new Skärmyta(4, 4));
-            var område = konverterare.TillOmråde(new Skärmområde(0, 0, 1, 1));
-            Assert.That(område.Vänster, Is.EqualTo(0));
-            Assert.That(område.Botten, Is.EqualTo(0));
-            Assert.That(område.Höger, Is.EqualTo(0));
-            Assert.That(område.Topp, Is.EqualTo(0));
+            var konverterare = new Positionskonverterare(new Skärmyta(brickbredd, brickhöjd));
+            var område = konverterare.TillOmråde(new Skärmområde(vänster, botten, höger, topp));
+            Assert.That(område.Vänster, Is.EqualTo(resultatVänster), "vänster");
+            Assert.That(område.Botten, Is.EqualTo(resultatBotten), "botten");
+            Assert.That(område.Höger, Is.EqualTo(resultatHöger), "höger");
+            Assert.That(område.Topp, Is.EqualTo(resultatTopp), "topp");
         }
     }
 }
