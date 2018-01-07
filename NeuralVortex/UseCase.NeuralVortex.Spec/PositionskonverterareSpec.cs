@@ -3,7 +3,7 @@ using System;
 using UseCase.NeuralVortex.Spelvärld;
 using UseCase.NeuralVortex.Visning;
 
-namespace ConsoleApp.Spec
+namespace UseCase.NeuralVortex.Spec
 {
     [TestFixture]
     public class PositionskonverterareSpec

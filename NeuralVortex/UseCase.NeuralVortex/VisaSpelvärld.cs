@@ -32,7 +32,7 @@ namespace UseCase.NeuralVortex
             var miljögrafik = _spelvärld.MiljöGrafik;
             if(miljögrafik != null)
             {
-                miljögrafik.Visa();
+                miljögrafik.Visa(new Skärmposition(0, 0));
             }
 
             var fienden = _spelvärld.Fienden;

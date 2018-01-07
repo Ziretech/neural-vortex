@@ -1,11 +1,10 @@
 ﻿using System;
-using UseCase.NeuralVortex;
 using UseCase.NeuralVortex.Spelvärld;
 using UseCase.NeuralVortex.Visning;
 
-namespace ConsoleApp
+namespace UseCase.NeuralVortex
 {
-    internal class Positionskonverterare : IPositionskonverterare
+    public class Positionskonverterare : IPositionskonverterare
     {
         private readonly Skärmyta _brickyta;
 

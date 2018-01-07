@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using UseCase.NeuralVortex.Spelvärld;
+using UseCase.NeuralVortex.Visning;
 
 namespace UseCase.NeuralVortex.Spec
 {
@@ -12,7 +13,8 @@ namespace UseCase.NeuralVortex.Spec
         public void VisaSpelvärld_borde_inte_krascha_när_det_inte_finns_något_att_visa()
         {
             // Arrange
-            var visaSpelvärld = new VisaSpelvärld(new SpelvärldMock(), new KameraMock(), new PositionskonverterareMock());
+            var konverterare = new Positionskonverterare(new Skärmyta(1, 1));
+            var visaSpelvärld = new VisaSpelvärld(new SpelvärldMock(), new KameraMock(), konverterare);
 
             // Act
             visaSpelvärld.Visa();
@@ -26,8 +28,9 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange
             var huvudkaraktärensGrafik = new GrafikMock();
+            var konverterare = new Positionskonverterare(new Skärmyta(1, 1));
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = new Spelvärldsposition(1, 2) } };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new KameraMock(), new PositionskonverterareMock());
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, new KameraMock(), konverterare);
 
             // Act
             visaSpelvärld.Visa();
@@ -42,7 +45,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange
             var kamera = new KameraMock();
-            var miljögrafik = new GrafikfältMock();
+            var miljögrafik = new GrafikMock();
             var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik };
             var visaSpelvärld = new VisaSpelvärld(spelvärld, kamera, new PositionskonverterareMock());
 
@@ -50,7 +53,7 @@ namespace UseCase.NeuralVortex.Spec
             visaSpelvärld.Visa();
 
             // Assert
-            Assert.That(miljögrafik.HarVisats);
+            Assert.That(miljögrafik.HarVisatsPåPosition, Is.Not.Null);
         }
 
         [Test]
