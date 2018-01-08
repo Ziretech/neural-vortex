@@ -56,6 +56,29 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(gl.Hörnverifierare[1].StämmerHörn2(8, 4), "2 hörn2");
         }
 
+        [Test]
+        public void Visar_brickfält_när_två_brickor_på_höjden_syns()
+        {
+            var gl = new GrafikkommandonMock();
+            var kamera = new Kamera(new Skärmyta(4, 8));
+            var definitioner = new Bricka[] {
+                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
+            };
+            var brickstorlek = new Skärmyta(4, 4);
+            var kartbredd = 1;
+            var karta = new int[] { 0, 0 };
+            var konverterare = new Positionskonverterare(brickstorlek);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, brickstorlek, kartbredd, karta);
+
+            fält.Visa(new Skärmposition(0, 0));
+
+            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(2), "antal polygoner");
+            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0), "1 hörn1");
+            Assert.That(gl.Hörnverifierare[0].StämmerHörn2(4, 4), "1 hörn2");
+            Assert.That(gl.Hörnverifierare[1].StämmerHörn1(0, 4), "2 hörn1");
+            Assert.That(gl.Hörnverifierare[1].StämmerHörn2(4, 8), "2 hörn2");
+        }
+
         //[Test]
         //public void Visar_brickfält_när_två_brickor_på_bredden_syns()
         //{
