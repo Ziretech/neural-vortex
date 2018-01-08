@@ -7,3 +7,4 @@
 @Refaktor Spelvärldspositioner kan jämföras, uppdatera tester
 @Refaktor Skärmytor kan jämföras, uppdatera tester
 @Improv Brickor med flera bilder
+@Refaktor Garantera att Synlighetsområdet från kameran/konverteraren alltid motsvarar topp/botten vänster/höger rätt (lägga till verifiering i Område-konstruktorn?)

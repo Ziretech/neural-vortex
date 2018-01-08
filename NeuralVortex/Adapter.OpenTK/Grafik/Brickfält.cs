@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UseCase.NeuralVortex;
+using UseCase.NeuralVortex.Spelvärld;
 using UseCase.NeuralVortex.Visning;
 
 namespace Adapter.OpenTK.Grafik
@@ -31,7 +32,13 @@ namespace Adapter.OpenTK.Grafik
 
         public void Visa(Skärmposition position)
         {
-            _definitioner[0].Visa(new Skärmposition(0, 0));            
+            var område = _konverterare.TillOmråde(_kamera.Synlighetsområde);
+
+            for(var y = område.Botten; y <= område.Topp; y++)
+                for(var x = område.Vänster; x <= område.Höger; x++)
+                {
+                    _definitioner[0].Visa(_konverterare.TillPunkt(new Spelvärldsposition(x, y)));
+                }            
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Adapter.OpenTK.Grafik
         {
             get
             {
-                return new Skärmområde(Position.X, Position.Y, Position.X + _dimensioner.Bredd, Position.Y + _dimensioner.Höjd);
+                return new Skärmområde(Position.X, Position.Y, Position.X + _dimensioner.Bredd - 1, Position.Y + _dimensioner.Höjd - 1);
             }
         }
 

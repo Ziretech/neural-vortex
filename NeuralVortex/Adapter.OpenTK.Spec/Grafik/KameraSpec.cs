@@ -111,16 +111,17 @@ namespace Adapter.OpenTK.Spec.Grafik
             }
         }
 
-        [TestCase(1, 1, 3, 8, 1, 1, 4, 9)]
-        [TestCase(4, 7, 13, 2, 4, 7, 17, 9)]
+        [TestCase(1, 1, 3, 8, 1, 1, 3, 8)]
+        [TestCase(4, 7, 13, 2, 4, 7, 16, 8)]
+        [TestCase(0, 0, 4, 4, 0, 0, 3, 3)]
         public void Kameran_anger_sitt_synlighetsområde(int x, int y, int bredd, int höjd, int vänster, int botten, int höger, int topp)
         {
             var kamera = new Kamera(new Skärmyta(bredd, höjd), new Skärmposition(x, y));
             var synlighetsområde = kamera.Synlighetsområde;
-            Assert.That(synlighetsområde.Vänster, Is.EqualTo(x), "vänster");
-            Assert.That(synlighetsområde.Botten, Is.EqualTo(y), "botten");
-            Assert.That(synlighetsområde.Höger, Is.EqualTo(x + bredd), "höger");
-            Assert.That(synlighetsområde.Topp, Is.EqualTo(y + höjd), "topp");
+            Assert.That(synlighetsområde.Vänster, Is.EqualTo(vänster), "vänster");
+            Assert.That(synlighetsområde.Botten, Is.EqualTo(botten), "botten");
+            Assert.That(synlighetsområde.Höger, Is.EqualTo(höger), "höger");
+            Assert.That(synlighetsområde.Topp, Is.EqualTo(topp), "topp");
         }
     }
 }
