@@ -17,6 +17,7 @@ namespace Adapter.OpenTK.Grafik
         private readonly Bricka[] _definitioner;
         private readonly Skärmyta _brickstorlek;
         private readonly int _kartbredd;
+        private readonly int _karthöjd;
         private readonly int[] _karta;
 
         public Brickfält(IGrafikkommandon glMock, Kamera kamera, IPositionskonverterare konverterare, Bricka[] definitioner, Skärmyta brickstorlek, int kartbredd, int[] karta)
@@ -27,6 +28,7 @@ namespace Adapter.OpenTK.Grafik
             _brickstorlek = brickstorlek;
             _kartbredd = kartbredd;
             _karta = karta;
+            _karthöjd = karta.Count() / kartbredd;
             _konverterare = konverterare;
         }
 
@@ -34,11 +36,12 @@ namespace Adapter.OpenTK.Grafik
         {
             var område = _konverterare.TillOmråde(_kamera.Synlighetsområde);
 
-            for(var y = område.Botten; y <= område.Topp; y++)
+            for(var y = område.Botten; y <= Math.Min(område.Topp, _karthöjd - 1); y++)
             {
-                for (var x = område.Vänster; x <= område.Höger; x++)
+                for (var x = område.Vänster; x <= Math.Min(område.Höger, _kartbredd - 1); x++)
                 {
-                    _definitioner[0].Visa(_konverterare.TillPunkt(new Spelvärldsposition(x, y)));
+                    var kartindex = x + y * _kartbredd;
+                    _definitioner[_karta[kartindex]].Visa(_konverterare.TillPunkt(new Spelvärldsposition(x, y)));
                 }
             }
         }
