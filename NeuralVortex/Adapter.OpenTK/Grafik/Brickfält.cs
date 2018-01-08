@@ -35,10 +35,12 @@ namespace Adapter.OpenTK.Grafik
             var område = _konverterare.TillOmråde(_kamera.Synlighetsområde);
 
             for(var y = område.Botten; y <= område.Topp; y++)
-                for(var x = område.Vänster; x <= område.Höger; x++)
+            {
+                for (var x = område.Vänster; x <= område.Höger; x++)
                 {
                     _definitioner[0].Visa(_konverterare.TillPunkt(new Spelvärldsposition(x, y)));
-                }            
+                }
+            }
         }
     }
 }

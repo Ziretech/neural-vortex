@@ -2,6 +2,7 @@
 + Funktionalitet för positionskonverteraren
 + @Refaktor Skärmpositioner kan jämföras, uppdatera tester
 @Userstory Lägg till funktionalitet för Brickfält
+@Refaktor Refaktorisera testerna för Brickfält
 @Refaktor Dela upp brickor (så de innehåller bilder?) så att det inte blir så mycket duplicering mellan brickor i ett brickfält
 @Undersök Borde Brickor (och annan IGrafik) ta emot ett högnivåobjekt?
 @Refaktor Spelvärldspositioner kan jämföras, uppdatera tester

@@ -44,7 +44,7 @@ namespace ConsoleApp
             spelvärld.Huvudkaraktär = new Huvudkaraktär
             {
                 Position = new Spelvärldsposition(0, 0),
-                Grafik = new Bricka(glWrapper, kamera, new Skärmposition(0, 0), new Skärmyta(16, 16))
+                Grafik = new Bricka(glWrapper, kamera, new Skärmposition(0*16, 0*16), new Skärmyta(16, 16))
             };
             
 
