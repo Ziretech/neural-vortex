@@ -23,12 +23,6 @@ namespace UseCase.NeuralVortex
 
         public void Visa()
         {
-            var huvudkaraktär = _spelvärld.Huvudkaraktär;
-            if (huvudkaraktär != null)
-            {
-                huvudkaraktär.Grafik.Visa(_konvertera.TillPunkt(huvudkaraktär.Position));
-            }
-
             var miljögrafik = _spelvärld.MiljöGrafik;
             if(miljögrafik != null)
             {
@@ -42,6 +36,12 @@ namespace UseCase.NeuralVortex
                 {
                     fiende.Grafik.Visa(_konvertera.TillPunkt(fiende.Position));
                 }
+            }
+
+            var huvudkaraktär = _spelvärld.Huvudkaraktär;
+            if (huvudkaraktär != null)
+            {
+                huvudkaraktär.Grafik.Visa(_konvertera.TillPunkt(huvudkaraktär.Position));
             }
         }
     }

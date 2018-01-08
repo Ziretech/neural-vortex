@@ -15,17 +15,15 @@ namespace Adapter.OpenTK.Grafik
         private readonly Kamera _kamera;
         private readonly IPositionskonverterare _konverterare;
         private readonly Bricka[] _definitioner;
-        private readonly Skärmyta _brickstorlek;
         private readonly int _kartbredd;
         private readonly int _karthöjd;
         private readonly int[] _karta;
 
-        public Brickfält(IGrafikkommandon glMock, Kamera kamera, IPositionskonverterare konverterare, Bricka[] definitioner, Skärmyta brickstorlek, int kartbredd, int[] karta)
+        public Brickfält(IGrafikkommandon grafikkommandon, Kamera kamera, IPositionskonverterare konverterare, Bricka[] definitioner, int kartbredd, int[] karta)
         {
-            _gl = glMock;
+            _gl = grafikkommandon;
             _kamera = kamera;
             _definitioner = definitioner;
-            _brickstorlek = brickstorlek;
             _kartbredd = kartbredd;
             _karta = karta;
             _karthöjd = karta.Count() / kartbredd;

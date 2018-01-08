@@ -46,6 +46,13 @@ namespace ConsoleApp
                 Position = new Spelvärldsposition(0, 0),
                 Grafik = new Bricka(glWrapper, kamera, new Skärmposition(0*16, 0*16), new Skärmyta(16, 16))
             };
+
+            var definitioner = new Bricka[] {
+                new Bricka(glWrapper, kamera, new Skärmposition(1 * 16, 0), new Skärmyta(16, 16)),
+                new Bricka(glWrapper, kamera, new Skärmposition(2 * 16, 0), new Skärmyta(16, 16))
+            };
+            var karta = new int[] { 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0 };
+            spelvärld.MiljöGrafik = new Brickfält(glWrapper, kamera, positionskonverterare, definitioner, 4, karta);
             
 
             fönster.Kör(60.0, 60.0);

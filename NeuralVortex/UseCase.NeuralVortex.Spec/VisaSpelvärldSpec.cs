@@ -80,5 +80,23 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(fiendegrafik.HarVisatsPåPosition.X, Is.EqualTo(2));
             Assert.That(fiendegrafik.HarVisatsPåPosition.Y, Is.EqualTo(3));
         }
+
+        [Test]
+        public void Huvudkaraktären_borde_visas_ovanpå_miljön()
+        {
+            // Arrange
+            var kamera = new KameraMock();
+            var grafik = new GrafikMock();
+            var huvudkaraktär = new Huvudkaraktär { Grafik = grafik, Position = new Spelvärldsposition(1, 2) };
+            var spelvärld = new SpelvärldMock { MiljöGrafik = grafik, Huvudkaraktär = huvudkaraktär };
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, kamera, new PositionskonverterareMock());
+
+            // Act
+            visaSpelvärld.Visa();
+
+            // Assert
+            Assert.That(grafik.HarVisatsPåPosition, Is.EqualTo(new Skärmposition(1, 2)));
+            // Eftersom de använder gemensam grafik, borde den enligt mocken visats på huvudkaraktärens position sist, annars felaktigt miljöns position (0, 0)
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 1;
             var karta = new int[] { 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, brickstorlek, kartbredd, karta);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -45,7 +45,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 2;
             var karta = new int[] { 0, 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, brickstorlek, kartbredd, karta);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -68,7 +68,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 1;
             var karta = new int[] { 0, 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, brickstorlek, kartbredd, karta);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -91,7 +91,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 2;
             var karta = new int[] { 0, 0, 0, 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, brickstorlek, kartbredd, karta);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -115,7 +115,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 2;
             var karta = new int[] { 0, 1 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, brickstorlek, kartbredd, karta);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -140,7 +140,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 1;
             var karta = new int[] { 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, brickstorlek, kartbredd, karta);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -148,29 +148,43 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0), "bricka");
         }
 
-        //[Test]
-        //public void Visar_brickfält_när_två_brickor_på_bredden_syns()
-        //{
-        //    var gl = new GrafikkommandonMock();
-        //    var kamera = new Kamera(new Skärmyta(4, 8));
-        //    var definitioner = new Bricka[] {
-        //        new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4)),
-        //        new Bricka(gl, kamera, new Skärmposition(4 * 2, 4 * 2), new Skärmyta(4, 4))
-        //    };
-        //    var brickstorlek = new Skärmyta(4, 4);
-        //    var kartbredd = 2;
-        //    var karta = new int[] { 0, 0 };
-        //    var konverterare = new Positionskonverterare(brickstorlek);
-        //    var fält = new Brickfält(gl, kamera, konverterare, definitioner, brickstorlek, kartbredd, karta);
+        [Test]
+        public void Visar_brickfält_förskjutet_när_kameran_flyttats()
+        {
+            var gl = new GrafikkommandonMock();
+            var kamera = new Kamera(new Skärmyta(8, 8), new Skärmposition(2, 2));
+            var definitioner = new Bricka[] {
+                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
+            };
+            var brickstorlek = new Skärmyta(4, 4);
+            var kartbredd = 1;
+            var karta = new int[] { 0 };
+            var konverterare = new Positionskonverterare(brickstorlek);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
 
-        //    fält.Visa(new Skärmposition(0, 0));
+            fält.Visa(new Skärmposition(0, 0));
 
-        //    Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(2), "antal polygoner");
-        //    Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0));
-        //    Assert.That(gl.Texturverifierare[0].StämmerHörn1(4, 4 + 4));
+            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(1), "antal polygoner");
+            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(-2, -2), "bricka");
+        }
 
-        //    Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0));
-        //    Assert.That(gl.Texturverifierare[0].StämmerHörn1(4, 4 + 4));
-        //}
+        [Test]
+        public void Visar_inte_bricka_som_inte_syns()
+        {
+            var gl = new GrafikkommandonMock();
+            var kamera = new Kamera(new Skärmyta(8, 8), new Skärmposition(4, 4));
+            var definitioner = new Bricka[] {
+                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
+            };
+            var brickstorlek = new Skärmyta(4, 4);
+            var kartbredd = 1;
+            var karta = new int[] { 0 };
+            var konverterare = new Positionskonverterare(brickstorlek);
+            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+
+            fält.Visa(new Skärmposition(0, 0));
+
+            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(0), "antal polygoner");
+        }
     }
 }
