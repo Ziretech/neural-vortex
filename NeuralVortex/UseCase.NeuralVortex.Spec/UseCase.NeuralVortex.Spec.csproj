@@ -50,6 +50,7 @@
     <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />
     <Compile Include="SpelvärldMock.cs" />
+    <Compile Include="Spelvärld\SpelvärldspositionSpec.cs" />
     <Compile Include="UppdateraSpelvärldSpec.cs" />
     <Compile Include="VisaSpelvärldSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Kontroll\" />
-    <Folder Include="Spelvärld\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

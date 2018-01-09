@@ -55,6 +55,7 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(3));
         }
 
+        [Ignore("Implementera Spelvärldsposition.Equals")]
         [Test]
         public void Hindrar_förflyttning_till_ruta_med_hinder()
         {
@@ -64,6 +65,21 @@ namespace UseCase.NeuralVortex.Spec
             uppdateraSpelvärld.Uppdatera(Tangent.Höger);
 
             Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(1));
+        }
+    }
+
+    public class HinderkartaMock : IHinderkarta
+    {
+        private readonly Spelvärldsposition[] _hinder;
+
+        public HinderkartaMock(Spelvärldsposition[] hinder)
+        {
+            _hinder = hinder;
+        }
+
+        public bool Hindrar(Spelvärldsposition position)
+        {
+            return _hinder.Any(h => h.Equals(position));
         }
     }
 }
