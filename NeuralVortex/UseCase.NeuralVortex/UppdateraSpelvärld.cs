@@ -13,11 +13,13 @@ namespace UseCase.NeuralVortex
     {
         private ISpelvärld _spelvärld;
         private IKamera _kamera;
+        private IHinderkarta _hinderkarta;
 
-        public UppdateraSpelvärld(ISpelvärld spelvärld, IKamera kamera)
+        public UppdateraSpelvärld(ISpelvärld spelvärld, IKamera kamera, IHinderkarta hinderkarta = null)
         {
             _spelvärld = spelvärld;
             _kamera = kamera;
+            _hinderkarta = hinderkarta;
         }
 
         public SpeletsFortsättning Uppdatera(Tangent tangent)
@@ -35,6 +37,7 @@ namespace UseCase.NeuralVortex
         public void FlyttaKaraktär(Tangent tangent)
         {
             var tidigarePosition = _spelvärld.Huvudkaraktär.Position;
+            Spelvärldsposition nyPosition = null;
             switch(tangent)
             {
                 case Tangent.Upp:
@@ -50,6 +53,8 @@ namespace UseCase.NeuralVortex
                     _spelvärld.Huvudkaraktär.Position = new Spelvärldsposition(tidigarePosition.X + 1, tidigarePosition.Y);
                     break;
             }
+
+
         }
     }
 }

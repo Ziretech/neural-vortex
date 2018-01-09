@@ -54,5 +54,16 @@ namespace UseCase.NeuralVortex.Spec
 
             Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(3));
         }
+
+        [Test]
+        public void Hindrar_förflyttning_till_ruta_med_hinder()
+        {
+            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 1) } };
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
+
+            uppdateraSpelvärld.Uppdatera(Tangent.Höger);
+
+            Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(1));
+        }
     }
 }

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPositionskonverterare.cs" />
+    <Compile Include="Kontroll\IHinderkarta.cs" />
     <Compile Include="Område.cs" />
     <Compile Include="Positionskonverterare.cs" />
     <Compile Include="Speltillstånd.cs" />
