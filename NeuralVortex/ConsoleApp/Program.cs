@@ -31,7 +31,10 @@ namespace ConsoleApp
             var positionskonverterare = new Positionskonverterare(new Skärmyta(16, 16));
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, kamera, positionskonverterare);
-            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera);
+
+            var hinderkarta = new bool[] { true, true, true, true, true, false, false, true, true, false, false, true, true, true, true, true };
+
+            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera, new Hinderkarta(hinderkarta, 4));
             var openTKHanterare = new GrafikHändelser(glWrapper, tileset, fönster, ucVisaSpelvärld, kamera);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, fönster);
 
@@ -43,7 +46,7 @@ namespace ConsoleApp
 
             spelvärld.Huvudkaraktär = new Huvudkaraktär
             {
-                Position = new Spelvärldsposition(0, 0),
+                Position = new Spelvärldsposition(1, 1),
                 Grafik = new Bricka(glWrapper, kamera, new Skärmposition(0*16, 0*16), new Skärmyta(16, 16))
             };
 
