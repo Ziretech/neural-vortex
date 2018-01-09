@@ -56,7 +56,10 @@ namespace UseCase.NeuralVortex
 
             if(nyPosition != null)
             {
-                _spelvärld.Huvudkaraktär.Position = nyPosition;
+                if(_hinderkarta == null || !_hinderkarta.Hindrar(nyPosition))
+                {
+                    _spelvärld.Huvudkaraktär.Position = nyPosition;
+                }                
             }
 
         }

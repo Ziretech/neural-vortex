@@ -55,17 +55,52 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(3));
         }
 
-        [Ignore("Refaktoriserar Uppdatera")]
         [Test]
         public void Hindrar_högerförflyttning_till_ruta_med_hinder()
         {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 1) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(1, 2) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
+            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 13) } };
+            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(2, 13) });
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock(), hinderkarta);
 
             uppdateraSpelvärld.Uppdatera(Tangent.Höger);
 
             Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Hindrar_vänsterförflyttning_till_ruta_med_hinder()
+        {
+            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 13) } };
+            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(0, 13) });
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock(), hinderkarta);
+
+            uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
+
+            Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Hindrar_uppförflyttning_till_ruta_med_hinder()
+        {
+            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(13, 1) } };
+            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(13, 2) });
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock(), hinderkarta);
+
+            uppdateraSpelvärld.Uppdatera(Tangent.Upp);
+
+            Assert.That(spelvärld.Huvudkaraktär.Position.Y, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Hindrar_nerförflyttning_till_ruta_med_hinder()
+        {
+            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(13, 1) } };
+            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(13, 0) });
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock(), hinderkarta);
+
+            uppdateraSpelvärld.Uppdatera(Tangent.Ner);
+
+            Assert.That(spelvärld.Huvudkaraktär.Position.Y, Is.EqualTo(1));
         }
     }
 }
