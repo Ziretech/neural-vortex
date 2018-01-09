@@ -55,31 +55,17 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(3));
         }
 
-        [Ignore("Implementera Spelvärldsposition.Equals")]
+        [Ignore("Refaktoriserar Uppdatera")]
         [Test]
-        public void Hindrar_förflyttning_till_ruta_med_hinder()
+        public void Hindrar_högerförflyttning_till_ruta_med_hinder()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 1) } };
+            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(1, 2) });
             var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
 
             uppdateraSpelvärld.Uppdatera(Tangent.Höger);
 
             Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(1));
-        }
-    }
-
-    public class HinderkartaMock : IHinderkarta
-    {
-        private readonly Spelvärldsposition[] _hinder;
-
-        public HinderkartaMock(Spelvärldsposition[] hinder)
-        {
-            _hinder = hinder;
-        }
-
-        public bool Hindrar(Spelvärldsposition position)
-        {
-            return _hinder.Any(h => h.Equals(position));
         }
     }
 }

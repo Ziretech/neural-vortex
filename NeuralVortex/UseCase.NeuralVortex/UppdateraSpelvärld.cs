@@ -41,19 +41,23 @@ namespace UseCase.NeuralVortex
             switch(tangent)
             {
                 case Tangent.Upp:
-                    _spelvärld.Huvudkaraktär.Position = new Spelvärldsposition(tidigarePosition.X, tidigarePosition.Y + 1);
+                    nyPosition = new Spelvärldsposition(tidigarePosition.X, tidigarePosition.Y + 1);
                     break;
                 case Tangent.Ner:
-                    _spelvärld.Huvudkaraktär.Position = new Spelvärldsposition(tidigarePosition.X, tidigarePosition.Y - 1);
+                    nyPosition = new Spelvärldsposition(tidigarePosition.X, tidigarePosition.Y - 1);
                     break;
                 case Tangent.Vänster:
-                    _spelvärld.Huvudkaraktär.Position = new Spelvärldsposition(tidigarePosition.X - 1, tidigarePosition.Y);
+                    nyPosition = new Spelvärldsposition(tidigarePosition.X - 1, tidigarePosition.Y);
                     break;
                 case Tangent.Höger:
-                    _spelvärld.Huvudkaraktär.Position = new Spelvärldsposition(tidigarePosition.X + 1, tidigarePosition.Y);
+                    nyPosition = new Spelvärldsposition(tidigarePosition.X + 1, tidigarePosition.Y);
                     break;
             }
 
+            if(nyPosition != null)
+            {
+                _spelvärld.Huvudkaraktär.Position = nyPosition;
+            }
 
         }
     }
