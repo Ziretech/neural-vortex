@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GrafikMock.cs" />
+    <Compile Include="HinderkartaMock.cs" />
     <Compile Include="KameraMock.cs" />
     <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />
