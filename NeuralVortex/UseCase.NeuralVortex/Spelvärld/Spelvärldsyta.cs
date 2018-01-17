@@ -8,9 +8,16 @@ namespace UseCase.NeuralVortex.Spelvärld
 {
     public class Spelvärldsyta
     {
-        bool Omfattar(Spelvärldsposition position)
+        private readonly int _bredd;
+        private readonly int _höjd;
+
+        public Spelvärldsyta(int bredd, int höjd)
         {
-            return false;
+            _bredd = bredd;
+            _höjd = höjd;
         }
+
+        public int Bredd => _bredd;
+        public int Höjd => _höjd;
     }
 }
