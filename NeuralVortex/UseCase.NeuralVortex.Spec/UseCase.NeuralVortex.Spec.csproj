@@ -53,6 +53,7 @@
     <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />
     <Compile Include="SpelvärldMock.cs" />
+    <Compile Include="SpelvärldsområdeSpec.cs" />
     <Compile Include="Spelvärld\SpelvärldspositionSpec.cs" />
     <Compile Include="Spelvärld\SpelvärldsytaSpec.cs" />
     <Compile Include="UppdateraSpelvärldSpec.cs" />
