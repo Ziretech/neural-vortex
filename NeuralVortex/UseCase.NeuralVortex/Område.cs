@@ -1,4 +1,5 @@
 ﻿using System;
+using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex
 {
@@ -8,6 +9,8 @@ namespace UseCase.NeuralVortex
         protected readonly int _botten;
         protected readonly int _vänster;
         protected readonly int _höger;
+        private Spelvärldsposition position;
+        private Spelvärldsyta yta;
 
         public Område(int vänster, int botten, int höger, int topp)
         {

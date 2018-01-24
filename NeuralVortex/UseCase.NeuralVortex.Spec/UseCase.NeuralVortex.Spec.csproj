@@ -52,6 +52,7 @@
     <Compile Include="Kartgenerering\SpelvärldsskapareMock.cs" />
     <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />
+    <Compile Include="RumOchDörrarVäljareMock.cs" />
     <Compile Include="SpelvärldMock.cs" />
     <Compile Include="SpelvärldsområdeSpec.cs" />
     <Compile Include="Spelvärld\SpelvärldspositionSpec.cs" />

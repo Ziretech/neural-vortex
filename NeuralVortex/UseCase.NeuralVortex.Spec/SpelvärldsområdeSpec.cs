@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex.Spec
 {
@@ -18,6 +19,17 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(område.Botten, Is.EqualTo(2));
             Assert.That(område.Höger, Is.EqualTo(3));
             Assert.That(område.Topp, Is.EqualTo(4));
+        }
+
+        [Ignore("1.1. Implementera yta och position som otypade varianter (precis som Område)")]
+        [Test]
+        public void Har_topp_botten_höger_vänster_från_yta_position()
+        {
+            //var område = new Spelvärldsområde(new Spelvärldsposition(10, 20), new Spelvärldsyta(30, 40));
+            //Assert.That(område.Vänster, Is.EqualTo(10));
+            //Assert.That(område.Botten, Is.EqualTo(20));
+            //Assert.That(område.Höger, Is.EqualTo(30));
+            //Assert.That(område.Topp, Is.EqualTo(40));
         }
 
         [Test]

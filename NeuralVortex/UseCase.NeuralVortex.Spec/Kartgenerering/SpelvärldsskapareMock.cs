@@ -11,12 +11,12 @@ namespace UseCase.NeuralVortex.Spec.Kartgenerering
     public class SpelvärldsskapareMock : ISpelvärldsskapare
     {
         public List<Spelvärldsposition> Dörrar { get; private set; }
-        public List<Spelvärldsområde> Rum { get; private set; }
+        public List<Spelvärldsområde> AnropadesMedRum { get; private set; }
 
         public SpelvärldsskapareMock()
         {
             Dörrar = new List<Spelvärldsposition>();
-            Rum = new List<Spelvärldsområde>();
+            AnropadesMedRum = new List<Spelvärldsområde>();
         }
 
         public void SkapaDörr(Spelvärldsposition position)
@@ -26,7 +26,7 @@ namespace UseCase.NeuralVortex.Spec.Kartgenerering
 
         public void SkapaRum(Spelvärldsområde område)
         {
-            Rum.Add(område);
+            AnropadesMedRum.Add(område);
         }
     }
 }
