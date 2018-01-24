@@ -64,6 +64,7 @@
     <Compile Include="Spelvärld\Spelvärldsposition.cs" />
     <Compile Include="Visning\Skärmyta.cs" />
     <Compile Include="VisaSpelvärld.cs" />
+    <Compile Include="Yta.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entity.NeuralVortex\Entity.NeuralVortex.csproj">
