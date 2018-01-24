@@ -3,21 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCase.NeuralVortex.Spec;
 
 namespace UseCase.NeuralVortex.Spelvärld
 {
-    public class Spelvärldsyta
+    public class Spelvärldsyta : Yta
     {
-        private readonly int _bredd;
-        private readonly int _höjd;
-
-        public Spelvärldsyta(int bredd, int höjd)
-        {
-            _bredd = bredd;
-            _höjd = höjd;
-        }
-
-        public int Bredd => _bredd;
-        public int Höjd => _höjd;
+        public Spelvärldsyta(int bredd, int höjd) : base(bredd, höjd) { }
     }
 }
