@@ -46,6 +46,7 @@
     <Compile Include="Kartgenerering\ISpelvärldsskapare.cs" />
     <Compile Include="Kontroll\IHinderkarta.cs" />
     <Compile Include="Område.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="Positionskonverterare.cs" />
     <Compile Include="Speltillstånd.cs" />
     <Compile Include="Spelvärldsområde.cs" />

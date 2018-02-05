@@ -25,6 +25,40 @@ namespace UseCase.NeuralVortex.Spec.Spelvärld
             Assert.That(position.Y, Is.EqualTo(2));
         }
 
+        [TestCase(1, 2, 10, 20, 11, 22)]
+        [TestCase(1, 2, 5, 8, 6, 10)]
+        public void Addera_positioner(int x1, int y1, int x2, int y2, int resultatX, int resultatY)
+        {
+            var förstaPositionen = new Spelvärldsposition(x1, y1);
+            var andraPositionen = new Spelvärldsposition(x2, y2);
+
+            var resultat = förstaPositionen.Plus(andraPositionen);
+
+            Assert.That(resultat, Is.EqualTo(new Spelvärldsposition(resultatX, resultatY)));
+        }
+
+        [TestCase(1, 2, 10, 20, 11, 22)]
+        [TestCase(1, 2, 5, 8, 6, 10)]
+        public void Addera_position_med_yta(int x, int y, int bredd, int höjd, int resultatX, int resultatY)
+        {
+            var position = new Spelvärldsposition(x, y);
+            var yta = new Spelvärldsyta(bredd, höjd);
+
+            var resultat = position.Plus(yta);
+
+            Assert.That(resultat, Is.EqualTo(new Spelvärldsposition(resultatX, resultatY)));
+        }
+
+        [TestCase(1, 2, 0, 0, 1, 2)]
+        [TestCase(4, 8, 1, 2, 3, 6)]
+        public void Subtrahera_från_position(int x1, int y1, int x2, int y2, int resultatX, int resultatY)
+        {
+            var förstaPosition = new Spelvärldsposition(x1, y1);
+            var andraPosition = new Spelvärldsposition(x2, y2);
+            var resultat = förstaPosition.Minus(andraPosition);
+            Assert.That(resultat, Is.EqualTo(new Spelvärldsposition(resultatX, resultatY)));
+        }
+
         [TestCase(0, 0, 0, 0)]
         [TestCase(1, 0, 1, 0)]
         [TestCase(14, 9999, 14, 9999)]

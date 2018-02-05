@@ -21,7 +21,7 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(område.Topp, Is.EqualTo(4));
         }
 
-        [Ignore("1.1. Implementera yta och position som otypade varianter (precis som Område)")]
+        [Ignore("1.1. Implementera position som otypad variant (precis som Område)")]
         [Test]
         public void Har_topp_botten_höger_vänster_från_yta_position()
         {

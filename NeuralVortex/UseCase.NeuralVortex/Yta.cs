@@ -1,4 +1,4 @@
-﻿namespace UseCase.NeuralVortex.Spec
+﻿namespace UseCase.NeuralVortex
 {
     public class Yta
     {

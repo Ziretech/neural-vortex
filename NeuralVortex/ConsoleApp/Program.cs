@@ -21,7 +21,7 @@ namespace ConsoleApp
         {
             var tileset = new BildWrapper("Images/tiles.png");
 
-            var inställningar = new SpelfönsterInställningar { Fullskärm = false, DoldaKanter = true, VSync = true, Bredd = 16 * 32, Höjd = 16 * 32 };
+            var inställningar = new SpelfönsterInställningar { Fullskärm = true, DoldaKanter = true, VSync = true, Bredd = 16 * 32, Höjd = 16 * 32 };
             var tangentmappning = new Dictionary<Key, Tangent> { { Key.Right, Tangent.Höger }, { Key.Left, Tangent.Vänster }, { Key.Up, Tangent.Upp }, { Key.Down, Tangent.Ner }, { Key.Escape, Tangent.Escape } };
             var fönster = new Spelfönster(tangentmappning, inställningar);
             var spelvärld = new Spelvärld();

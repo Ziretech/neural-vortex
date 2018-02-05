@@ -6,39 +6,24 @@ using System.Threading.Tasks;
 
 namespace UseCase.NeuralVortex.Spelvärld
 {
-    public class Spelvärldsposition
+    public class Spelvärldsposition : Position
     {
-        private readonly int _x;
-        private readonly int _y;
+        public Spelvärldsposition(int x, int y) : base(x, y) { }
+        public Spelvärldsposition(Position position) : base(position) { }
 
-        public int X => _x;
-        public int Y => _y;
-
-        public Spelvärldsposition(int x, int y)
+        public Spelvärldsposition Plus(Spelvärldsposition position)
         {
-            _x = x;
-            _y = y;
+            return new Spelvärldsposition(((Position)this).Plus(position));
         }
 
-        public override bool Equals(object obj)
+        public Spelvärldsposition Plus(Spelvärldsyta yta)
         {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-
-            var position = (Spelvärldsposition)obj;
-            return position._x.Equals(_x) && position._y.Equals(_y);
+            return new Spelvärldsposition(((Position)this).Plus(yta));
         }
 
-        public override int GetHashCode()
+        public Spelvärldsposition Minus(Spelvärldsposition position)
         {
-            return _x ^ _y;
-        }
-
-        public override string ToString()
-        {
-            return $"{_x}x{_y}";
+            return new Spelvärldsposition(((Position)this).Minus(position));
         }
     }
 }

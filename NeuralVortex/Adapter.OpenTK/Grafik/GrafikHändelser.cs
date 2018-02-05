@@ -24,7 +24,7 @@ namespace Adapter.OpenTK.Grafik
             _buffertväxlare = buffertväxlare;
             _visaSpelvärld = visaSpelvärld;
             _kamera = kamera;
-            _scaleFactor = 2.0;
+            _scaleFactor = 4.0;
         }
 
         public void Ladda(object avsändare, EventArgs händelse)
