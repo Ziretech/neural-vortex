@@ -12,6 +12,8 @@ namespace UseCase.NeuralVortex
         private Spelvärldsposition position;
         private Spelvärldsyta yta;
 
+        public Område(Position position, Yta yta) : this(position.X, position.Y, position.X + yta.Bredd, position.Y + yta.Höjd) { }
+
         public Område(int vänster, int botten, int höger, int topp)
         {
             if(vänster > höger)

@@ -21,15 +21,14 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(område.Topp, Is.EqualTo(4));
         }
 
-        [Ignore("1.1. Implementera position som otypad variant (precis som Område)")]
         [Test]
         public void Har_topp_botten_höger_vänster_från_yta_position()
         {
-            //var område = new Spelvärldsområde(new Spelvärldsposition(10, 20), new Spelvärldsyta(30, 40));
-            //Assert.That(område.Vänster, Is.EqualTo(10));
-            //Assert.That(område.Botten, Is.EqualTo(20));
-            //Assert.That(område.Höger, Is.EqualTo(30));
-            //Assert.That(område.Topp, Is.EqualTo(40));
+            var område = new Spelvärldsområde(new Spelvärldsposition(10, 20), new Spelvärldsyta(30, 40));
+            Assert.That(område.Vänster, Is.EqualTo(10));
+            Assert.That(område.Botten, Is.EqualTo(20));
+            Assert.That(område.Höger, Is.EqualTo(40));
+            Assert.That(område.Topp, Is.EqualTo(60));
         }
 
         [Test]

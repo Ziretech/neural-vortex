@@ -52,7 +52,7 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(skapare.AnropadesMedRum[0], Is.EqualTo(new Spelvärldsområde(1, 1, 3, 3)));
         }
 
-        [Ignore("1. Implementera new Spelvärldsområde(position, yta)")]
+        //[Ignore("1. Implementera new Spelvärldsområde(position, yta)")]
         [Test]
         public void Genererar_en_karta_med_ett_4x4_rum_på_1_1()
         {
@@ -60,7 +60,7 @@ namespace UseCase.NeuralVortex.Spec
             var väljare = new RumOchDörrarVäljareMock { AntalSteg = 1 };
             var generera = new GenereraRumOchDörrar(skapare, väljare);
             generera.Generera();
-            Assert.That(skapare.AnropadesMedRum[0], Is.EqualTo(new Spelvärldsområde(1, 1, 4, 4)));
+            Assert.That(skapare.AnropadesMedRum[0], Is.EqualTo(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(3, 3))));
         }
     }
 }
