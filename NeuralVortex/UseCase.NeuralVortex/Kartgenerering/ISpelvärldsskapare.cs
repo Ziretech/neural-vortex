@@ -11,5 +11,6 @@ namespace UseCase.NeuralVortex.Kartgenerering
     {
         void SkapaRum(Spelvärldsområde område);
         void SkapaDörr(Spelvärldsposition position);
+        bool ÄrKartanFärdig();
     }
 }

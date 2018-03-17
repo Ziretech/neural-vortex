@@ -10,23 +10,33 @@ namespace UseCase.NeuralVortex.Spec.Kartgenerering
 {
     public class SpelvärldsskapareMock : ISpelvärldsskapare
     {
-        public List<Spelvärldsposition> Dörrar { get; private set; }
+        public List<Spelvärldsposition> AnropadesMedDörr { get; private set; }
         public List<Spelvärldsområde> AnropadesMedRum { get; private set; }
 
-        public SpelvärldsskapareMock()
+        private int _antalSteg;
+
+        public SpelvärldsskapareMock(int antalSteg)
         {
-            Dörrar = new List<Spelvärldsposition>();
+            _antalSteg = antalSteg;
+            AnropadesMedDörr = new List<Spelvärldsposition>();
             AnropadesMedRum = new List<Spelvärldsområde>();
         }
 
         public void SkapaDörr(Spelvärldsposition position)
         {
-            Dörrar.Add(position);
+            AnropadesMedDörr.Add(position);
         }
 
         public void SkapaRum(Spelvärldsområde område)
         {
             AnropadesMedRum.Add(område);
+        }
+
+        public bool ÄrKartanFärdig()
+        {
+            _antalSteg--;
+
+            return _antalSteg < 1;
         }
     }
 }

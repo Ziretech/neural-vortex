@@ -21,12 +21,25 @@ namespace UseCase.NeuralVortex
 
         public void Generera()
         {
-            if(!_väljare.ÄrKartanFärdig())
+            var position = new Spelvärldsposition(1, 1);
+            var yta = _väljare.VäljRumstorlek();
+            var rumområde = new Spelvärldsområde(position, yta);
+            _skapare.SkapaRum(rumområde);
+
+            if(!_skapare.ÄrKartanFärdig())
             {
-                //var rumområde = new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(3, 3));
-                var rumområde = new Spelvärldsområde(1, 1, 3, 3);
+                var dörrpositioner = _väljare.VäljDörrpositioner(rumområde);
+                var valdDörrposition = dörrpositioner[0];
+                _skapare.SkapaDörr(valdDörrposition);
+
+                yta = _väljare.VäljRumstorlek();
+                position = _väljare.VäljRumposition(yta, valdDörrposition);
+
+                rumområde = new Spelvärldsområde(position, yta);
                 _skapare.SkapaRum(rumområde);
-            }            
+            }
+
+            return;
         }
     }
 }
