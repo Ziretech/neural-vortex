@@ -32,9 +32,19 @@ namespace ConsoleApp
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, kamera, positionskonverterare);
 
-            var hinderkarta = new bool[] { true, true, true, true, true, false, false, true, true, false, false, true, true, true, true, true };
+            const int kartbredd = 16;
+            var spelvärldsskapare = new Spelvärldsskapare(new Spelvärldsyta(kartbredd, 16));
+            spelvärldsskapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(5, 5)));
+            spelvärldsskapare.SkapaDörr(new Spelvärldsposition(6, 3));
+            spelvärldsskapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(7, 2), new Spelvärldsyta(4, 3)));
+            spelvärldsskapare.SkapaDörr(new Spelvärldsposition(11, 3));
+            spelvärldsskapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(12, 1), new Spelvärldsyta(3, 6)));
+            spelvärldsskapare.SkapaDörr(new Spelvärldsposition(8, 5));
+            spelvärldsskapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(7, 6), new Spelvärldsyta(4, 4)));
+            var karta = spelvärldsskapare.ByggKarta();
+            var hinderkarta = karta.Select(x => x == 0).ToArray();
 
-            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera, new Hinderkarta(hinderkarta, 4));
+            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera, new Hinderkarta(hinderkarta, kartbredd));
             var openTKHanterare = new GrafikHändelser(glWrapper, tileset, fönster, ucVisaSpelvärld, kamera);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, fönster);
 
@@ -54,8 +64,8 @@ namespace ConsoleApp
                 new Bricka(glWrapper, kamera, new Skärmposition(1 * 16, 0), new Skärmyta(16, 16)),
                 new Bricka(glWrapper, kamera, new Skärmposition(2 * 16, 0), new Skärmyta(16, 16))
             };
-            var karta = new int[] { 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0 };
-            spelvärld.MiljöGrafik = new Brickfält(glWrapper, kamera, positionskonverterare, definitioner, 4, karta);
+            
+            spelvärld.MiljöGrafik = new Brickfält(glWrapper, kamera, positionskonverterare, definitioner, kartbredd, karta);
             
 
             fönster.Kör(60.0, 60.0);

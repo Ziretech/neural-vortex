@@ -43,6 +43,7 @@
     <Compile Include="Hinderkarta.cs" />
     <Compile Include="Spelvärld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spelvärldsskapare.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UseCase.NeuralVortex\UseCase.NeuralVortex.csproj">

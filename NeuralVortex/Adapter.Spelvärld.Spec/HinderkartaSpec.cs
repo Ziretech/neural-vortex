@@ -73,5 +73,8 @@ namespace Adapter.Spelvärld.Spec
             var hinderkarta = new Hinderkarta(new bool[] { false, false, false, true }, 2);
             Assert.That(hinderkarta.Hindrar(new Spelvärldsposition(1, 1)));
         }
+
+        // TODO Hinderkarta
+        // testar hinder på position utanför kartan (felhantering)
     }
 }
