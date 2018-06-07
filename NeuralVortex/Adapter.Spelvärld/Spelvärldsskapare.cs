@@ -17,7 +17,16 @@ namespace Adapter.Spelvärld
 
         public Spelvärldsskapare(Spelvärldsyta spelvärldsyta)
         {
-            _spelvärldsyta = spelvärldsyta;
+            _spelvärldsyta = spelvärldsyta ?? throw new ArgumentException("Spelvärldsskapare kan inte skapas utan spelvärldsyta.");
+            if(_spelvärldsyta.Bredd < 1)
+            {
+                throw new ArgumentException("Spelvärldsskapares spelvärldsyta måste ha minst 1 i bredd.");
+            }
+            if(_spelvärldsyta.Höjd < 1)
+            {
+                throw new ArgumentException("Spelvärldsskapares spelvärldsyta måste ha minst 1 i höjd.");
+            }
+
             _rum = new List<Spelvärldsområde>();
             _dörr = new List<Spelvärldsposition>();
         }
@@ -29,6 +38,10 @@ namespace Adapter.Spelvärld
 
         public void SkapaRum(Spelvärldsområde område)
         {
+            if (område == null)
+                throw new ArgumentException("Rum måste ha ett område.");
+            if (område.Botten < 0)
+                throw new ArgumentException($"Rum {område.ToString()} måste placeras inom kartan {_spelvärldsyta.ToString()}.");
             _rum.Add(område);
         }
 
