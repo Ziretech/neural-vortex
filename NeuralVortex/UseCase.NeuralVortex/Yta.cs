@@ -13,5 +13,10 @@
 
         public int Bredd => _bredd;
         public int Höjd => _höjd;
+
+        public override string ToString()
+        {
+            return $"{_bredd}x{_höjd}";
+        }
     }
 }

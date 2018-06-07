@@ -18,5 +18,11 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(yta.Bredd, Is.EqualTo(bredd));
             Assert.That(yta.Höjd, Is.EqualTo(höjd));
         }
+
+        [Test]
+        public void Skrivs_som_3x5_när_den_har_dessa_dimensioner()
+        {
+            Assert.That(new Yta(3, 5).ToString(), Is.EqualTo("3x5"));
+        }
     }
 }
