@@ -40,7 +40,7 @@ namespace Adapter.Spelvärld
         {
             if (område == null)
                 throw new ArgumentException("Rum måste ha ett område.");
-            if (område.Botten < 0)
+            if (!new Spelvärldsområde(new Spelvärldsposition(0, 0), _spelvärldsyta).Omsluter(område))
                 throw new ArgumentException($"Rum {område.ToString()} måste placeras inom kartan {_spelvärldsyta.ToString()}.");
             _rum.Add(område);
         }

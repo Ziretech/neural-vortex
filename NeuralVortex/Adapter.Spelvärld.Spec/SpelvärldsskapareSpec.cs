@@ -186,12 +186,12 @@ namespace Adapter.Spelvärld.Spec
             }
         }
         [Test]
-        public void Gör_undantag_för_rum_som_placeras_nedanför_nederkanten_av_kartan()
+        public void Gör_undantag_för_rum_som_placeras_med_någon_del_utanför_kartan()
         {
             try
             {
                 new Spelvärldsskapare(new Spelvärldsyta(1, 1))
-                    .SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, -1), new Spelvärldsyta(1, 1)));
+                    .SkapaRum(new Spelvärldsområde(new Spelvärldsposition(0, 0), new Spelvärldsyta(1, 2)));
                 Assert.Fail("Inget undantag gjordes.");
             }
             catch (ArgumentException undantag)
@@ -202,10 +202,7 @@ namespace Adapter.Spelvärld.Spec
         }
 
         // TODO Spelvärldsskapare
-        // felhantering
-        // placera rum (delvis) utanför kartan
         // rum med dimensioner < 1
-        // karta med dimensioner < 1
         // skapa dörr utanför kartan
     }
 }
