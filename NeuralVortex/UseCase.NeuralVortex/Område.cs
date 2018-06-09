@@ -59,5 +59,13 @@ namespace UseCase.NeuralVortex
         {
             return _vänster ^ _botten ^ _höger ^ _topp;
         }
+
+        public bool Omsluter(Område område)
+        {
+            return !(område.Vänster < Vänster 
+                || område.Botten < Botten 
+                || område.Höger > Höger
+                || område.Topp > Topp);
+        }
     }
 }

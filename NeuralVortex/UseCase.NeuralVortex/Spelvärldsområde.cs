@@ -1,4 +1,5 @@
-﻿using UseCase.NeuralVortex.Spelvärld;
+﻿using System;
+using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex
 {

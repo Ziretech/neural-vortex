@@ -91,5 +91,36 @@ namespace UseCase.NeuralVortex.Spec
         {
             Assert.That(new Spelvärldsområde(vänster, botten, höger, topp).ToString(), Is.EqualTo(beskrivning));
         }
+
+        [Test]
+        public void Omsluter_annat_område_som_är_mindre()
+        {
+            Assert.That(new Spelvärldsområde(0, 0, 3, 3).Omsluter(new Spelvärldsområde(1, 1, 2, 2)));
+        }
+        [Test]
+        public void Omsluter_annat_område_med_samma_dimensioner()
+        {
+            Assert.That(new Spelvärldsområde(0, 0, 3, 3).Omsluter(new Spelvärldsområde(0, 0, 3, 3)));
+        }
+        [Test]
+        public void Omsluter_inte_område_vars_vänster_är_längre_åt_vänster()
+        {
+            Assert.That(!new Spelvärldsområde(1, 2, 3, 4).Omsluter(new Spelvärldsområde(0, 2, 3, 4)));
+        }
+        [Test]
+        public void Omsluter_inte_område_vars_botten_är_längre_ner()
+        {
+            Assert.That(!new Spelvärldsområde(1, 2, 3, 4).Omsluter(new Spelvärldsområde(1, 1, 3, 4)));
+        }
+        [Test]
+        public void Omsluter_inte_område_vars_höger_är_längre_åt_höger()
+        {
+            Assert.That(!new Spelvärldsområde(1, 2, 3, 4).Omsluter(new Spelvärldsområde(1, 2, 4, 4)));
+        }
+        [Test]
+        public void Omsluter_inte_område_vars_topp_är_längre_upp()
+        {
+            Assert.That(!new Spelvärldsområde(1, 2, 3, 4).Omsluter(new Spelvärldsområde(1, 2, 3, 5)));
+        }
     }
 }
