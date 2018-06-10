@@ -138,12 +138,13 @@ namespace Adapter.Spelvärld.Spec
                 Assert.That(undantag.Message.ToLower(), Does.Contain("utan spelvärldsyta"));
             }
         }
-        [Test]
-        public void Gör_undantag_för_att_skapa_spelvärldsyta_med_bredd_mindre_än_1()
+        [TestCase(0, 1, "bredd")]
+        [TestCase(1, 0, "höjd")]
+        public void Gör_undantag_för_att_skapa_spelvärldsyta_med_dimension_mindre_än_1(int bredd, int höjd, string beskrivning)
         {
             try
             {
-                new Spelvärldsskapare(new Spelvärldsyta(0, 1));
+                new Spelvärldsskapare(new Spelvärldsyta(bredd, höjd));
                 Assert.Fail("Inget undantag gjordes.");
             }
             catch (ArgumentException undantag)
@@ -151,23 +152,7 @@ namespace Adapter.Spelvärld.Spec
                 Assert.That(undantag.Message.ToLower(), Does.Contain("spelvärldsskapare"));
                 Assert.That(undantag.Message.ToLower(), Does.Contain("spelvärldsyta"));
                 Assert.That(undantag.Message.ToLower(), Does.Contain("minst 1"));
-                Assert.That(undantag.Message.ToLower(), Does.Contain("bredd"));
-            }
-        }
-        [Test]
-        public void Gör_undantag_för_att_skapa_spelvärldsyta_med_höjd_mindre_än_1()
-        {
-            try
-            {
-                new Spelvärldsskapare(new Spelvärldsyta(1, 0));
-                Assert.Fail("Inget undantag gjordes.");
-            }
-            catch (ArgumentException undantag)
-            {
-                Assert.That(undantag.Message.ToLower(), Does.Contain("spelvärldsskapare"));
-                Assert.That(undantag.Message.ToLower(), Does.Contain("spelvärldsyta"));
-                Assert.That(undantag.Message.ToLower(), Does.Contain("minst 1"));
-                Assert.That(undantag.Message.ToLower(), Does.Contain("höjd"));
+                Assert.That(undantag.Message.ToLower(), Does.Contain(beskrivning));
             }
         }
         [Test]
@@ -200,9 +185,41 @@ namespace Adapter.Spelvärld.Spec
                 Assert.That(undantag.Message.ToLower(), Does.Contain("placeras inom karta"));
             }
         }
+        [TestCase(0, 1, "bredd")]
+        [TestCase(1, 0, "höjd")]
+        public void Gör_undantag_för_att_skapa_rum_med_dimension_0(int bredd, int höjd, string beskrivning)
+        {
+            try
+            {
+                new Spelvärldsskapare(new Spelvärldsyta(1, 1))
+                    .SkapaRum(new Spelvärldsområde(new Spelvärldsposition(0, 0), new Spelvärldsyta(bredd, höjd)));
+                Assert.Fail("Inget undantag gjordes.");
+            }
+            catch(ArgumentException undantag)
+            {
+                Assert.That(undantag.Message.ToLower(), Does.Contain("rum"));
+                Assert.That(undantag.Message.ToLower(), Does.Contain(beskrivning));
+            }
+        }
 
-        // TODO Spelvärldsskapare
-        // rum med dimensioner < 1
-        // skapa dörr utanför kartan
+        [TestCase(1, 0)]
+        [TestCase(2, 0)]
+        [TestCase(0, 1)]
+        [TestCase(0, 2)]
+        [TestCase(-1, 0)]
+        [TestCase(0, -1)]
+        public void Gör_undantag_för_att_placera_dörr_utanför_kartan(int x, int y)
+        {
+            try
+            {
+                new Spelvärldsskapare(new Spelvärldsyta(1, 1)).SkapaDörr(new Spelvärldsposition(x, y));
+                Assert.Fail("Inget undantag gjordes för att dörren placeras utanför kartan.");
+            }
+            catch (ArgumentException undantag)
+            {
+                Assert.That(undantag.Message.ToLower(), Does.Contain("dörr"));
+                Assert.That(undantag.Message.ToLower(), Does.Contain("utanför kartan"));
+            }
+        }
     }
 }
