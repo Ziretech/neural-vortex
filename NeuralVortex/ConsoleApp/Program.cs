@@ -34,13 +34,7 @@ namespace ConsoleApp
 
             const int kartbredd = 16;
             var spelvärldsskapare = new Spelvärldsskapare(new Spelvärldsyta(kartbredd, 16));
-            spelvärldsskapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(5, 5)));
-            spelvärldsskapare.SkapaDörr(new Spelvärldsposition(6, 3));
-            spelvärldsskapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(7, 2), new Spelvärldsyta(4, 3)));
-            spelvärldsskapare.SkapaDörr(new Spelvärldsposition(11, 3));
-            spelvärldsskapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(12, 1), new Spelvärldsyta(3, 6)));
-            spelvärldsskapare.SkapaDörr(new Spelvärldsposition(8, 5));
-            spelvärldsskapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(7, 6), new Spelvärldsyta(4, 4)));
+            new GenereraRumOchDörrar(spelvärldsskapare, new RumOchDörrarVäljare()).Generera();
             var karta = spelvärldsskapare.ByggKarta();
             var hinderkarta = karta.Select(x => x == 0).ToArray();
 

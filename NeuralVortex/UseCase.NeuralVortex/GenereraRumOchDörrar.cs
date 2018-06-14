@@ -12,34 +12,31 @@ namespace UseCase.NeuralVortex
     {
         private readonly ISpelvärldsskapare _skapare;
         private readonly IRumOchDörrarVäljare _väljare;
+        private readonly Spelvärldsposition _förstaRummetPosition;
 
         public GenereraRumOchDörrar(ISpelvärldsskapare skapare, IRumOchDörrarVäljare väljare)
         {
             _skapare = skapare ?? throw new ArgumentException("GenereraRumOchDörrar kan inte skapas utan Spelvärldsskapare");
             _väljare = väljare ?? throw new ArgumentException("GenereraRumOchDörrar kan inte skapas utan RumOchDörrarVäljare");
+            _förstaRummetPosition = new Spelvärldsposition(1, 1);
+
         }
 
         public void Generera()
         {
-            var position = new Spelvärldsposition(1, 1);
             var yta = _väljare.VäljRumstorlek();
-            var rumområde = new Spelvärldsområde(position, yta);
-            _skapare.SkapaRum(rumområde);
-
-            if(!_skapare.ÄrKartanFärdig())
-            {
-                var dörrpositioner = _väljare.VäljDörrpositioner(rumområde);
-                var valdDörrposition = dörrpositioner[0];
-                _skapare.SkapaDörr(valdDörrposition);
-
-                yta = _väljare.VäljRumstorlek();
-                position = _väljare.VäljRumposition(yta, valdDörrposition);
-
-                rumområde = new Spelvärldsområde(position, yta);
-                _skapare.SkapaRum(rumområde);
-            }
-
-            return;
+            _skapare.SkapaRum(new Spelvärldsområde(_förstaRummetPosition, yta));
         }
+
+        //public void Generera()
+        //{
+        //    _skapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(5, 5)));
+        //    _skapare.SkapaDörr(new Spelvärldsposition(6, 3));
+        //    _skapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(7, 2), new Spelvärldsyta(4, 3)));
+        //    _skapare.SkapaDörr(new Spelvärldsposition(11, 3));
+        //    _skapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(12, 1), new Spelvärldsyta(3, 6)));
+        //    _skapare.SkapaDörr(new Spelvärldsposition(8, 5));
+        //    _skapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(7, 6), new Spelvärldsyta(4, 4)));
+        //}
     }
 }
