@@ -59,7 +59,7 @@ namespace UseCase.NeuralVortex
 
         public override string ToString()
         {
-            return $"{_x}x{_y}";
+            return $"{_x},{_y}";
         }
     }
 }

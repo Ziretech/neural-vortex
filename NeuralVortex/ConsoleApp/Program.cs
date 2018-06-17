@@ -34,7 +34,7 @@ namespace ConsoleApp
 
             const int kartbredd = 16;
             var spelvärldsskapare = new Spelvärldsskapare(new Spelvärldsyta(kartbredd, 16));
-            new GenereraRumOchDörrar(spelvärldsskapare, new RumOchDörrarVäljare()).Generera();
+            new GenereraRumOchDörrar(spelvärldsskapare, new RumOchDörrarVäljare()).Generera(1);
             var karta = spelvärldsskapare.ByggKarta();
             var hinderkarta = karta.Select(x => x == 0).ToArray();
 

@@ -8,8 +8,10 @@ namespace UseCase.NeuralVortex.Spec
     {
         public Spelvärldsyta[] RumStorlekar { get; set; }
         private int _antalRumstorlekarHämtade = 0;
+        private int _antalRiktningarHämtade = 0;
         public Spelvärldsposition[][] Dörrpositioner { get; set; }
         public Spelvärldsposition[] Rumpositioner { get; set; }
+        public GenereraRumOchDörrar.Riktning[] Riktningar { get; internal set; }
 
         public Spelvärldsposition[] VäljDörrpositioner(Spelvärldsområde rumområde)
         {
@@ -24,6 +26,11 @@ namespace UseCase.NeuralVortex.Spec
         public Spelvärldsyta VäljRumstorlek()
         {
             return RumStorlekar[_antalRumstorlekarHämtade++];
+        }
+
+        public GenereraRumOchDörrar.Riktning VäljRiktning()
+        {
+            return Riktningar[_antalRiktningarHämtade++];
         }
     }
 }

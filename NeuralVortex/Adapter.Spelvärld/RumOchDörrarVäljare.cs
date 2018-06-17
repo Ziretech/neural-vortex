@@ -16,6 +16,11 @@ namespace Adapter.Spelvärld
             throw new NotImplementedException();
         }
 
+        public GenereraRumOchDörrar.Riktning VäljRiktning()
+        {
+            throw new NotImplementedException();
+        }
+
         public Spelvärldsposition VäljRumposition(Spelvärldsyta yta, Spelvärldsposition valdDörrposition)
         {
             throw new NotImplementedException();

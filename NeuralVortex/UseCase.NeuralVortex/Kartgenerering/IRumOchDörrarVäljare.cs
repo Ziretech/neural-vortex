@@ -12,5 +12,6 @@ namespace UseCase.NeuralVortex.Kartgenerering
         Spelvärldsyta VäljRumstorlek();
         Spelvärldsposition[] VäljDörrpositioner(Spelvärldsområde rumområde);
         Spelvärldsposition VäljRumposition(Spelvärldsyta yta, Spelvärldsposition valdDörrposition);
+        GenereraRumOchDörrar.Riktning VäljRiktning();
     }
 }

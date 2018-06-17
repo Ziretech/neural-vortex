@@ -14,6 +14,14 @@ namespace UseCase.NeuralVortex
         private readonly IRumOchDörrarVäljare _väljare;
         private readonly Spelvärldsposition _förstaRummetPosition;
 
+        public enum Riktning
+        {
+            Vänster,
+            Nedåt,
+            Höger,
+            Uppåt
+        }
+
         public GenereraRumOchDörrar(ISpelvärldsskapare skapare, IRumOchDörrarVäljare väljare)
         {
             _skapare = skapare ?? throw new ArgumentException("GenereraRumOchDörrar kan inte skapas utan Spelvärldsskapare");
@@ -22,10 +30,24 @@ namespace UseCase.NeuralVortex
 
         }
 
-        public void Generera()
+        public void Generera(int antalRum)
         {
             var yta = _väljare.VäljRumstorlek();
             _skapare.SkapaRum(new Spelvärldsområde(_förstaRummetPosition, yta));
+            if(antalRum == 2)
+            {
+                var riktning = _väljare.VäljRiktning();
+                if(riktning == Riktning.Höger)
+                {
+                    _skapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(3, 1), yta));
+                    _skapare.SkapaDörr(new Spelvärldsposition(2, 1));
+                }
+                else if(riktning == Riktning.Uppåt)
+                {
+                    _skapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 3), yta));
+                    _skapare.SkapaDörr(new Spelvärldsposition(1, 2));
+                }
+            }
         }
 
         //public void Generera()

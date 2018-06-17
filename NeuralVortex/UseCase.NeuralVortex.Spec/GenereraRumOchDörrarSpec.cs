@@ -19,8 +19,24 @@ namespace UseCase.NeuralVortex.Spec
             var skapare = new SpelvärldsskapareMock(1);
             new GenereraRumOchDörrar(skapare, new RumOchDörrarVäljareMock {
                 RumStorlekar = new[] {new Spelvärldsyta(bredd, höjd)}
-            }).Generera();
+            }).Generera(1);
             Assert.That(skapare.AnropadesMedRum[0], Is.EqualTo(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(bredd, höjd))));
+        }
+        [TestCase(GenereraRumOchDörrar.Riktning.Höger, 3, 1, 2, 1)]
+        [TestCase(GenereraRumOchDörrar.Riktning.Uppåt, 1, 3, 1, 2)]
+        public void Genererar_karta_med_två_1x1_rum_och_en_dörr(GenereraRumOchDörrar.Riktning riktning, int rum2X, int rum2Y, int dörrX, int dörrY)
+        {
+            var skapare = new SpelvärldsskapareMock(1); // TODO: Tag bort antalet steg (används inte för stunden)
+            new GenereraRumOchDörrar(skapare, new RumOchDörrarVäljareMock
+            {
+                RumStorlekar = new[] { new Spelvärldsyta(1, 1), new Spelvärldsyta(1, 1) },
+                Riktningar = new[] { riktning }
+            }).Generera(2);
+            Assert.That(skapare.AnropadesMedRum.Count, Is.EqualTo(2), "Antal rum");
+            Assert.That(skapare.AnropadesMedRum[0], Is.EqualTo(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(1, 1))), "Första rummet");
+            Assert.That(skapare.AnropadesMedRum[1], Is.EqualTo(new Spelvärldsområde(new Spelvärldsposition(rum2X, rum2Y), new Spelvärldsyta(1, 1))), "Andra rummet");
+            Assert.That(skapare.AnropadesMedDörr.Count, Is.EqualTo(1), "Antal dörrar");
+            Assert.That(skapare.AnropadesMedDörr[0], Is.EqualTo(new Spelvärldsposition(dörrX, dörrY)), "Dörrens placering");
         }
 
         [TestCase(false, true, "spelvärldsskapare")]

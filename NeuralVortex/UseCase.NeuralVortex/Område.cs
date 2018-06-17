@@ -9,8 +9,6 @@ namespace UseCase.NeuralVortex
         protected readonly int _botten;
         protected readonly int _vänster;
         protected readonly int _höger;
-        private Spelvärldsposition position;
-        private Spelvärldsyta yta;
 
         public Område(Position position, Yta yta) : this(position.X, position.Y, position.X + yta.Bredd, position.Y + yta.Höjd) { }
 
