@@ -39,6 +39,13 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(skapare.AnropadesMedDörr[0], Is.EqualTo(new Spelvärldsposition(dörrX, dörrY)), "Dörrens placering");
         }
 
+        /// TODO: GenereraRumOchDörrar
+        /// Ett rum med 2x1 måste välja var på bredden dörren ska sitta
+        /// Ett rum med 1x2 måste välja var på höjden dörren ska sitta
+        /// Ännu större rum med ännu fler möjligheter
+        /// Tre rum som sitter ihop
+        /// Ännu fler rum som sitter ihop
+
         [TestCase(false, true, "spelvärldsskapare")]
         [TestCase(true, false, "rumochdörrarväljare")]
         public void Gör_undantag_om_skapare_saknas_så_att_de_inte_behöver_kontrolleras_senare(bool användSkapare, bool användVäljare, string beskrivning)
