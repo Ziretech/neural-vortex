@@ -13,6 +13,8 @@ namespace UseCase.NeuralVortex
         private readonly ISpelvärldsskapare _skapare;
         private readonly IRumOchDörrarVäljare _väljare;
         private readonly Spelvärldsposition _förstaRummetPosition;
+        private List<Spelvärldsområde> _rum;
+        private List<Spelvärldsposition> _dörrar;
 
         public enum Riktning
         {
@@ -27,27 +29,43 @@ namespace UseCase.NeuralVortex
             _skapare = skapare ?? throw new ArgumentException("GenereraRumOchDörrar kan inte skapas utan Spelvärldsskapare");
             _väljare = väljare ?? throw new ArgumentException("GenereraRumOchDörrar kan inte skapas utan RumOchDörrarVäljare");
             _förstaRummetPosition = new Spelvärldsposition(1, 1);
-
+            _rum = new List<Spelvärldsområde>();
+            _dörrar = new List<Spelvärldsposition>();
         }
 
         public void Generera(int antalRum)
         {
             var yta = _väljare.VäljRumstorlek();
-            _skapare.SkapaRum(new Spelvärldsområde(_förstaRummetPosition, yta));
-            if(antalRum == 2)
+            SkapaRum(_förstaRummetPosition, yta);
+            while(antalRum > 1)
             {
+                var valtRum = _rum.Last();
+
                 var riktning = _väljare.VäljRiktning();
                 if(riktning == Riktning.Höger)
                 {
-                    _skapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(3, 1), yta));
-                    _skapare.SkapaDörr(new Spelvärldsposition(2, 1));
+                    SkapaRum(new Spelvärldsposition(valtRum.Vänster + 1 + 1, valtRum.Botten), yta);
+                    SkapaDörr(new Spelvärldsposition(valtRum.Vänster + 1, valtRum.Botten));
                 }
                 else if(riktning == Riktning.Uppåt)
                 {
-                    _skapare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 3), yta));
-                    _skapare.SkapaDörr(new Spelvärldsposition(1, 2));
+                    SkapaRum(new Spelvärldsposition(valtRum.Vänster, valtRum.Botten + 1 + 1), yta);
+                    SkapaDörr(new Spelvärldsposition(valtRum.Vänster, valtRum.Botten + 1));
                 }
+                antalRum--;
             }
+        }
+
+        private void SkapaRum(Spelvärldsposition position, Spelvärldsyta yta)
+        {
+            var rum = new Spelvärldsområde(position, yta);
+            _skapare.SkapaRum(rum);
+            _rum.Add(rum);
+        }
+        private void SkapaDörr(Spelvärldsposition position)
+        {
+            _skapare.SkapaDörr(position);
+            _dörrar.Add(position);
         }
 
         //public void Generera()

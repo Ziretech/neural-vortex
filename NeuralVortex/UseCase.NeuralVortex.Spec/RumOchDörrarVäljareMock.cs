@@ -12,6 +12,7 @@ namespace UseCase.NeuralVortex.Spec
         public Spelvärldsposition[][] Dörrpositioner { get; set; }
         public Spelvärldsposition[] Rumpositioner { get; set; }
         public GenereraRumOchDörrar.Riktning[] Riktningar { get; internal set; }
+        public int[] Dörrplacering { get; internal set; }
 
         public Spelvärldsposition[] VäljDörrpositioner(Spelvärldsområde rumområde)
         {
