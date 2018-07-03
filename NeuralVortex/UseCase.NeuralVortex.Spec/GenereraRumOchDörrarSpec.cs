@@ -17,8 +17,9 @@ namespace UseCase.NeuralVortex.Spec
         public void Genererar_karta_med_ett_rum(int bredd, int höjd)
         {
             var skapare = new SpelvärldsskapareMock(1);
-            new GenereraRumOchDörrar(skapare, new RumOchDörrarVäljareMock {
-                RumStorlekar = new[] {new Spelvärldsyta(bredd, höjd)}
+            new GenereraRumOchDörrar(skapare, new RumOchDörrarVäljareMock
+            {
+                RumStorlekar = new[] { new Spelvärldsyta(bredd, höjd) }
             }).Generera(1);
             Assert.That(skapare.AnropadesMedRum[0], Is.EqualTo(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(bredd, höjd))));
         }
@@ -79,7 +80,6 @@ namespace UseCase.NeuralVortex.Spec
         }
 
         /// TODO: GenereraRumOchDörrar
-        /// Tre rum som sitter ihop
         /// Fyra rum som sitter ihop
         /// Fyra rum som sitter ihop, sista åt vänster
         /// Fyra rum som sitter ihop, sista åt höger
