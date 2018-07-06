@@ -45,14 +45,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenereraRumOchDörrarSpec.cs" />
     <Compile Include="GrafikMock.cs" />
     <Compile Include="HinderkartaMock.cs" />
     <Compile Include="KameraMock.cs" />
     <Compile Include="Kartgenerering\SpelvärldsskapareMock.cs" />
     <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />
-    <Compile Include="RumOchDörrarVäljareMock.cs" />
     <Compile Include="SpelvärldMock.cs" />
     <Compile Include="SpelvärldsområdeSpec.cs" />
     <Compile Include="Spelvärld\SpelvärldspositionSpec.cs" />

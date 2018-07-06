@@ -40,9 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenereraRumOchDörrar.cs" />
     <Compile Include="IPositionskonverterare.cs" />
-    <Compile Include="Kartgenerering\IRumOchDörrarVäljare.cs" />
     <Compile Include="Kartgenerering\ISpelvärldsskapare.cs" />
     <Compile Include="Kontroll\IHinderkarta.cs" />
     <Compile Include="Område.cs" />
