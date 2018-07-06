@@ -17,6 +17,7 @@ namespace ConsoleApp
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             var tileset = new BildWrapper("Images/tiles.png");
@@ -62,7 +63,14 @@ namespace ConsoleApp
             };
             
             spelvärld.MiljöGrafik = new Brickfält(glWrapper, kamera, positionskonverterare, definitioner, kartbredd, karta);
-            
+
+            spelvärld.Fienden = new List<Fiende>
+            {
+                new Fiende {
+                    Position = new Spelvärldsposition(2, 2),
+                    Grafik = new Bricka(glWrapper, kamera, new Skärmposition(3*16, 0), new Skärmyta(16, 16))
+                }
+            };
 
             fönster.Kör(60.0, 60.0);
         }

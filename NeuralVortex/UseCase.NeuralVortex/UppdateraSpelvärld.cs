@@ -15,6 +15,14 @@ namespace UseCase.NeuralVortex
         private IKamera _kamera;
         private IHinderkarta _hinderkarta;
 
+        private enum Riktning
+        {
+            Upp,
+            Ner,
+            Höger,
+            Vänster
+        }
+
         public UppdateraSpelvärld(ISpelvärld spelvärld, IKamera kamera, IHinderkarta hinderkarta = null)
         {
             _spelvärld = spelvärld;
@@ -29,27 +37,46 @@ namespace UseCase.NeuralVortex
                 return SpeletsFortsättning.Avsluta;
             }
 
-            FlyttaKaraktär(tangent);
+            var riktning = TangentensFörflyttningAvKaraktären(tangent);
+            if(riktning.HasValue)
+            {
+                _spelvärld.Huvudkaraktär.Position = BeräknaNyPosition(riktning.Value, _spelvärld.Huvudkaraktär.Position);
+            }
 
             return SpeletsFortsättning.Fortsätt;
         }
 
-        public void FlyttaKaraktär(Tangent tangent)
+        private Riktning? TangentensFörflyttningAvKaraktären(Tangent tangent)
         {
-            var tidigarePosition = _spelvärld.Huvudkaraktär.Position;
-            Spelvärldsposition nyPosition = null;
             switch(tangent)
             {
                 case Tangent.Upp:
+                    return Riktning.Upp;
+                case Tangent.Ner:
+                    return Riktning.Ner;
+                case Tangent.Höger:
+                    return Riktning.Höger;
+                case Tangent.Vänster:
+                    return Riktning.Vänster;
+            }
+            return null;
+        }
+
+        private Spelvärldsposition BeräknaNyPosition(Riktning riktning, Spelvärldsposition tidigarePosition)
+        {
+            Spelvärldsposition nyPosition = null;
+            switch(riktning)
+            {
+                case Riktning.Upp:
                     nyPosition = new Spelvärldsposition(tidigarePosition.X, tidigarePosition.Y + 1);
                     break;
-                case Tangent.Ner:
+                case Riktning.Ner:
                     nyPosition = new Spelvärldsposition(tidigarePosition.X, tidigarePosition.Y - 1);
                     break;
-                case Tangent.Vänster:
+                case Riktning.Vänster:
                     nyPosition = new Spelvärldsposition(tidigarePosition.X - 1, tidigarePosition.Y);
                     break;
-                case Tangent.Höger:
+                case Riktning.Höger:
                     nyPosition = new Spelvärldsposition(tidigarePosition.X + 1, tidigarePosition.Y);
                     break;
             }
@@ -58,10 +85,10 @@ namespace UseCase.NeuralVortex
             {
                 if(_hinderkarta == null || !_hinderkarta.Hindrar(nyPosition))
                 {
-                    _spelvärld.Huvudkaraktär.Position = nyPosition;
+                    return nyPosition;
                 }                
             }
-
+            return tidigarePosition;
         }
     }
 }

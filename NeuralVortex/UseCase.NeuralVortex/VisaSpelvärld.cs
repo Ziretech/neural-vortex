@@ -30,9 +30,9 @@ namespace UseCase.NeuralVortex
             }
 
             var fienden = _spelvärld.Fienden;
-            if(fienden != null)
+            if (fienden != null)
             {
-                foreach(var fiende in fienden)
+                foreach (var fiende in fienden)
                 {
                     fiende.Grafik.Visa(_konvertera.TillPunkt(fiende.Position));
                 }
