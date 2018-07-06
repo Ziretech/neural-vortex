@@ -15,14 +15,6 @@ namespace UseCase.NeuralVortex
         private IKamera _kamera;
         private IHinderkarta _hinderkarta;
 
-        private enum Riktning
-        {
-            Upp,
-            Ner,
-            Höger,
-            Vänster
-        }
-
         public UppdateraSpelvärld(ISpelvärld spelvärld, IKamera kamera, IHinderkarta hinderkarta = null)
         {
             _spelvärld = spelvärld;
@@ -37,58 +29,46 @@ namespace UseCase.NeuralVortex
                 return SpeletsFortsättning.Avsluta;
             }
 
-            var riktning = TangentensFörflyttningAvKaraktären(tangent);
-            if(riktning.HasValue)
-            {
-                _spelvärld.Huvudkaraktär.Position = BeräknaNyPosition(riktning.Value, _spelvärld.Huvudkaraktär.Position);
-            }
+            _spelvärld.Huvudkaraktär.Position = BeräknaNyPosition(Förflyttningsriktning(tangent), _spelvärld.Huvudkaraktär.Position);
+
+            //foreach(var fiende in _spelvärld.Fienden)
+            //{
+            //    fiende.Position = BeräknaNyPosition(new Spelvärldsposition(0, 1), fiende.Position);
+            //}
 
             return SpeletsFortsättning.Fortsätt;
         }
 
-        private Riktning? TangentensFörflyttningAvKaraktären(Tangent tangent)
+        private Spelvärldsposition Förflyttningsriktning(Tangent tangent)
         {
             switch(tangent)
             {
                 case Tangent.Upp:
-                    return Riktning.Upp;
+                    return new Spelvärldsposition(0, 1);
                 case Tangent.Ner:
-                    return Riktning.Ner;
+                    return new Spelvärldsposition(0, -1);
                 case Tangent.Höger:
-                    return Riktning.Höger;
+                    return new Spelvärldsposition(1, 0);
                 case Tangent.Vänster:
-                    return Riktning.Vänster;
+                    return new Spelvärldsposition(-1, 0);
             }
-            return null;
+            return new Spelvärldsposition(0, 0);
         }
 
-        private Spelvärldsposition BeräknaNyPosition(Riktning riktning, Spelvärldsposition tidigarePosition)
+        private Spelvärldsposition BeräknaNyPosition(Spelvärldsposition riktning, Spelvärldsposition tidigarePosition)
         {
-            Spelvärldsposition nyPosition = null;
-            switch(riktning)
-            {
-                case Riktning.Upp:
-                    nyPosition = new Spelvärldsposition(tidigarePosition.X, tidigarePosition.Y + 1);
-                    break;
-                case Riktning.Ner:
-                    nyPosition = new Spelvärldsposition(tidigarePosition.X, tidigarePosition.Y - 1);
-                    break;
-                case Riktning.Vänster:
-                    nyPosition = new Spelvärldsposition(tidigarePosition.X - 1, tidigarePosition.Y);
-                    break;
-                case Riktning.Höger:
-                    nyPosition = new Spelvärldsposition(tidigarePosition.X + 1, tidigarePosition.Y);
-                    break;
-            }
+            Spelvärldsposition nyPosition = tidigarePosition.Plus(riktning);
 
-            if(nyPosition != null)
+            if(PassageTillåtenTillPosition(nyPosition))
             {
-                if(_hinderkarta == null || !_hinderkarta.Hindrar(nyPosition))
-                {
-                    return nyPosition;
-                }                
+                return nyPosition;
             }
             return tidigarePosition;
+        }
+
+        private bool PassageTillåtenTillPosition(Spelvärldsposition position)
+        {
+            return _hinderkarta == null || !_hinderkarta.Hindrar(position);
         }
     }
 }
