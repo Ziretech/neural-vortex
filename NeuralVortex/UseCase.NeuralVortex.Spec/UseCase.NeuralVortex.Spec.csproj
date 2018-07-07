@@ -45,7 +45,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\FramOchTillbakaFörflyttning.cs" />
     <Compile Include="AI\RaktFramFörflyttning.cs" />
     <Compile Include="GrafikMock.cs" />
     <Compile Include="HinderkartaMock.cs" />
