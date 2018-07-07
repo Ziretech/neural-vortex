@@ -36,7 +36,7 @@ namespace UseCase.NeuralVortex
 
             foreach(var fiende in _spelvärld.Fienden)
             {
-                fiende.Position = BeräknaNyPosition(new Spelvärldsposition(0, 1), fiende.Position);
+                fiende.Position = BeräknaNyPosition(fiende.Riktningsgenerator.NästaRiktning, fiende.Position);
             }
 
             return SpeletsFortsättning.Fortsätt;

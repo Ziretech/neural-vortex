@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\IRiktningsgenerator.cs" />
     <Compile Include="IPositionskonverterare.cs" />
     <Compile Include="Kartgenerering\ISpelvärldsskapare.cs" />
     <Compile Include="Kontroll\IHinderkarta.cs" />
