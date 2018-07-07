@@ -102,5 +102,21 @@ namespace UseCase.NeuralVortex.Spec
 
             Assert.That(spelvärld.Huvudkaraktär.Position.Y, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Flytta_fienden_uppåt()
+        {
+            var spelvärld = new SpelvärldMock {
+                Fienden = new List<Fiende>
+                {
+                    new Fiende { Position = new Spelvärldsposition(0, 0)}
+                }
+            };
+            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
+
+            uppdateraSpelvärld.Uppdatera(Tangent.Ner);
+
+            Assert.That(spelvärld.Fienden.First().Position.Y, Is.EqualTo(1));
+        }
     }
 }

@@ -9,5 +9,10 @@ namespace UseCase.NeuralVortex.Spec
         public Huvudkaraktär Huvudkaraktär { get; set; }
         public IGrafik MiljöGrafik { get; set; }
         public IEnumerable<Fiende> Fienden { get; set; }
+
+        public SpelvärldMock()
+        {
+            Fienden = new List<Fiende>();
+        }
     }
 }

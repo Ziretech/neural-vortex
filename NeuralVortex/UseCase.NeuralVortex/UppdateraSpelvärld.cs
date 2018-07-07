@@ -29,12 +29,15 @@ namespace UseCase.NeuralVortex
                 return SpeletsFortsättning.Avsluta;
             }
 
-            _spelvärld.Huvudkaraktär.Position = BeräknaNyPosition(Förflyttningsriktning(tangent), _spelvärld.Huvudkaraktär.Position);
+            if(_spelvärld.Huvudkaraktär != null)
+            {
+                _spelvärld.Huvudkaraktär.Position = BeräknaNyPosition(Förflyttningsriktning(tangent), _spelvärld.Huvudkaraktär.Position);
+            }            
 
-            //foreach(var fiende in _spelvärld.Fienden)
-            //{
-            //    fiende.Position = BeräknaNyPosition(new Spelvärldsposition(0, 1), fiende.Position);
-            //}
+            foreach(var fiende in _spelvärld.Fienden)
+            {
+                fiende.Position = BeräknaNyPosition(new Spelvärldsposition(0, 1), fiende.Position);
+            }
 
             return SpeletsFortsättning.Fortsätt;
         }

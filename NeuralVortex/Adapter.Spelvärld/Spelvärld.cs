@@ -19,6 +19,7 @@ namespace Adapter.Spelvärld
         public Spelvärld()
         {
             KameraPosition = new Spelvärldsposition(0, 0);
+            Fienden = new List<Fiende>();
         }
     }
 }
