@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AI\FramOchTillbakaFörflyttning.cs" />
     <Compile Include="AI\IRiktningsgenerator.cs" />
+    <Compile Include="AI\SekvensFörflyttning.cs" />
     <Compile Include="IPositionskonverterare.cs" />
     <Compile Include="Kartgenerering\ISpelvärldsskapare.cs" />
     <Compile Include="Kontroll\IHinderkarta.cs" />

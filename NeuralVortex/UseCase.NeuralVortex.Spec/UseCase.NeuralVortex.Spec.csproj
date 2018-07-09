@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\RaktFramFörflyttning.cs" />
+    <Compile Include="AI\SekvensFörflyttningSpec.cs" />
     <Compile Include="GrafikMock.cs" />
     <Compile Include="HinderkartaMock.cs" />
     <Compile Include="KameraMock.cs" />
