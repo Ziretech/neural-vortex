@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UseCase.NeuralVortex;
+using UseCase.NeuralVortex.AI;
 using UseCase.NeuralVortex.Kontroll;
 using UseCase.NeuralVortex.Spec.AI;
 using UseCase.NeuralVortex.Spelvärld;
@@ -70,7 +71,13 @@ namespace ConsoleApp
                 new Fiende {
                     Position = new Spelvärldsposition(2, 2),
                     Grafik = new Bricka(glWrapper, kamera, new Skärmposition(3*16, 0), new Skärmyta(16, 16)),
-                    Riktningsgenerator = new FramOchTillbakaFörflyttning()
+                    Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>
+                    {
+                        new Spelvärldsposition(1, 0),
+                        new Spelvärldsposition(0, 1),
+                        new Spelvärldsposition(-1, 0),
+                        new Spelvärldsposition(0, -1)
+                    })
                 }
             };
 
