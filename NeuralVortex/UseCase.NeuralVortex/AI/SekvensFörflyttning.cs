@@ -9,6 +9,23 @@ namespace UseCase.NeuralVortex.AI
 {
     public class SekvensFörflyttning : IRiktningsgenerator
     {
-        public Spelvärldsposition NästaRiktning => new Spelvärldsposition(1, 0);
+        private int _nästa = 0;
+        private List<Spelvärldsposition> _förflyttningar;
+
+        public SekvensFörflyttning(List<Spelvärldsposition> förflyttningar)
+        {
+            _förflyttningar = förflyttningar;
+        }
+
+        public Spelvärldsposition NästaRiktning
+        {
+            get
+            {
+                if (_nästa >= _förflyttningar.Count)
+                    _nästa = 0;
+
+                return _förflyttningar[_nästa++];
+            }
+        }
     }
 }
