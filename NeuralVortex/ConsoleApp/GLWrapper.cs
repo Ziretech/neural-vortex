@@ -78,7 +78,7 @@ namespace ConsoleApp
 
         public void VäljAlphakanalBlandning()
         {
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         }
 
         public void VäljModellmatris()
