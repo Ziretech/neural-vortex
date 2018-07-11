@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using UseCase.NeuralVortex;
 using UseCase.NeuralVortex.AI;
 using UseCase.NeuralVortex.Kontroll;
-using UseCase.NeuralVortex.Spec.AI;
 using UseCase.NeuralVortex.Spelvärld;
 using UseCase.NeuralVortex.Visning;
 

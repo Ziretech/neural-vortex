@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCase.NeuralVortex.AI;
 using UseCase.NeuralVortex.Kontroll;
 using UseCase.NeuralVortex.Spec.AI;
 using UseCase.NeuralVortex.Spelvärld;
@@ -110,7 +111,7 @@ namespace UseCase.NeuralVortex.Spec
             var spelvärld = new SpelvärldMock {
                 Fienden = new List<Fiende>
                 {
-                    new Fiende { Position = new Spelvärldsposition(0, 0), Riktningsgenerator = new RaktFramFörflyttning(new Spelvärldsposition(0, 1))}
+                    new Fiende { Position = new Spelvärldsposition(0, 0), Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>{ new Spelvärldsposition(0, 1) }, new SekvensFörflyttning.IterativIndexgenerator())}
                 }
             };
             var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
@@ -121,38 +122,21 @@ namespace UseCase.NeuralVortex.Spec
         }
 
         [Test]
-        public void Flytta_fienden_nedåt()
+        public void Flytta_fienden_upp_till_höger()
         {
             var spelvärld = new SpelvärldMock
             {
                 Fienden = new List<Fiende>
                 {
-                    new Fiende { Position = new Spelvärldsposition(0, 1), Riktningsgenerator = new RaktFramFörflyttning(new Spelvärldsposition(0, -1))}                    
+                    new Fiende { Position = new Spelvärldsposition(0, 0), Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(0, 1), new Spelvärldsposition(1, 0) }, new SekvensFörflyttning.IterativIndexgenerator()) }
                 }
             };
             var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
 
             uppdateraSpelvärld.Uppdatera(Tangent.Höger);
+            uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
 
-            Assert.That(spelvärld.Fienden.First().Position.Y, Is.EqualTo(0));
-        }
-
-        [Test]
-        public void Flytta_fienden_fram_och_tillbaka()
-        {
-            var spelvärld = new SpelvärldMock
-            {
-                Fienden = new List<Fiende>
-                {
-                    new Fiende { Position = new Spelvärldsposition(0, 1), Riktningsgenerator = new FramOchTillbakaFörflyttning() }
-                }
-            };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, new KameraMock());
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Höger);
-            Assert.That(spelvärld.Fienden.First().Position, Is.EqualTo(new Spelvärldsposition(0, 2)), "Första förfyttningen");
-            uppdateraSpelvärld.Uppdatera(Tangent.Höger);
-            Assert.That(spelvärld.Fienden.First().Position, Is.EqualTo(new Spelvärldsposition(0, 1)), "Andra förflyttningen");
+            Assert.That(spelvärld.Fienden.First().Position, Is.EqualTo(new Spelvärldsposition(1, 1)));
         }
     }
 }
