@@ -7,7 +7,7 @@ using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex.Kartgenerering
 {
-    public interface ISpelvärldsskapare
+    public interface IKartritare
     {
         void SkapaRum(Spelvärldsområde område);
         void SkapaDörr(Spelvärldsposition position);

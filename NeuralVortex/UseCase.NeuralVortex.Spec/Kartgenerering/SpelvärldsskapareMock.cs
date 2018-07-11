@@ -8,7 +8,7 @@ using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex.Spec.Kartgenerering
 {
-    public class SpelvärldsskapareMock : ISpelvärldsskapare
+    public class SpelvärldsskapareMock : IKartritare
     {
         public List<Spelvärldsposition> AnropadesMedDörr { get; private set; }
         public List<Spelvärldsområde> AnropadesMedRum { get; private set; }

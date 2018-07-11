@@ -9,13 +9,13 @@ using UseCase.NeuralVortex.Spelvärld;
 
 namespace Adapter.Spelvärld
 {
-    public class Spelvärldsskapare : ISpelvärldsskapare
+    public class Kartritare : IKartritare
     {
         private Spelvärldsyta _spelvärldsyta;
         private List<Spelvärldsområde> _rum;
         private List<Spelvärldsposition> _dörr;
 
-        public Spelvärldsskapare(Spelvärldsyta spelvärldsyta)
+        public Kartritare(Spelvärldsyta spelvärldsyta)
         {
             _spelvärldsyta = spelvärldsyta ?? throw new ArgumentException("Spelvärldsskapare kan inte skapas utan spelvärldsyta.");
             if(_spelvärldsyta.Bredd < 1)

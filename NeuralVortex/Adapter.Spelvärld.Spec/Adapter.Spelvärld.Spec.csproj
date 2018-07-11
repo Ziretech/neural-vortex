@@ -39,7 +39,7 @@
   <ItemGroup>
     <Compile Include="HinderkartaSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpelvärldsskapareSpec.cs" />
+    <Compile Include="KartritareSpec.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
