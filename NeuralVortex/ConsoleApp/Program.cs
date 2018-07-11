@@ -69,7 +69,7 @@ namespace ConsoleApp
             spelvärld.Fienden = new List<Fiende>
             {
                 new Fiende {
-                    Position = new Spelvärldsposition(2, 2),
+                    Position = new Spelvärldsposition(5, 5),
                     Grafik = new Bricka(glWrapper, kamera, new Skärmposition(3*16, 0), new Skärmyta(16, 16)),
                     Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>
                     {
@@ -77,7 +77,7 @@ namespace ConsoleApp
                         new Spelvärldsposition(0, 1),
                         new Spelvärldsposition(-1, 0),
                         new Spelvärldsposition(0, -1)
-                    }, new SekvensFörflyttning.IterativIndexgenerator())
+                    }, new SekvensFörflyttning.SlumpmässigIndexgenerator())
                 }
             };
 
