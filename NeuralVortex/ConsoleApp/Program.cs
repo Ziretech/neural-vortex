@@ -77,7 +77,7 @@ namespace ConsoleApp
                         new Spelvärldsposition(0, 1),
                         new Spelvärldsposition(-1, 0),
                         new Spelvärldsposition(0, -1)
-                    })
+                    }, new SekvensFörflyttning.IterativIndexgenerator())
                 }
             };
 

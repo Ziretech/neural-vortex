@@ -18,7 +18,7 @@ namespace UseCase.NeuralVortex.Spec.AI
         [TestCase(0, -1)]
         public void HarNästaRiktning(int x, int y)
         {
-            var förflyttning = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(x, y) });
+            var förflyttning = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(x, y) }, new SekvensFörflyttning.IterativIndexgenerator());
             Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(x, y)));
         }
 
@@ -26,7 +26,7 @@ namespace UseCase.NeuralVortex.Spec.AI
         [TestCase(0, -1, 1, 0)]
         public void HarTvåRiktningar(int x1, int y1, int x2, int y2)
         {
-            var förflyttning = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(x1, y1), new Spelvärldsposition(x2, y2) });
+            var förflyttning = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(x1, y1), new Spelvärldsposition(x2, y2) }, new SekvensFörflyttning.IterativIndexgenerator());
             Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(x1, y1)), "Första förflyttningen");
             Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(x2, y2)), "Andra förflyttningen");
         }
@@ -34,10 +34,22 @@ namespace UseCase.NeuralVortex.Spec.AI
         [Test]
         public void RepeterarTredjeRiktningenEfterTvåRiktningar()
         {
-            var förflyttning = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(1, 0), new Spelvärldsposition(0, -1) });
+            var förflyttning = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(1, 0), new Spelvärldsposition(0, -1) }, new SekvensFörflyttning.IterativIndexgenerator());
             Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(1, 0)), "Första förflyttningen");
             Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(0, -1)), "Andra förflyttningen");
             Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(1, 0)), "Repetera första förflyttningen");
+        }
+
+        [Test]
+        public void VäljerRiktningSlumpmässigt()
+        {
+            var förflyttning = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(1, 0), new Spelvärldsposition(0, -1) }, new SekvensFörflyttning.SlumpmässigIndexgenerator(11));
+            Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(0, -1)), "Första förflyttningen");
+            Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(0, -1)), "Andra förflyttningen");
+            Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(0, -1)), "Tredje förflyttningen");
+            Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(1, 0)), "Fjärde förflyttningen");
+            Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(0, -1)), "Femte förflyttningen");
+            Assert.That(förflyttning.NästaRiktning, Is.EqualTo(new Spelvärldsposition(1, 0)), "Sjätte förflyttningen");
         }
     }
 }

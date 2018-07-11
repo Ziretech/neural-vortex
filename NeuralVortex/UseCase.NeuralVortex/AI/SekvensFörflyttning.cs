@@ -9,22 +9,49 @@ namespace UseCase.NeuralVortex.AI
 {
     public class SekvensFörflyttning : IRiktningsgenerator
     {
-        private int _nästa = 0;
         private List<Spelvärldsposition> _förflyttningar;
+        private Indexgenerator _indexgenerator;
 
-        public SekvensFörflyttning(List<Spelvärldsposition> förflyttningar)
+        public SekvensFörflyttning(List<Spelvärldsposition> förflyttningar, Indexgenerator indexgenerator)
         {
             _förflyttningar = förflyttningar;
+            _indexgenerator = indexgenerator;
         }
 
-        public Spelvärldsposition NästaRiktning
-        {
-            get
-            {
-                if (_nästa >= _förflyttningar.Count)
-                    _nästa = 0;
+        public Spelvärldsposition NästaRiktning => _förflyttningar[_indexgenerator.NästaIndex(_förflyttningar.Count)];
 
-                return _förflyttningar[_nästa++];
+        public interface Indexgenerator
+        {
+            int NästaIndex(int antalIndex);
+        }
+
+        public class IterativIndexgenerator : Indexgenerator
+        {
+            private int _nästa = 0;
+
+            public int NästaIndex(int antalIndex)
+            {
+                if (_nästa >= antalIndex)
+                    _nästa = 0;
+                return _nästa++;
+            }
+        }
+
+        public class SlumpmässigIndexgenerator : Indexgenerator
+        {
+            private Random _slump = new Random();
+
+            public SlumpmässigIndexgenerator(int seed = -1)
+            {
+                if(seed >= 0)
+                {
+                    _slump = new Random(seed);
+                }
+            }
+
+            public int NästaIndex(int antalIndex)
+            {
+                return _slump.Next() % antalIndex;
             }
         }
     }
