@@ -12,6 +12,7 @@ namespace Adapter.Spelvärld
     {
         private bool[] _hinder;
         private readonly int _kartbredd;
+        private int Höjd => _hinder.Count() / _kartbredd;
 
         public Hinderkarta(bool[] hinder, int kartbredd)
         {
@@ -30,6 +31,46 @@ namespace Adapter.Spelvärld
                 return true;
             }
             return false;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var hinderkarta = obj as Hinderkarta;
+            return hinderkarta != null &&
+                   LikadanaHinder(hinderkarta._hinder) &&
+                   _kartbredd == hinderkarta._kartbredd;
+        }
+
+        private bool LikadanaHinder(bool[] andraHinder)
+        {
+            if (_hinder == null && andraHinder == null)
+                return true;
+            if (_hinder == null && andraHinder != null ||
+                _hinder != null && andraHinder == null)
+                return false;
+            if (_hinder.Count() != andraHinder.Count())
+                return false;
+
+            for(var i = 0; i < _hinder.Count(); i++)
+            {
+                if (_hinder[i] != andraHinder[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -2146417801;
+            hashCode = hashCode * -1521134295 + EqualityComparer<bool[]>.Default.GetHashCode(_hinder);
+            hashCode = hashCode * -1521134295 + _kartbredd.GetHashCode();
+            return hashCode;
+        }
+
+        public override string ToString()
+        {
+            return _hinder == null ? "Hinderkarta utan hinder" : $"{ _kartbredd }x{ Höjd }";
         }
     }
 }

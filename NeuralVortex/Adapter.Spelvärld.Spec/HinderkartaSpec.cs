@@ -12,7 +12,7 @@ namespace Adapter.Spelvärld.Spec
     public class HinderkartaSpec
     {
         [Test]
-        public void Kan_skapas_utan_hinder()
+        public void Kan_skapas_utan_hinder() // eftersom det gör att man kan köra en karta helt utan hinder
         {
             var hinderkarta = new Hinderkarta(null, 0);
             Assert.That(!hinderkarta.Hindrar(new Spelvärldsposition(1, 2)));
@@ -74,7 +74,81 @@ namespace Adapter.Spelvärld.Spec
             Assert.That(hinderkarta.Hindrar(new Spelvärldsposition(1, 1)));
         }
 
-        // TODO Hinderkarta
-        // testar hinder på position utanför kartan (felhantering)
+        [Test]
+        public void Anser_att_två_2x2_kartor_är_likadana()
+        {
+            var första = new Hinderkarta(new bool[] { true, false, false, true }, 2);
+            var andra = new Hinderkarta(new bool[] { true, false, false, true }, 2);
+            Assert.That(första.Equals(andra), Is.True);
+        }
+
+        [Test]
+        public void Anser_att_två_kartor_med_olika_antal_element_är_olika()
+        {
+            var första = new Hinderkarta(new bool[] { true, false, false, true }, 1);
+            var andra = new Hinderkarta(new bool[] { true, false }, 1);
+            Assert.That(första.Equals(andra), Is.False);
+        }
+
+        [Test]
+        public void Anser_att_två_kartor_med_olika_bredd_är_olika()
+        {
+            var första = new Hinderkarta(new bool[] { true, false, false, true }, 1);
+            var andra = new Hinderkarta(new bool[] { true, false, false, true }, 2);
+            Assert.That(första.Equals(andra), Is.False);
+        }
+
+        [Test]
+        public void Anser_att_två_kartor_med_olika_innehåll_är_olika()
+        {
+            var första = new Hinderkarta(new bool[] { true, false, false, true }, 2);
+            var andra = new Hinderkarta(new bool[] { true, false, true, true }, 2);
+            Assert.That(första.Equals(andra), Is.False);
+        }
+
+        [Test]
+        public void Anser_att_två_kartor_utan_hinder_är_likadana()
+        {
+            var första = new Hinderkarta(null, 0);
+            var andra = new Hinderkarta(null, 0);
+            Assert.That(första.Equals(andra), Is.True);
+        }
+
+        [Test]
+        public void Anser_att_karta_med_hinder_inte_är_likadan_som_karta_utan_hinder()
+        {
+            var första = new Hinderkarta(new[] { true }, 0);
+            var andra = new Hinderkarta(null, 0);
+            Assert.That(första.Equals(andra), Is.False);
+        }
+
+        [Test]
+        public void Anser_att_karta_utan_hinder_inte_är_likadan_som_karta_med_hinder()
+        {
+            var första = new Hinderkarta(null, 0);
+            var andra = new Hinderkarta(new[] { true }, 0);            
+            Assert.That(första.Equals(andra), Is.False);
+        }
+
+        [Test]
+        public void Representerar_hinderkarta_med_2x2()
+        {
+            var representation = new Hinderkarta(new bool[] { true, false, false, true }, 2).ToString();
+            Assert.That(representation, Is.EqualTo("2x2"));
+        }
+
+        [Test]
+        public void Representerar_hinderkarta_med_3x2()
+        {
+            var representation = new Hinderkarta(new bool[] { true, false, false}, 3).ToString();
+            Assert.That(representation, Is.EqualTo("3x1"));
+        }
+
+        [Test]
+        public void Representerar_hinderkarta_utan_hinder()
+        {
+            var representation = new Hinderkarta(null, 0).ToString();
+            Assert.That(representation, Is.EqualTo("Hinderkarta utan hinder"));
+        }
     }
 }

@@ -80,12 +80,12 @@ namespace ConsoleApp
                 Grafik = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 0 * 16), new Skärmyta(16, 16))
             };
 
-            var definitioner = new Bricka[] {
+            var omgivningensBrickor = new Bricka[] {
                 new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 0), new Skärmyta(16, 16)),
                 new Bricka(grafikkommandon, kamera, new Skärmposition(2 * 16, 0), new Skärmyta(16, 16))
             };
 
-            spelvärld.MiljöGrafik = new Brickfält(grafikkommandon, kamera, positionskonverterare, definitioner, kartbredd, karta);
+            spelvärld.MiljöGrafik = new Brickfält(grafikkommandon, kamera, positionskonverterare, omgivningensBrickor, kartbredd, karta);
 
             spelvärld.Fienden = new List<Fiende>
             {
