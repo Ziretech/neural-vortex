@@ -62,9 +62,9 @@ namespace ConsoleApp
             kartritare.SkapaDörr(new Spelvärldsposition(8, 4));
             kartritare.SkapaRum(new Spelvärldsområde(9, 2, 15, 10));
             var karta = kartritare.ByggKarta();
-            var hinderkarta = karta.Select(x => x == 0).ToArray();
+            var hinderkarta = karta.SkapaHinderkarta(new[] { 0 });
 
-            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera, new Hinderkarta(hinderkarta, kartbredd));
+            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera, hinderkarta);
             var openTKHanterare = new GrafikHändelser(grafikkommandon, tileset, _fönster, ucVisaSpelvärld, kamera);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, _fönster);
 
@@ -85,7 +85,7 @@ namespace ConsoleApp
                 new Bricka(grafikkommandon, kamera, new Skärmposition(2 * 16, 0), new Skärmyta(16, 16))
             };
 
-            spelvärld.MiljöGrafik = new Brickfält(grafikkommandon, kamera, positionskonverterare, omgivningensBrickor, kartbredd, karta);
+            spelvärld.MiljöGrafik = new Brickfält(grafikkommandon, kamera, positionskonverterare, omgivningensBrickor, kartbredd, karta.Indexar);
 
             spelvärld.Fienden = new List<Fiende>
             {

@@ -59,7 +59,7 @@ namespace Adapter.Spelvärld
             throw new NotImplementedException();
         }
 
-        public int[] ByggKarta()
+        public Karta ByggKarta()
         {
             var karta = new int[_spelvärldsyta.Bredd * _spelvärldsyta.Höjd];
             foreach(var rum in _rum)
@@ -76,7 +76,7 @@ namespace Adapter.Spelvärld
             {
                 karta[dörr.X + dörr.Y * _spelvärldsyta.Bredd] = 1;
             }
-            return karta;
+            return new Karta(_spelvärldsyta.Bredd, _spelvärldsyta.Höjd, karta);
         }
     }
 }

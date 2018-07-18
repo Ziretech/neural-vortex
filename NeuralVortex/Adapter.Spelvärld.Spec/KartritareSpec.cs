@@ -16,68 +16,68 @@ namespace Adapter.Spelvärld.Spec
         public void Skapar_tom_karta()
         {
             var karta = new Kartritare(new Spelvärldsyta(1, 1)).ByggKarta();
-            Assert.That(karta, Is.EquivalentTo(new int[] { 0 }));
+            Assert.That(karta.Indexar, Is.EquivalentTo(new int[] { 0 }));
         }
         [Test]
         public void Skapar_tom_2x2_karta()
         {
             var karta = new Kartritare(new Spelvärldsyta(2, 2)).ByggKarta();
-            Assert.That(karta, Is.EqualTo(new int[] { 0, 0, 0, 0 }));
+            Assert.That(karta.Indexar, Is.EqualTo(new int[] { 0, 0, 0, 0 }));
         }
         [Test]
         public void Skapar_tom_assymetrisk_karta()
         {
             var karta = new Kartritare(new Spelvärldsyta(2, 1)).ByggKarta();
-            Assert.That(karta, Is.EqualTo(new int[] { 0, 0 }));
+            Assert.That(karta.Indexar, Is.EqualTo(new int[] { 0, 0 }));
         }
         [Test]
         public void Skapar_ett_rum()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(0, 0), new Spelvärldsyta(1, 1)));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 1, 0, 0, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 1, 0, 0, 0 }));
         }
         [Test]
         public void Skapar_ett_rum_på_1_0()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 0), new Spelvärldsyta(1, 1)));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 0, 1, 0, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 1, 0, 0 }));
         }
         [Test]
         public void Skapar_ett_rum_på_0_1()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(0, 1), new Spelvärldsyta(1, 1)));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 0, 0, 1, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 1, 0 }));
         }
         [Test]
         public void Skapar_ett_rum_på_1_1()
         {
             var ritare = new Kartritare(new Spelvärldsyta(3, 2));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(1, 1)));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 0, 0, 0, 0, 1, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 0, 0, 1, 0 }));
         }
         [Test]
         public void Skapar_ett_2x1_rum()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(0, 0), new Spelvärldsyta(2, 1)));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 1, 1, 0, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 1, 1, 0, 0 }));
         }
         [Test]
         public void Skapar_ett_1x2_rum()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(0, 0), new Spelvärldsyta(1, 2)));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 1, 0, 1, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 1, 0, 1, 0 }));
         }
         [Test]
         public void Skapar_ett_2x1_rum_på_1_1()
         {
             var ritare = new Kartritare(new Spelvärldsyta(3, 3));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(2, 1)));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 0, 0, 0, 0, 1, 1, 0, 0, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 0, 0, 1, 1, 0, 0, 0 }));
         }
         [Test]
         public void Skapar_två_rum()
@@ -85,35 +85,35 @@ namespace Adapter.Spelvärld.Spec
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(0, 0), new Spelvärldsyta(1, 1)));
             ritare.SkapaRum(new Spelvärldsområde(new Spelvärldsposition(1, 1), new Spelvärldsyta(1, 1)));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 1, 0, 0, 1 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 1, 0, 0, 1 }));
         }
         [Test]
         public void Skapar_en_dörr()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaDörr(new Spelvärldsposition(0, 0));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 1, 0, 0, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 1, 0, 0, 0 }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_0()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaDörr(new Spelvärldsposition(1, 0));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 0, 1, 0, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 1, 0, 0 }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_1()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaDörr(new Spelvärldsposition(1, 1));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 0, 0, 0, 1 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 0, 1 }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_1_i_3x2_värld()
         {
             var ritare = new Kartritare(new Spelvärldsyta(3, 2));
             ritare.SkapaDörr(new Spelvärldsposition(1, 1));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 0, 0, 0, 0, 1, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 0, 0, 1, 0 }));
         }
         [Test]
         public void Skapar_två_dörrar()
@@ -121,7 +121,7 @@ namespace Adapter.Spelvärld.Spec
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaDörr(new Spelvärldsposition(0, 0));
             ritare.SkapaDörr(new Spelvärldsposition(1, 1));
-            Assert.That(ritare.ByggKarta(), Is.EqualTo(new int[] { 1, 0, 0, 1 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 1, 0, 0, 1 }));
         }
 
         [Test]

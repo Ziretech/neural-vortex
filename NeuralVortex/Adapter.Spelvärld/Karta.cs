@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Adapter.Spelvärld
 {
-    class Karta
+    public class Karta
     {
         public int Bredd { get; }
         public int Höjd { get; }
