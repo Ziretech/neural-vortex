@@ -62,7 +62,8 @@ namespace ConsoleApp
             kartritare.SkapaDörr(new Spelvärldsposition(8, 4));
             kartritare.SkapaRum(new Spelvärldsområde(9, 2, 15, 10));
             var karta = kartritare.ByggKarta();
-            var hinderkarta = karta.SkapaHinderkarta(new[] { 0 });
+            var hinderlista = new[] { 0 };
+            var hinderkarta = karta.SkapaHinderkarta(hinderlista);
 
             var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera, hinderkarta);
             var openTKHanterare = new GrafikHändelser(grafikkommandon, tileset, _fönster, ucVisaSpelvärld, kamera);
