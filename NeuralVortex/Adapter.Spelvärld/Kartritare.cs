@@ -15,6 +15,9 @@ namespace Adapter.Spelvärld
         private List<Spelvärldsområde> _rum;
         private List<Spelvärldsposition> _dörr;
 
+        private const int GOLV_INDEX = 1;
+        private const int DÖRR_INDEX = 2;
+
         public Kartritare(Spelvärldsyta spelvärldsyta)
         {
             _spelvärldsyta = spelvärldsyta ?? throw new ArgumentException("Spelvärldsskapare kan inte skapas utan spelvärldsyta.");
@@ -68,13 +71,13 @@ namespace Adapter.Spelvärld
                 {
                     for (var y = rum.Botten; y < rum.Topp; y++)
                     {
-                        karta[x + y * _spelvärldsyta.Bredd] = 1;
+                        karta[x + y * _spelvärldsyta.Bredd] = GOLV_INDEX;
                     }
                 }
             }
             foreach(var dörr in _dörr)
             {
-                karta[dörr.X + dörr.Y * _spelvärldsyta.Bredd] = 1;
+                karta[dörr.X + dörr.Y * _spelvärldsyta.Bredd] = DÖRR_INDEX;
             }
             return new Karta(_spelvärldsyta.Bredd, _spelvärldsyta.Höjd, karta);
         }
