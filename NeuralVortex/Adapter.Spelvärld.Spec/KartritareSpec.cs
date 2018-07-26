@@ -12,6 +12,8 @@ namespace Adapter.Spelvärld.Spec
     [TestFixture]
     class KartritareSpec
     {
+        private const int DÖRR_INDEX = 2;
+
         [Test]
         public void Skapar_tom_karta()
         {
@@ -92,28 +94,28 @@ namespace Adapter.Spelvärld.Spec
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaDörr(new Spelvärldsposition(0, 0));
-            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 1, 0, 0, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { DÖRR_INDEX, 0, 0, 0 }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_0()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaDörr(new Spelvärldsposition(1, 0));
-            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 1, 0, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, DÖRR_INDEX, 0, 0 }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_1()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaDörr(new Spelvärldsposition(1, 1));
-            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 0, 1 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 0, DÖRR_INDEX }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_1_i_3x2_värld()
         {
             var ritare = new Kartritare(new Spelvärldsyta(3, 2));
             ritare.SkapaDörr(new Spelvärldsposition(1, 1));
-            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 0, 0, 1, 0 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 0, 0, 0, 0, DÖRR_INDEX, 0 }));
         }
         [Test]
         public void Skapar_två_dörrar()
@@ -121,7 +123,7 @@ namespace Adapter.Spelvärld.Spec
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
             ritare.SkapaDörr(new Spelvärldsposition(0, 0));
             ritare.SkapaDörr(new Spelvärldsposition(1, 1));
-            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { 1, 0, 0, 1 }));
+            Assert.That(ritare.ByggKarta().Indexar, Is.EqualTo(new int[] { DÖRR_INDEX, 0, 0, DÖRR_INDEX }));
         }
 
         [Test]
