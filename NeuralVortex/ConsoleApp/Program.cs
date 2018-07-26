@@ -92,7 +92,7 @@ namespace ConsoleApp
             {
                 new Fiende {
                     Position = new Spelvärldsposition(5, 5),
-                    Grafik = new Bricka(grafikkommandon, kamera, new Skärmposition(3*16, 0), new Skärmyta(16, 16)),
+                    Grafik = new Bricka(grafikkommandon, kamera, new Skärmposition(5*16, 0), new Skärmyta(16, 16)),
                     Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>
                     {
                         new Spelvärldsposition(1, 0),
