@@ -76,7 +76,8 @@ namespace ConsoleApp
             var hinderlista = new[] { 0 };
             var hinderkarta = karta.SkapaHinderkarta(hinderlista);
 
-            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, hinderkarta);
+            var ucFlyttaVarelser = new FlyttaVarelser(spelvärld, hinderkarta);
+            var ucUppdateraSpelvärld = new UppdateraSpelvärld(ucFlyttaVarelser);
             var openTKHanterare = new GrafikHändelser(grafikkommandon, tileset, _fönster, ucVisaSpelvärld, kamera);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, _fönster);
 

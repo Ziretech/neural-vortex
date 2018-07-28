@@ -11,13 +11,11 @@ namespace UseCase.NeuralVortex
 {
     public class UppdateraSpelvärld
     {
-        private ISpelvärld _spelvärld;
-        private IHinderkarta _hinderkarta;
+        private FlyttaVarelser _flyttaVarelser;
 
-        public UppdateraSpelvärld(ISpelvärld spelvärld, IHinderkarta hinderkarta = null)
+        public UppdateraSpelvärld(FlyttaVarelser flyttaVarelser)
         {
-            _spelvärld = spelvärld;
-            _hinderkarta = hinderkarta;
+            _flyttaVarelser = flyttaVarelser;
         }
 
         public SpeletsFortsättning Uppdatera(Tangent tangent)
@@ -27,49 +25,9 @@ namespace UseCase.NeuralVortex
                 return SpeletsFortsättning.Avsluta;
             }
 
-            if(_spelvärld.Huvudkaraktär != null)
-            {
-                _spelvärld.Huvudkaraktär.Position = BeräknaNyPosition(Förflyttningsriktning(tangent), _spelvärld.Huvudkaraktär.Position);
-            }            
-
-            foreach(var fiende in _spelvärld.Fienden)
-            {
-                fiende.Position = BeräknaNyPosition(fiende.Riktningsgenerator.NästaRiktning, fiende.Position);
-            }
+            _flyttaVarelser.Flytta(tangent);
 
             return SpeletsFortsättning.Fortsätt;
-        }
-
-        private Spelvärldsposition Förflyttningsriktning(Tangent tangent)
-        {
-            switch(tangent)
-            {
-                case Tangent.Upp:
-                    return new Spelvärldsposition(0, 1);
-                case Tangent.Ner:
-                    return new Spelvärldsposition(0, -1);
-                case Tangent.Höger:
-                    return new Spelvärldsposition(1, 0);
-                case Tangent.Vänster:
-                    return new Spelvärldsposition(-1, 0);
-            }
-            return new Spelvärldsposition(0, 0);
-        }
-
-        private Spelvärldsposition BeräknaNyPosition(Spelvärldsposition riktning, Spelvärldsposition tidigarePosition)
-        {
-            Spelvärldsposition nyPosition = tidigarePosition.Plus(riktning);
-
-            if(PassageTillåtenTillPosition(nyPosition))
-            {
-                return nyPosition;
-            }
-            return tidigarePosition;
-        }
-
-        private bool PassageTillåtenTillPosition(Spelvärldsposition position)
-        {
-            return _hinderkarta == null || !_hinderkarta.Hindrar(position);
         }
     }
 }

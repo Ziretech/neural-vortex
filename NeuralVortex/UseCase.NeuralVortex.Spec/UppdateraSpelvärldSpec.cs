@@ -17,7 +17,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flytta_huvudkaraktären_uppåt()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(0, 0) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
@@ -28,7 +28,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flytta_huvudkaraktären_nedåt()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 3) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Ner);
 
@@ -39,7 +39,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flytta_huvudkaraktären_vänster()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 3) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
 
@@ -50,7 +50,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flytta_huvudkaraktären_höger()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 13) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Höger);
 
@@ -62,7 +62,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 13) } };
             var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(2, 13) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, hinderkarta);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, hinderkarta));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Höger);
 
@@ -74,7 +74,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 13) } };
             var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(0, 13) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, hinderkarta);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, hinderkarta));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
 
@@ -86,7 +86,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(13, 1) } };
             var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(13, 2) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, hinderkarta);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, hinderkarta));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
@@ -98,7 +98,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(13, 1) } };
             var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(13, 0) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, hinderkarta);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, hinderkarta));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Ner);
 
@@ -114,7 +114,7 @@ namespace UseCase.NeuralVortex.Spec
                     new Fiende { Position = new Spelvärldsposition(0, 0), Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>{ new Spelvärldsposition(0, 1) }, new SekvensFörflyttning.IterativIndexgenerator())}
                 }
             };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Ner);
 
@@ -131,7 +131,7 @@ namespace UseCase.NeuralVortex.Spec
                     new Fiende { Position = new Spelvärldsposition(0, 0), Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(0, 1), new Spelvärldsposition(1, 0) }, new SekvensFörflyttning.IterativIndexgenerator()) }
                 }
             };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(spelvärld);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
 
             uppdateraSpelvärld.Uppdatera(Tangent.Höger);
             uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
