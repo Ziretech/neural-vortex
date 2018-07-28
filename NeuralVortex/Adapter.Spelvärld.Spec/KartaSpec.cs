@@ -75,8 +75,6 @@ namespace Adapter.Spelvärld.Spec
             Assert.That(hinderkarta, Is.EqualTo(new Hinderkarta(new[] { false, true, true, false }, 2)));
         }
 
-        // TODO: Loopa över ett område för att få ut definitioner (som Brickfält.Visa använder)
-
         [TestCase(0)]
         [TestCase(-1)]
         public void Kan_inte_skapas_med_bredd_mindre_än_1(int bredd)
