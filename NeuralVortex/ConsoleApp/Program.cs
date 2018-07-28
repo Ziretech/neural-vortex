@@ -70,13 +70,13 @@ namespace ConsoleApp
             var kamera = new Kamera(new Skärmyta(100, 100));
             var positionskonverterare = new Positionskonverterare(new Skärmyta(16, 16));
 
-            var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, kamera, positionskonverterare);
+            var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, positionskonverterare);
 
             var karta = SkapaKarta();
             var hinderlista = new[] { 0 };
             var hinderkarta = karta.SkapaHinderkarta(hinderlista);
 
-            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, kamera, hinderkarta);
+            var ucUppdateraSpelvärld = new UppdateraSpelvärld(spelvärld, hinderkarta);
             var openTKHanterare = new GrafikHändelser(grafikkommandon, tileset, _fönster, ucVisaSpelvärld, kamera);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, _fönster);
 

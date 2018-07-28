@@ -11,13 +11,11 @@ namespace UseCase.NeuralVortex
     public class VisaSpelvärld
     {
         private readonly ISpelvärld _spelvärld;
-        private readonly IKamera _kamera;
         private readonly IPositionskonverterare _konvertera;
 
-        public VisaSpelvärld(ISpelvärld spelvärld, IKamera kamera, IPositionskonverterare konvertera)
+        public VisaSpelvärld(ISpelvärld spelvärld, IPositionskonverterare konvertera)
         {
             _spelvärld = spelvärld;
-            _kamera = kamera;
             _konvertera = konvertera;
         }
 

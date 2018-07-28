@@ -12,13 +12,11 @@ namespace UseCase.NeuralVortex
     public class UppdateraSpelvärld
     {
         private ISpelvärld _spelvärld;
-        private IKamera _kamera;
         private IHinderkarta _hinderkarta;
 
-        public UppdateraSpelvärld(ISpelvärld spelvärld, IKamera kamera, IHinderkarta hinderkarta = null)
+        public UppdateraSpelvärld(ISpelvärld spelvärld, IHinderkarta hinderkarta = null)
         {
             _spelvärld = spelvärld;
-            _kamera = kamera;
             _hinderkarta = hinderkarta;
         }
 

@@ -48,7 +48,6 @@
     <Compile Include="AI\SekvensFörflyttningSpec.cs" />
     <Compile Include="GrafikMock.cs" />
     <Compile Include="HinderkartaMock.cs" />
-    <Compile Include="KameraMock.cs" />
     <Compile Include="Kartgenerering\SpelvärldsskapareMock.cs" />
     <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />

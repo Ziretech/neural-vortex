@@ -14,7 +14,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange
             var konverterare = new Positionskonverterare(new Skärmyta(1, 1));
-            var visaSpelvärld = new VisaSpelvärld(new SpelvärldMock(), new KameraMock(), konverterare);
+            var visaSpelvärld = new VisaSpelvärld(new SpelvärldMock(), konverterare);
 
             // Act
             visaSpelvärld.Visa();
@@ -30,7 +30,7 @@ namespace UseCase.NeuralVortex.Spec
             var huvudkaraktärensGrafik = new GrafikMock();
             var konverterare = new Positionskonverterare(new Skärmyta(1, 1));
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = new Spelvärldsposition(1, 2) } };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new KameraMock(), konverterare);
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, konverterare);
 
             // Act
             visaSpelvärld.Visa();
@@ -44,10 +44,9 @@ namespace UseCase.NeuralVortex.Spec
         public void VisaSpelvärld_borde_visa_miljö()
         {
             // Arrange
-            var kamera = new KameraMock();
             var miljögrafik = new GrafikMock();
             var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, kamera, new PositionskonverterareMock());
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, new PositionskonverterareMock());
 
             // Act
             visaSpelvärld.Visa();
@@ -71,7 +70,7 @@ namespace UseCase.NeuralVortex.Spec
                         }
                     }
             };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new KameraMock(), new PositionskonverterareMock());
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, new PositionskonverterareMock());
 
             // Act
             visaSpelvärld.Visa();
@@ -85,11 +84,10 @@ namespace UseCase.NeuralVortex.Spec
         public void Huvudkaraktären_borde_visas_ovanpå_miljön()
         {
             // Arrange
-            var kamera = new KameraMock();
             var grafik = new GrafikMock();
             var huvudkaraktär = new Huvudkaraktär { Grafik = grafik, Position = new Spelvärldsposition(1, 2) };
             var spelvärld = new SpelvärldMock { MiljöGrafik = grafik, Huvudkaraktär = huvudkaraktär };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, kamera, new PositionskonverterareMock());
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, new PositionskonverterareMock());
 
             // Act
             visaSpelvärld.Visa();
