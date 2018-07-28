@@ -59,9 +59,12 @@ namespace ConsoleApp
             const int kartbredd = 16;
             var kartritare = new Kartritare(new Spelvärldsyta(kartbredd, 16));
             kartritare.SkapaRum(new Spelvärldsområde(1, 1, 8, 8));
-            kartritare.SkapaDörr(new Spelvärldsposition(8, 4));
-            kartritare.SkapaRum(new Spelvärldsområde(9, 2, 15, 10));
+            kartritare.SkapaDörr(new Spelvärldsposition(9, 4));
+            kartritare.SkapaRum(new Spelvärldsområde(10, 2, 15, 10));
             var karta = kartritare.ByggKarta();
+            karta.Indexar[56 + 16] = 3;
+            karta.Indexar[4 + 4 * 16] = 4;
+            karta.Indexar[7 + 3 * 16] = 4;
             var hinderlista = new[] { 0 };
             var hinderkarta = karta.SkapaHinderkarta(hinderlista);
 
@@ -84,10 +87,14 @@ namespace ConsoleApp
             var omgivningensBrickor = new Bricka[] {
                 new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 1 * 16), new Skärmyta(16, 16)),
                 new Bricka(grafikkommandon, kamera, new Skärmposition(2 * 16, 1 * 16), new Skärmyta(16, 16)),
-                new Bricka(grafikkommandon, kamera, new Skärmposition(4 * 16, 1 * 16), new Skärmyta(16, 16))
+                new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 1 * 16), new Skärmyta(16, 16)),
+                new Bricka(grafikkommandon, kamera, new Skärmposition(4 * 16, 1 * 16), new Skärmyta(16, 16)),
+                new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16)),
             };
 
             spelvärld.MiljöGrafik = new Brickfält(grafikkommandon, kamera, positionskonverterare, omgivningensBrickor, kartbredd, karta.Indexar);
+
+            var slumpgenerator = new Random();
 
             spelvärld.Fienden = new List<Fiende>
             {
@@ -100,7 +107,18 @@ namespace ConsoleApp
                         new Spelvärldsposition(0, 1),
                         new Spelvärldsposition(-1, 0),
                         new Spelvärldsposition(0, -1)
-                    }, new SekvensFörflyttning.SlumpmässigIndexgenerator())
+                    }, new SekvensFörflyttning.SlumpmässigIndexgenerator(slumpgenerator))
+                },
+                new Fiende {
+                    Position = new Spelvärldsposition(13, 5),
+                    Grafik = new Bricka(grafikkommandon, kamera, new Skärmposition(5*16, 0), new Skärmyta(16, 16)),
+                    Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>
+                    {
+                        new Spelvärldsposition(1, 0),
+                        new Spelvärldsposition(0, 1),
+                        new Spelvärldsposition(-1, 0),
+                        new Spelvärldsposition(0, -1)
+                    }, new SekvensFörflyttning.SlumpmässigIndexgenerator(slumpgenerator))
                 }
             };
         }

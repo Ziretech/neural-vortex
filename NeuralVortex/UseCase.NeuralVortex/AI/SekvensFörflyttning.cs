@@ -39,14 +39,11 @@ namespace UseCase.NeuralVortex.AI
 
         public class SlumpmässigIndexgenerator : Indexgenerator
         {
-            private Random _slump = new Random();
+            private Random _slump;
 
-            public SlumpmässigIndexgenerator(int seed = -1)
+            public SlumpmässigIndexgenerator(Random generator)
             {
-                if(seed >= 0)
-                {
-                    _slump = new Random(seed);
-                }
+                _slump = generator;
             }
 
             public int NästaIndex(int antalIndex)
