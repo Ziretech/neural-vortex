@@ -19,6 +19,22 @@ namespace ConsoleApp
 {
     class Program
     {
+        private Karta SkapaKarta()
+        {
+            const int kartbredd = 16;
+            const int karthöjd = 16;
+
+            var kartritare = new Kartritare(new Spelvärldsyta(kartbredd, karthöjd));
+            kartritare.SkapaRum(new Spelvärldsområde(1, 1, 8, 8));
+            kartritare.SkapaDörr(new Spelvärldsposition(9, 4));
+            kartritare.SkapaRum(new Spelvärldsområde(10, 2, 15, 10));
+            var karta = kartritare.ByggKarta();
+            karta.Indexar[56 + 16] = 3;
+            karta.Indexar[4 + 4 * 16] = 4;
+            karta.Indexar[7 + 3 * 16] = 4;
+            return karta;
+        }
+
         static void Main(string[] args)
         {
             var program = new Program();
@@ -56,15 +72,7 @@ namespace ConsoleApp
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, kamera, positionskonverterare);
 
-            const int kartbredd = 16;
-            var kartritare = new Kartritare(new Spelvärldsyta(kartbredd, 16));
-            kartritare.SkapaRum(new Spelvärldsområde(1, 1, 8, 8));
-            kartritare.SkapaDörr(new Spelvärldsposition(9, 4));
-            kartritare.SkapaRum(new Spelvärldsområde(10, 2, 15, 10));
-            var karta = kartritare.ByggKarta();
-            karta.Indexar[56 + 16] = 3;
-            karta.Indexar[4 + 4 * 16] = 4;
-            karta.Indexar[7 + 3 * 16] = 4;
+            var karta = SkapaKarta();
             var hinderlista = new[] { 0 };
             var hinderkarta = karta.SkapaHinderkarta(hinderlista);
 
@@ -92,7 +100,7 @@ namespace ConsoleApp
                 new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16)),
             };
 
-            spelvärld.MiljöGrafik = new Brickfält(kamera, positionskonverterare, omgivningensBrickor, kartbredd, karta.Indexar);
+            spelvärld.MiljöGrafik = new Brickfält(kamera, positionskonverterare, omgivningensBrickor, karta.Bredd, karta.Indexar);
 
             var slumpgenerator = new Random();
 
