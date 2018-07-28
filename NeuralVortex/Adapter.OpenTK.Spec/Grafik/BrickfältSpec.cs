@@ -24,7 +24,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 1;
             var karta = new int[] { 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -45,7 +45,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 2;
             var karta = new int[] { 0, 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -68,7 +68,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 1;
             var karta = new int[] { 0, 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -91,7 +91,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 2;
             var karta = new int[] { 0, 0, 0, 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -115,7 +115,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 2;
             var karta = new int[] { 0, 1 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -140,7 +140,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 1;
             var karta = new int[] { 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -160,7 +160,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 1;
             var karta = new int[] { 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 
@@ -180,7 +180,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var kartbredd = 1;
             var karta = new int[] { 0 };
             var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(gl, kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
 
             fält.Visa(new Skärmposition(0, 0));
 

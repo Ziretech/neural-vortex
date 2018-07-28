@@ -11,7 +11,6 @@ namespace Adapter.OpenTK.Grafik
 {
     public class Brickfält : IGrafik
     {
-        private readonly IGrafikkommandon _gl;
         private readonly Kamera _kamera;
         private readonly IPositionskonverterare _konverterare;
         private readonly Bricka[] _definitioner;
@@ -19,9 +18,8 @@ namespace Adapter.OpenTK.Grafik
         private readonly int _karthöjd;
         private readonly int[] _karta;
 
-        public Brickfält(IGrafikkommandon grafikkommandon, Kamera kamera, IPositionskonverterare konverterare, Bricka[] definitioner, int kartbredd, int[] karta)
+        public Brickfält(Kamera kamera, IPositionskonverterare konverterare, Bricka[] definitioner, int kartbredd, int[] karta)
         {
-            _gl = grafikkommandon;
             _kamera = kamera;
             _definitioner = definitioner;
             _kartbredd = kartbredd;

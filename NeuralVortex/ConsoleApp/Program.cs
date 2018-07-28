@@ -92,7 +92,7 @@ namespace ConsoleApp
                 new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16)),
             };
 
-            spelvärld.MiljöGrafik = new Brickfält(grafikkommandon, kamera, positionskonverterare, omgivningensBrickor, kartbredd, karta.Indexar);
+            spelvärld.MiljöGrafik = new Brickfält(kamera, positionskonverterare, omgivningensBrickor, kartbredd, karta.Indexar);
 
             var slumpgenerator = new Random();
 
