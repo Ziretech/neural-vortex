@@ -11,9 +11,9 @@ namespace UseCase.NeuralVortex
 {
     public class UppdateraSpelvärld
     {
-        private FlyttaVarelser _flyttaVarelser;
+        private readonly IFlyttaVarelser _flyttaVarelser;
 
-        public UppdateraSpelvärld(FlyttaVarelser flyttaVarelser)
+        public UppdateraSpelvärld(IFlyttaVarelser flyttaVarelser)
         {
             _flyttaVarelser = flyttaVarelser;
         }

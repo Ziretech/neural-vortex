@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\SekvensFörflyttningSpec.cs" />
+    <Compile Include="FlyttaVarelserMock.cs" />
+    <Compile Include="FlyttaVarelserSpec.cs" />
     <Compile Include="GrafikMock.cs" />
     <Compile Include="HinderkartaMock.cs" />
     <Compile Include="Kartgenerering\SpelvärldsskapareMock.cs" />

@@ -8,7 +8,7 @@ using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex
 {
-    public class FlyttaVarelser
+    public class FlyttaVarelser : IFlyttaVarelser
     {
         private readonly ISpelvärld _spelvärld;
         private readonly IHinderkarta _hinderkarta;

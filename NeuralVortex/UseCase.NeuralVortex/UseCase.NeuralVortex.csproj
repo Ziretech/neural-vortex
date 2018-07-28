@@ -43,6 +43,7 @@
     <Compile Include="AI\IRiktningsgenerator.cs" />
     <Compile Include="AI\SekvensFörflyttning.cs" />
     <Compile Include="FlyttaVarelser.cs" />
+    <Compile Include="IFlyttaVarelser.cs" />
     <Compile Include="IPositionskonverterare.cs" />
     <Compile Include="Kartgenerering\IKartritare.cs" />
     <Compile Include="Kontroll\IHinderkarta.cs" />

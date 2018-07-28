@@ -14,129 +14,14 @@ namespace UseCase.NeuralVortex.Spec
     public class UppdateraSpelvärldSpec
     {
         [Test]
-        public void Flytta_huvudkaraktären_uppåt()
+        public void Flyttar_varelser()
         {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(0, 0) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
+            var flyttaVarelser = new FlyttaVarelserMock();
+            var uppdateraSpelvärld = new UppdateraSpelvärld(flyttaVarelser);
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
-            Assert.That(spelvärld.Huvudkaraktär.Position.Y, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Flytta_huvudkaraktären_nedåt()
-        {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 3) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Ner);
-
-            Assert.That(spelvärld.Huvudkaraktär.Position.Y, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void Flytta_huvudkaraktären_vänster()
-        {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 3) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
-
-            Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Flytta_huvudkaraktären_höger()
-        {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(2, 13) } };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Höger);
-
-            Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(3));
-        }
-
-        [Test]
-        public void Hindrar_högerförflyttning_till_ruta_med_hinder()
-        {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 13) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(2, 13) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, hinderkarta));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Höger);
-
-            Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Hindrar_vänsterförflyttning_till_ruta_med_hinder()
-        {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 13) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(0, 13) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, hinderkarta));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
-
-            Assert.That(spelvärld.Huvudkaraktär.Position.X, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Hindrar_uppförflyttning_till_ruta_med_hinder()
-        {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(13, 1) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(13, 2) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, hinderkarta));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Upp);
-
-            Assert.That(spelvärld.Huvudkaraktär.Position.Y, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Hindrar_nerförflyttning_till_ruta_med_hinder()
-        {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(13, 1) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(13, 0) });
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, hinderkarta));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Ner);
-
-            Assert.That(spelvärld.Huvudkaraktär.Position.Y, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Flytta_fienden_uppåt()
-        {
-            var spelvärld = new SpelvärldMock {
-                Fienden = new List<Fiende>
-                {
-                    new Fiende { Position = new Spelvärldsposition(0, 0), Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>{ new Spelvärldsposition(0, 1) }, new SekvensFörflyttning.IterativIndexgenerator())}
-                }
-            };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Ner);
-
-            Assert.That(spelvärld.Fienden.First().Position.Y, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Flytta_fienden_upp_till_höger()
-        {
-            var spelvärld = new SpelvärldMock
-            {
-                Fienden = new List<Fiende>
-                {
-                    new Fiende { Position = new Spelvärldsposition(0, 0), Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition> { new Spelvärldsposition(0, 1), new Spelvärldsposition(1, 0) }, new SekvensFörflyttning.IterativIndexgenerator()) }
-                }
-            };
-            var uppdateraSpelvärld = new UppdateraSpelvärld(new FlyttaVarelser(spelvärld, null));
-
-            uppdateraSpelvärld.Uppdatera(Tangent.Höger);
-            uppdateraSpelvärld.Uppdatera(Tangent.Vänster);
-
-            Assert.That(spelvärld.Fienden.First().Position, Is.EqualTo(new Spelvärldsposition(1, 1)));
+            Assert.That(flyttaVarelser.FlyttadesAvTangent, Is.EqualTo(Tangent.Upp));
         }
     }
 }
