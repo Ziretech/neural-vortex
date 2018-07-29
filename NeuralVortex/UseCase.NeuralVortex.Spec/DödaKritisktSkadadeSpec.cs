@@ -11,9 +11,11 @@ namespace UseCase.NeuralVortex.Spec
     public class DödaKritisktSkadadeSpec
     {
         [Test]
-        public void Finns()
+        [Ignore("Fixa hantering av speletsfortsättning i uppdatera spelvärlden först")]
+        public void Avslutar_inte_spelet_om_huvudkaraktären_saknas()
         {
-            //var dödaKritisktSkadade = new DödaKritisktSkadade();
+            var dödaKritisktSkadade = new DödaKritisktSkadade();
+            Assert.That(dödaKritisktSkadade.Döda(), Is.EqualTo(SpeletsFortsättning.Fortsätt));
         }
     }
 }

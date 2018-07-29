@@ -45,5 +45,27 @@ namespace UseCase.NeuralVortex.Spec
 
             Assert.That(dödaKritisktSkadade.DödaHarAnropats, Is.True);
         }
+
+        [Test]
+        public void Avslutar_spelet_om_dödar_kritiskt_skadade_avslutar_spelet()
+        {
+            var dödaKritisktSkadade = new DödaKritisktSkadadeMock { Fortsättning = SpeletsFortsättning.Avsluta };
+            var uppdateraSpelvärld = new UppdateraSpelvärld(null, null, dödaKritisktSkadade);
+
+            var avslutning = uppdateraSpelvärld.Uppdatera(Tangent.Upp);
+
+            Assert.That(avslutning, Is.EqualTo(SpeletsFortsättning.Avsluta));
+        }
+
+        [Test]
+        public void Fortsätter_spelet_om_dödar_kritiskt_skadade_inte_avslutar_spelet()
+        {
+            var dödaKritisktSkadade = new DödaKritisktSkadadeMock { Fortsättning = SpeletsFortsättning.Fortsätt };
+            var uppdateraSpelvärld = new UppdateraSpelvärld(null, null, dödaKritisktSkadade);
+
+            var avslutning = uppdateraSpelvärld.Uppdatera(Tangent.Upp);
+
+            Assert.That(avslutning, Is.EqualTo(SpeletsFortsättning.Fortsätt));
+        }
     }
 }

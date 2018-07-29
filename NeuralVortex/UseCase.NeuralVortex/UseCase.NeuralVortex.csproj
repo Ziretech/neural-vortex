@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AI\IRiktningsgenerator.cs" />
     <Compile Include="AI\SekvensFörflyttning.cs" />
+    <Compile Include="DödaKritisktSkadade.cs" />
     <Compile Include="FlyttaVarelser.cs" />
     <Compile Include="IDödaKritisktSkadade.cs" />
     <Compile Include="IFlyttaVarelser.cs" />

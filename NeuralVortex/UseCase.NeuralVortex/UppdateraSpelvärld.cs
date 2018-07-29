@@ -31,7 +31,13 @@ namespace UseCase.NeuralVortex
 
             if(_flyttaVarelser != null) _flyttaVarelser.Flytta(tangent);
             if(_utdelaSkada != null) _utdelaSkada.Utdela();
-            if(_dödaKritisktSkadade != null) _dödaKritisktSkadade.Döda();
+            if (_dödaKritisktSkadade != null)
+            {
+                if(_dödaKritisktSkadade.Döda() == SpeletsFortsättning.Avsluta)
+                {
+                    return SpeletsFortsättning.Avsluta;
+                }
+            }
 
             return SpeletsFortsättning.Fortsätt;
         }

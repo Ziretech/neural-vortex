@@ -2,6 +2,6 @@
 {
     public interface IDödaKritisktSkadade
     {
-        void Döda();
+        SpeletsFortsättning Döda();
     }
 }
