@@ -43,6 +43,7 @@
     <Compile Include="AI\IRiktningsgenerator.cs" />
     <Compile Include="AI\SekvensFörflyttning.cs" />
     <Compile Include="FlyttaVarelser.cs" />
+    <Compile Include="IDödaKritisktSkadade.cs" />
     <Compile Include="IFlyttaVarelser.cs" />
     <Compile Include="IPositionskonverterare.cs" />
     <Compile Include="IUtdelaSkada.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Kontroll\Tangent.cs" />
     <Compile Include="Spelvärld\Spelvärldsyta.cs" />
     <Compile Include="UppdateraSpelvärld.cs" />
+    <Compile Include="UtdelaSkada.cs" />
     <Compile Include="Visning\IGrafik.cs" />
     <Compile Include="Spelvärld\Huvudkaraktär.cs" />
     <Compile Include="Spelvärld\ISpelvärld.cs" />

@@ -34,5 +34,16 @@ namespace UseCase.NeuralVortex.Spec
 
             Assert.That(utdelaSkada.UtdelaHarAnropats, Is.True);
         }
+
+        [Test]
+        public void Dödar_kritiskt_skadade()
+        {
+            var dödaKritisktSkadade = new DödaKritisktSkadadeMock();
+            var uppdateraSpelvärld = new UppdateraSpelvärld(null, null, dödaKritisktSkadade);
+
+            uppdateraSpelvärld.Uppdatera(Tangent.Upp);
+
+            Assert.That(dödaKritisktSkadade.DödaHarAnropats, Is.True);
+        }
     }
 }

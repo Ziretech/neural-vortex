@@ -33,6 +33,7 @@ namespace ConsoleApp
             karta.Indexar[4 + 4 * 16] = 4;
             karta.Indexar[7 + 3 * 16] = 4;
             karta.Indexar[13 + 7 * 16] = 4;
+            karta.Indexar[14 + 9 * 16] = 5;
             return karta;
         }
 
@@ -96,6 +97,8 @@ namespace ConsoleApp
             var takMedRevaBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16));
             var ammoBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 1 * 16), new Skärmyta(16, 16));
             var huvudkaraktärBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 0 * 16), new Skärmyta(16, 16));
+            var medicinBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 2 * 16), new Skärmyta(16, 16));
+            var paradisBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 3 * 16), new Skärmyta(16, 16));
 
             spelvärld.Huvudkaraktär = new Huvudkaraktär
             {
@@ -109,7 +112,7 @@ namespace ConsoleApp
                 kabel1Bricka,
                 kabel2Bricka,
                 takMedRevaBricka,
-                ammoBricka
+                paradisBricka
             };
 
             spelvärld.MiljöGrafik = new Brickfält(kamera, positionskonverterare, omgivningensBrickor, karta.Bredd, karta.Indexar);
