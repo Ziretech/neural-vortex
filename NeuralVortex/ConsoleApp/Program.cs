@@ -32,6 +32,7 @@ namespace ConsoleApp
             karta.Indexar[56 + 16] = 3;
             karta.Indexar[4 + 4 * 16] = 4;
             karta.Indexar[7 + 3 * 16] = 4;
+            karta.Indexar[13 + 7 * 16] = 4;
             return karta;
         }
 
@@ -87,47 +88,54 @@ namespace ConsoleApp
             _fönster.Visare(openTKHanterare);
             _fönster.Tangentbordsmottagare(kontrollhändelser);
 
+            var radioaktivInsektBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(5 * 16, 0), new Skärmyta(16, 16));
+            var tomBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(15 * 16, 15 * 16), new Skärmyta(16, 16));
+            var takBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(2 * 16, 1 * 16), new Skärmyta(16, 16));
+            var kabel1Bricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 1 * 16), new Skärmyta(16, 16));
+            var kabel2Bricka = new Bricka(grafikkommandon, kamera, new Skärmposition(4 * 16, 1 * 16), new Skärmyta(16, 16));
+            var takMedRevaBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16));
+            var ammoBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 1 * 16), new Skärmyta(16, 16));
+            var huvudkaraktärBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 0 * 16), new Skärmyta(16, 16));
+
             spelvärld.Huvudkaraktär = new Huvudkaraktär
             {
                 Position = new Spelvärldsposition(1, 1),
-                Grafik = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 0 * 16), new Skärmyta(16, 16))
+                Grafik = huvudkaraktärBricka
             };
 
             var omgivningensBrickor = new Bricka[] {
-                new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 1 * 16), new Skärmyta(16, 16)),
-                new Bricka(grafikkommandon, kamera, new Skärmposition(2 * 16, 1 * 16), new Skärmyta(16, 16)),
-                new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 1 * 16), new Skärmyta(16, 16)),
-                new Bricka(grafikkommandon, kamera, new Skärmposition(4 * 16, 1 * 16), new Skärmyta(16, 16)),
-                new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16)),
+                tomBricka,
+                takBricka,
+                kabel1Bricka,
+                kabel2Bricka,
+                takMedRevaBricka,
+                ammoBricka
             };
 
             spelvärld.MiljöGrafik = new Brickfält(kamera, positionskonverterare, omgivningensBrickor, karta.Bredd, karta.Indexar);
 
             var slumpgenerator = new Random();
+            var väderstrecken = new List<Spelvärldsposition>
+            {
+                new Spelvärldsposition(1, 0),
+                new Spelvärldsposition(0, 1),
+                new Spelvärldsposition(-1, 0),
+                new Spelvärldsposition(0, -1)
+            };
+
+            var irraRunt = new SekvensFörflyttning(väderstrecken, new SekvensFörflyttning.SlumpmässigIndexgenerator(slumpgenerator));
 
             spelvärld.Fienden = new List<Fiende>
             {
                 new Fiende {
                     Position = new Spelvärldsposition(5, 5),
-                    Grafik = new Bricka(grafikkommandon, kamera, new Skärmposition(5*16, 0), new Skärmyta(16, 16)),
-                    Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>
-                    {
-                        new Spelvärldsposition(1, 0),
-                        new Spelvärldsposition(0, 1),
-                        new Spelvärldsposition(-1, 0),
-                        new Spelvärldsposition(0, -1)
-                    }, new SekvensFörflyttning.SlumpmässigIndexgenerator(slumpgenerator))
+                    Grafik = radioaktivInsektBricka,
+                    Riktningsgenerator = irraRunt
                 },
                 new Fiende {
                     Position = new Spelvärldsposition(13, 5),
-                    Grafik = new Bricka(grafikkommandon, kamera, new Skärmposition(5*16, 0), new Skärmyta(16, 16)),
-                    Riktningsgenerator = new SekvensFörflyttning(new List<Spelvärldsposition>
-                    {
-                        new Spelvärldsposition(1, 0),
-                        new Spelvärldsposition(0, 1),
-                        new Spelvärldsposition(-1, 0),
-                        new Spelvärldsposition(0, -1)
-                    }, new SekvensFörflyttning.SlumpmässigIndexgenerator(slumpgenerator))
+                    Grafik = radioaktivInsektBricka,
+                    Riktningsgenerator = irraRunt
                 }
             };
         }
