@@ -17,11 +17,22 @@ namespace UseCase.NeuralVortex.Spec
         public void Flyttar_varelser()
         {
             var flyttaVarelser = new FlyttaVarelserMock();
-            var uppdateraSpelvärld = new UppdateraSpelvärld(flyttaVarelser);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(flyttaVarelser, null);
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
             Assert.That(flyttaVarelser.FlyttadesAvTangent, Is.EqualTo(Tangent.Upp));
+        }
+
+        [Test]
+        public void Utdelar_skada()
+        {
+            var utdelaSkada = new UtdelaSkadaMock();
+            var uppdateraSpelvärld = new UppdateraSpelvärld(null, utdelaSkada);
+
+            uppdateraSpelvärld.Uppdatera(Tangent.Upp);
+
+            Assert.That(utdelaSkada.UtdelaHarAnropats, Is.True);
         }
     }
 }

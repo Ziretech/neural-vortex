@@ -58,6 +58,7 @@
     <Compile Include="Spelvärld\SpelvärldspositionSpec.cs" />
     <Compile Include="Spelvärld\SpelvärldsytaSpec.cs" />
     <Compile Include="UppdateraSpelvärldSpec.cs" />
+    <Compile Include="UtdelaSkadaMock.cs" />
     <Compile Include="VisaSpelvärldSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Visning\SkärmpositionSpec.cs" />
