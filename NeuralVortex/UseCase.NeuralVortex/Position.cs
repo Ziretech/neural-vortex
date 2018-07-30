@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex
 {
@@ -31,14 +32,31 @@ namespace UseCase.NeuralVortex
             return new Position(X + andraPositionen.X, Y + andraPositionen.Y);
         }
 
+        public bool ÄrBredvid(Position position)
+        {
+            return ManhattanAvståndTill(position) == 1;
+        }
+
         public Position Plus(Yta yta)
         {
             return new Position(_x + yta.Bredd, _y + yta.Höjd);
         }
 
+        public Position AvståndTill(Position position)
+        {
+            var differens = Minus(position);
+            return new Position(differens.X > 0 ? differens.X : -differens.X, differens.Y > 0 ? differens.Y : -differens.Y);
+        }
+
         public Position Minus(Position position)
         {
             return new Position(X - position.X, Y - position.Y);
+        }
+
+        public int ManhattanAvståndTill(Position position)
+        {
+            var avstånd = AvståndTill(position);
+            return avstånd.X + avstånd.Y;
         }
 
         public override bool Equals(object obj)
