@@ -14,5 +14,6 @@ namespace UseCase.NeuralVortex
         public IGrafik Grafik { get; set; }
         public Spelvärldsposition Position { get; set; }
         public IRiktningsgenerator Riktningsgenerator { get; set; }
+        public bool ÄrKritisktSkadad { get; set; }
     }
 }

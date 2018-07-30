@@ -14,5 +14,7 @@ namespace UseCase.NeuralVortex.Spelvärld
         IGrafik MiljöGrafik { get; set; }
 
         IEnumerable<Fiende> Fienden { get; set; }
+
+        void DödaFiende(Fiende fiende);
     }
 }

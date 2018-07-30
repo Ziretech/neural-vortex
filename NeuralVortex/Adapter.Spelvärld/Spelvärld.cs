@@ -21,5 +21,10 @@ namespace Adapter.Spelvärld
             KameraPosition = new Spelvärldsposition(0, 0);
             Fienden = new List<Fiende>();
         }
+
+        public void DödaFiende(Fiende fiende)
+        {
+            
+        }
     }
 }
