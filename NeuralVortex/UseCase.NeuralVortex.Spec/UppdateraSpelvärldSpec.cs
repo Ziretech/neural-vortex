@@ -17,7 +17,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Flyttar_varelser()
         {
             var flyttaVarelser = new FlyttaVarelserMock();
-            var uppdateraSpelvärld = new UppdateraSpelvärld(flyttaVarelser, null);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(flyttaVarelser, null, null);
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
@@ -28,7 +28,7 @@ namespace UseCase.NeuralVortex.Spec
         public void Utdelar_skada()
         {
             var utdelaSkada = new UtdelaSkadaMock();
-            var uppdateraSpelvärld = new UppdateraSpelvärld(null, utdelaSkada);
+            var uppdateraSpelvärld = new UppdateraSpelvärld(null, utdelaSkada, null);
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 

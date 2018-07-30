@@ -7,7 +7,7 @@ using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex
 {
-    internal class DödaKritisktSkadade : IDödaKritisktSkadade
+    public class DödaKritisktSkadade : IDödaKritisktSkadade
     {
         private ISpelvärld _spelvärld;
 

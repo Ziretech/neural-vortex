@@ -7,7 +7,7 @@ using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex
 {
-    public class UtdelaSkada
+    public class UtdelaSkada : IUtdelaSkada
     {
         private ISpelvärld _spelvärld;
 
@@ -16,7 +16,7 @@ namespace UseCase.NeuralVortex
             _spelvärld = spelvärld;
         }
 
-        internal void Utdela()
+        public  void Utdela()
         {
             foreach (var fiende in _spelvärld.Fienden)
             {

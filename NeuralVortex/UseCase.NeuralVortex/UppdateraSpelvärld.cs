@@ -15,7 +15,7 @@ namespace UseCase.NeuralVortex
         private readonly IUtdelaSkada _utdelaSkada;
         private readonly IDödaKritisktSkadade _dödaKritisktSkadade;
 
-        public UppdateraSpelvärld(IFlyttaVarelser flyttaVarelser, IUtdelaSkada utdelaSkada, IDödaKritisktSkadade dödaKritisktSkadade = null)
+        public UppdateraSpelvärld(IFlyttaVarelser flyttaVarelser, IUtdelaSkada utdelaSkada, IDödaKritisktSkadade dödaKritisktSkadade)
         {
             _flyttaVarelser = flyttaVarelser;
             _utdelaSkada = utdelaSkada;
