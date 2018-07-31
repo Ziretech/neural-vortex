@@ -14,9 +14,6 @@ namespace Adapter.Spelvärld
         private Spelvärldsyta _spelvärldsyta;
         public Karta Karta { get; private set; }
 
-        private const int GOLV_INDEX = 1;
-        private const int DÖRR_INDEX = 2;
-
         public Kartritare(Spelvärldsyta spelvärldsyta)
         {
             _spelvärldsyta = spelvärldsyta ?? throw new ArgumentException("Spelvärldsskapare kan inte skapas utan spelvärldsyta.");
@@ -33,11 +30,6 @@ namespace Adapter.Spelvärld
             Karta = new Karta(_spelvärldsyta.Bredd, _spelvärldsyta.Höjd, index);
         }
 
-        public void Skapa(Spelvärldsposition position)
-        {
-            Skapa(DÖRR_INDEX, position);
-        }
-
         public void Skapa(int index, Spelvärldsposition position)
         {
             if (position.X >= _spelvärldsyta.Bredd || 
@@ -47,11 +39,6 @@ namespace Adapter.Spelvärld
                 throw new ArgumentException("Dörr kan inte placeras utanför kartans område.");
 
             Karta.Indexar[position.X + position.Y * _spelvärldsyta.Bredd] = index;
-        }
-
-        public void SkapaYta(Spelvärldsområde område)
-        {
-            SkapaYta(GOLV_INDEX, område);
         }
 
         public void SkapaYta(int index, Spelvärldsområde område)
