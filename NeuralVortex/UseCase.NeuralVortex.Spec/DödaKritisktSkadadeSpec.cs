@@ -21,7 +21,7 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Avslutar_spelet_om_huvudkaraktären_är_kritiskt_skadad()
         {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { ÄrKritisktSkadad = true } };
+            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär(0) };
             var dödaKritisktSkadade = new DödaKritisktSkadade(spelvärld);
             Assert.That(dödaKritisktSkadade.Döda(), Is.EqualTo(SpeletsFortsättning.Avsluta));
         }
