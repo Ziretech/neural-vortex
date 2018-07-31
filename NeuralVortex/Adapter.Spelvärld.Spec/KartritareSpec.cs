@@ -94,36 +94,36 @@ namespace Adapter.Spelvärld.Spec
         public void Skapar_en_dörr()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
-            ritare.SkapaDörr(new Spelvärldsposition(0, 0));
+            ritare.Skapa(new Spelvärldsposition(0, 0));
             Assert.That(ritare.Karta.Indexar, Is.EqualTo(new int[] { DÖRR_INDEX, 0, 0, 0 }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_0()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
-            ritare.SkapaDörr(new Spelvärldsposition(1, 0));
+            ritare.Skapa(new Spelvärldsposition(1, 0));
             Assert.That(ritare.Karta.Indexar, Is.EqualTo(new int[] { 0, DÖRR_INDEX, 0, 0 }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_1()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
-            ritare.SkapaDörr(new Spelvärldsposition(1, 1));
+            ritare.Skapa(new Spelvärldsposition(1, 1));
             Assert.That(ritare.Karta.Indexar, Is.EqualTo(new int[] { 0, 0, 0, DÖRR_INDEX }));
         }
         [Test]
         public void Skapar_en_dörr_på_1_1_i_3x2_värld()
         {
             var ritare = new Kartritare(new Spelvärldsyta(3, 2));
-            ritare.SkapaDörr(new Spelvärldsposition(1, 1));
+            ritare.Skapa(new Spelvärldsposition(1, 1));
             Assert.That(ritare.Karta.Indexar, Is.EqualTo(new int[] { 0, 0, 0, 0, DÖRR_INDEX, 0 }));
         }
         [Test]
         public void Skapar_två_dörrar()
         {
             var ritare = new Kartritare(new Spelvärldsyta(2, 2));
-            ritare.SkapaDörr(new Spelvärldsposition(0, 0));
-            ritare.SkapaDörr(new Spelvärldsposition(1, 1));
+            ritare.Skapa(new Spelvärldsposition(0, 0));
+            ritare.Skapa(new Spelvärldsposition(1, 1));
             Assert.That(ritare.Karta.Indexar, Is.EqualTo(new int[] { DÖRR_INDEX, 0, 0, DÖRR_INDEX }));
         }
 
@@ -215,7 +215,7 @@ namespace Adapter.Spelvärld.Spec
         {
             try
             {
-                new Kartritare(new Spelvärldsyta(1, 1)).SkapaDörr(new Spelvärldsposition(x, y));
+                new Kartritare(new Spelvärldsyta(1, 1)).Skapa(new Spelvärldsposition(x, y));
                 Assert.Fail("Inget undantag gjordes för att dörren placeras utanför kartan.");
             }
             catch (ArgumentException undantag)

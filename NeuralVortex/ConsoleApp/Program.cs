@@ -26,7 +26,7 @@ namespace ConsoleApp
 
             var kartritare = new Kartritare(new Spelvärldsyta(kartbredd, karthöjd));
             kartritare.SkapaYta(new Spelvärldsområde(1, 1, 8, 8));
-            kartritare.SkapaDörr(new Spelvärldsposition(9, 4));
+            kartritare.Skapa(new Spelvärldsposition(9, 4));
             kartritare.SkapaYta(new Spelvärldsområde(10, 2, 15, 10));
             var karta = kartritare.Karta;
             karta.Indexar[56 + 16] = 3;

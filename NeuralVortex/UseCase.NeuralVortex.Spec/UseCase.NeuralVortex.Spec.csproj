@@ -52,7 +52,6 @@
     <Compile Include="FlyttaVarelserSpec.cs" />
     <Compile Include="GrafikMock.cs" />
     <Compile Include="HinderkartaMock.cs" />
-    <Compile Include="Kartgenerering\SpelvärldsskapareMock.cs" />
     <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />
     <Compile Include="PositionSpec.cs" />

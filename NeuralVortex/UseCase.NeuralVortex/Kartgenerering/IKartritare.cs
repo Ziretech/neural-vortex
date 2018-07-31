@@ -10,6 +10,6 @@ namespace UseCase.NeuralVortex.Kartgenerering
     public interface IKartritare
     {
         void SkapaYta(Spelvärldsområde område);
-        void SkapaDörr(Spelvärldsposition position);
+        void Skapa(int index, Spelvärldsposition position);
     }
 }

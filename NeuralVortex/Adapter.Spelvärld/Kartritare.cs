@@ -33,7 +33,12 @@ namespace Adapter.Spelvärld
             Karta = new Karta(_spelvärldsyta.Bredd, _spelvärldsyta.Höjd, index);
         }
 
-        public void SkapaDörr(Spelvärldsposition position)
+        public void Skapa(Spelvärldsposition position)
+        {
+            Skapa(DÖRR_INDEX, position);
+        }
+
+        public void Skapa(int index, Spelvärldsposition position)
         {
             if (position.X >= _spelvärldsyta.Bredd || 
                 position.X < 0 ||
@@ -41,10 +46,15 @@ namespace Adapter.Spelvärld
                 position.Y < 0)
                 throw new ArgumentException("Dörr kan inte placeras utanför kartans område.");
 
-            Karta.Indexar[position.X + position.Y * _spelvärldsyta.Bredd] = DÖRR_INDEX;
+            Karta.Indexar[position.X + position.Y * _spelvärldsyta.Bredd] = index;
         }
 
         public void SkapaYta(Spelvärldsområde område)
+        {
+            SkapaYta(GOLV_INDEX, område);
+        }
+
+        public void SkapaYta(int index, Spelvärldsområde område)
         {
             if (område == null)
                 throw new ArgumentException("Rum måste ha ett område.");
@@ -59,7 +69,7 @@ namespace Adapter.Spelvärld
             {
                 for (var y = område.Botten; y < område.Topp; y++)
                 {
-                    Karta.Indexar[x + y * _spelvärldsyta.Bredd] = GOLV_INDEX;
+                    Karta.Indexar[x + y * _spelvärldsyta.Bredd] = index;
                 }
             }
         }
