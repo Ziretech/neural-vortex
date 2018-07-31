@@ -102,7 +102,7 @@ namespace ConsoleApp
             var medicinBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 2 * 16), new Skärmyta(16, 16));
             var paradisBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 3 * 16), new Skärmyta(16, 16));
 
-            spelvärld.Huvudkaraktär = new Huvudkaraktär
+            spelvärld.Huvudkaraktär = new Huvudkaraktär(2)
             {
                 Position = new Spelvärldsposition(1, 1),
                 Grafik = huvudkaraktärBricka

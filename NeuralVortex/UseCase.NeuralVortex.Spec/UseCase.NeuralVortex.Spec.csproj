@@ -57,6 +57,7 @@
     <Compile Include="PositionSpec.cs" />
     <Compile Include="SpelvärldMock.cs" />
     <Compile Include="SpelvärldsområdeSpec.cs" />
+    <Compile Include="Spelvärld\HuvudkaraktärSpec.cs" />
     <Compile Include="Spelvärld\SpelvärldspositionSpec.cs" />
     <Compile Include="Spelvärld\SpelvärldsytaSpec.cs" />
     <Compile Include="UppdateraSpelvärldSpec.cs" />
