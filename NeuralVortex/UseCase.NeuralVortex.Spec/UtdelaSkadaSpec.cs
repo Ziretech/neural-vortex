@@ -55,5 +55,8 @@ namespace UseCase.NeuralVortex.Spec
             utdelaSkada.Utdela();
             Assert.That(spelvärld.Huvudkaraktär.ÄrKritisktSkadad, Is.True);
         }
+
+        // TODO: [R] Använd hälsa (int) för att utdela kritiskt skada
+        // TODO: Karaktären tål mer än en träff
     }
 }

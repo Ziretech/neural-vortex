@@ -15,5 +15,10 @@ namespace UseCase.NeuralVortex
         public Spelvärldsposition Position { get; set; }
 
         public bool ÄrKritisktSkadad { get; set; }
+
+        public void Skada()
+        {
+            ÄrKritisktSkadad = true;
+        }
     }
 }

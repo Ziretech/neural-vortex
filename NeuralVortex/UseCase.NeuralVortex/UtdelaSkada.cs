@@ -22,7 +22,7 @@ namespace UseCase.NeuralVortex
             {
                 if (_spelvärld.Huvudkaraktär.Position.ÄrBredvid(fiende.Position))
                 {
-                    _spelvärld.Huvudkaraktär.ÄrKritisktSkadad = true;
+                    _spelvärld.Huvudkaraktär.Skada();
                 }
             }
         }
