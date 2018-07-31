@@ -55,7 +55,5 @@ namespace UseCase.NeuralVortex.Spec
             utdelaSkada.Utdela();
             Assert.That(spelvärld.Huvudkaraktär.ÄrKritisktSkadad, Is.True);
         }
-
-        // TODO: Karaktären tål mer än en träff
     }
 }

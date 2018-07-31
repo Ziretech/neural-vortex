@@ -8,7 +8,7 @@ using UseCase.NeuralVortex.Visning;
 
 namespace UseCase.NeuralVortex
 {
-    public class VisaSpelvärld
+    public class VisaSpelvärld : IVisa
     {
         private readonly ISpelvärld _spelvärld;
         private readonly IPositionskonverterare _konvertera;

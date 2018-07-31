@@ -73,6 +73,7 @@ namespace ConsoleApp
             var positionskonverterare = new Positionskonverterare(new Skärmyta(16, 16));
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, positionskonverterare);
+            var ucVisaStatus = new VisaStatus();
 
             var karta = SkapaKarta();
             var hinderlista = new[] { 0 };
@@ -82,7 +83,7 @@ namespace ConsoleApp
             var ucUtdelaSkada = new UtdelaSkada(spelvärld);
             var ucDödaKritisktSkadade = new DödaKritisktSkadade(spelvärld);
             var ucUppdateraSpelvärld = new UppdateraSpelvärld(ucFlyttaVarelser, ucUtdelaSkada, ucDödaKritisktSkadade);
-            var openTKHanterare = new GrafikHändelser(grafikkommandon, tileset, _fönster, ucVisaSpelvärld, kamera);
+            var openTKHanterare = new GrafikHändelser(grafikkommandon, tileset, _fönster, ucVisaSpelvärld, kamera, ucVisaStatus);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, _fönster);
 
             _fönster.Laddare(openTKHanterare);

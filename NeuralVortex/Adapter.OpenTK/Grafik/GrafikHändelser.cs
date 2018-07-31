@@ -13,16 +13,18 @@ namespace Adapter.OpenTK.Grafik
         private IGrafikkommandon _gl;
         private IBild _tileset;
         private IBuffertväxlare _buffertväxlare;
-        private VisaSpelvärld _visaSpelvärld;
+        private IVisa _visaSpelvärld;
+        private IVisa _visaStatus;
         private Kamera _kamera;
         private double _scaleFactor;
 
-        public GrafikHändelser(IGrafikkommandon grafikkommandon, IBild tileset, IBuffertväxlare buffertväxlare, VisaSpelvärld visaSpelvärld, Kamera kamera)
+        public GrafikHändelser(IGrafikkommandon grafikkommandon, IBild tileset, IBuffertväxlare buffertväxlare, IVisa visaSpelvärld, Kamera kamera, IVisa visaStatus)
         {
             _gl = grafikkommandon;
             _tileset = tileset;
             _buffertväxlare = buffertväxlare;
             _visaSpelvärld = visaSpelvärld;
+            _visaStatus = visaStatus;
             _kamera = kamera;
             _scaleFactor = 4.0;
         }
@@ -46,6 +48,7 @@ namespace Adapter.OpenTK.Grafik
         {
             _gl.TömRityta();            
             _visaSpelvärld.Visa();
+            _visaStatus.Visa();
             _buffertväxlare.VäxlaBuffert();
         }
 

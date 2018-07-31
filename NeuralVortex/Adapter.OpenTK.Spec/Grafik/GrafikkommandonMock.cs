@@ -91,9 +91,10 @@ namespace Adapter.OpenTK.Spec.Grafik
             throw new NotImplementedException();
         }
 
+        public bool TömRitytaHarAnropats { get; private set; }
         public void TömRityta()
         {
-            throw new NotImplementedException();
+            TömRitytaHarAnropats = true;
         }
 
         public void Visningsområde(int x, int y, int bredd, int höjd)
