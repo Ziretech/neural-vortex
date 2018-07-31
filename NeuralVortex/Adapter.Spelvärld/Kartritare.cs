@@ -26,8 +26,7 @@ namespace Adapter.Spelvärld
                 throw new ArgumentException("Spelvärldsskapares spelvärldsyta måste ha minst 1 i höjd.");
             }
 
-            var index = new int[_spelvärldsyta.Bredd * _spelvärldsyta.Höjd];
-            Karta = new Karta(_spelvärldsyta.Bredd, _spelvärldsyta.Höjd, index);
+            Karta = new Karta(_spelvärldsyta.Bredd, _spelvärldsyta.Höjd, new int[_spelvärldsyta.Bredd * _spelvärldsyta.Höjd]);
         }
 
         public void Skapa(int index, Spelvärldsposition position)
