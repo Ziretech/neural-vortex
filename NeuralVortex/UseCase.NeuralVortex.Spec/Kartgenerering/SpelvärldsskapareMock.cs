@@ -27,7 +27,7 @@ namespace UseCase.NeuralVortex.Spec.Kartgenerering
             AnropadesMedDörr.Add(position);
         }
 
-        public void SkapaRum(Spelvärldsområde område)
+        public void SkapaYta(Spelvärldsområde område)
         {
             AnropadesMedRum.Add(område);
         }

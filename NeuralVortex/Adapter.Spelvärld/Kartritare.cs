@@ -12,8 +12,7 @@ namespace Adapter.Spelvärld
     public class Kartritare : IKartritare
     {
         private Spelvärldsyta _spelvärldsyta;
-        private List<Spelvärldsområde> _rum;
-        private List<Spelvärldsposition> _dörr;
+        public Karta Karta { get; private set; }
 
         private const int GOLV_INDEX = 1;
         private const int DÖRR_INDEX = 2;
@@ -30,8 +29,8 @@ namespace Adapter.Spelvärld
                 throw new ArgumentException("Spelvärldsskapares spelvärldsyta måste ha minst 1 i höjd.");
             }
 
-            _rum = new List<Spelvärldsområde>();
-            _dörr = new List<Spelvärldsposition>();
+            var index = new int[_spelvärldsyta.Bredd * _spelvärldsyta.Höjd];
+            Karta = new Karta(_spelvärldsyta.Bredd, _spelvärldsyta.Höjd, index);
         }
 
         public void SkapaDörr(Spelvärldsposition position)
@@ -41,10 +40,11 @@ namespace Adapter.Spelvärld
                 position.Y >= _spelvärldsyta.Höjd ||
                 position.Y < 0)
                 throw new ArgumentException("Dörr kan inte placeras utanför kartans område.");
-            _dörr.Add(position);
+
+            Karta.Indexar[position.X + position.Y * _spelvärldsyta.Bredd] = DÖRR_INDEX;
         }
 
-        public void SkapaRum(Spelvärldsområde område)
+        public void SkapaYta(Spelvärldsområde område)
         {
             if (område == null)
                 throw new ArgumentException("Rum måste ha ett område.");
@@ -54,32 +54,14 @@ namespace Adapter.Spelvärld
                 throw new ArgumentException("Rum måste ha en höjd > 0.");
             if (!new Spelvärldsområde(new Spelvärldsposition(0, 0), _spelvärldsyta).Omsluter(område))
                 throw new ArgumentException($"Rum {område.ToString()} måste placeras inom kartan {_spelvärldsyta.ToString()}.");
-            _rum.Add(område);
-        }
 
-        public bool ÄrKartanFärdig()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Karta ByggKarta()
-        {
-            var karta = new int[_spelvärldsyta.Bredd * _spelvärldsyta.Höjd];
-            foreach(var rum in _rum)
+            for (var x = område.Vänster; x < område.Höger; x++)
             {
-                for (var x = rum.Vänster; x < rum.Höger; x++)
+                for (var y = område.Botten; y < område.Topp; y++)
                 {
-                    for (var y = rum.Botten; y < rum.Topp; y++)
-                    {
-                        karta[x + y * _spelvärldsyta.Bredd] = GOLV_INDEX;
-                    }
+                    Karta.Indexar[x + y * _spelvärldsyta.Bredd] = GOLV_INDEX;
                 }
             }
-            foreach(var dörr in _dörr)
-            {
-                karta[dörr.X + dörr.Y * _spelvärldsyta.Bredd] = DÖRR_INDEX;
-            }
-            return new Karta(_spelvärldsyta.Bredd, _spelvärldsyta.Höjd, karta);
         }
     }
 }

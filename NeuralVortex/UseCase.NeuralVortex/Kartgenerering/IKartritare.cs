@@ -9,8 +9,7 @@ namespace UseCase.NeuralVortex.Kartgenerering
 {
     public interface IKartritare
     {
-        void SkapaRum(Spelvärldsområde område);
+        void SkapaYta(Spelvärldsområde område);
         void SkapaDörr(Spelvärldsposition position);
-        bool ÄrKartanFärdig();
     }
 }

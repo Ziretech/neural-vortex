@@ -25,15 +25,15 @@ namespace ConsoleApp
             const int karthöjd = 16;
 
             var kartritare = new Kartritare(new Spelvärldsyta(kartbredd, karthöjd));
-            kartritare.SkapaRum(new Spelvärldsområde(1, 1, 8, 8));
+            kartritare.SkapaYta(new Spelvärldsområde(1, 1, 8, 8));
             kartritare.SkapaDörr(new Spelvärldsposition(9, 4));
-            kartritare.SkapaRum(new Spelvärldsområde(10, 2, 15, 10));
-            var karta = kartritare.ByggKarta();
+            kartritare.SkapaYta(new Spelvärldsområde(10, 2, 15, 10));
+            var karta = kartritare.Karta;
             karta.Indexar[56 + 16] = 3;
             karta.Indexar[4 + 4 * 16] = 4;
             karta.Indexar[7 + 3 * 16] = 4;
             karta.Indexar[13 + 7 * 16] = 4;
-            karta.Indexar[14 + 9 * 16] = 5;
+            karta.Indexar[13 + 8 * 16] = 5;
             return karta;
         }
 
