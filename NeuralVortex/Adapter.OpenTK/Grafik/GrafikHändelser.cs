@@ -54,7 +54,7 @@ namespace Adapter.OpenTK.Grafik
 
         public void ÄndraStorlek(int bredd, int höjd)
         {
-            _kamera.Dimensioner = new Skärmyta(bredd, höjd);
+            _kamera.Dimensioner = new Skärmyta((int)(bredd / _scaleFactor), (int)(höjd / _scaleFactor));
 
             _gl.VäljProjektionmatris();
             _gl.NollställMatris();
