@@ -28,6 +28,15 @@ namespace Adapter.OpenTK.Grafik
             _konverterare = konverterare;
         }
 
+        public Skärmyta Dimensioner
+        {
+            get
+            {
+                var hörnet = _konverterare.TillPunkt(new Spelvärldsposition(_kartbredd, _karthöjd));
+                return new Skärmyta(hörnet.X, hörnet.Y);
+            }
+        }
+
         public void Visa(Skärmposition position)
         {
             var område = _konverterare.TillOmråde(_kamera.Synlighetsområde);

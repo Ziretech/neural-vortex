@@ -186,5 +186,39 @@ namespace Adapter.OpenTK.Spec.Grafik
 
             Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(0), "antal polygoner");
         }
+
+        [Test]
+        public void Har_dimensioner_4x4_när_brickfältet_är_en_4x4_ruta()
+        {
+            var gl = new GrafikkommandonMock();
+            var kamera = new Kamera(new Skärmyta(20, 20), new Skärmposition(0, 0));
+            var definitioner = new Bricka[] {
+                new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(4, 4))
+            };
+            var brickstorlek = new Skärmyta(4, 4);
+            var kartbredd = 1;
+            var karta = new int[] { 0 };
+            var konverterare = new Positionskonverterare(brickstorlek);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+
+            Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(4, 4)));
+        }
+
+        [Test]
+        public void Har_dimensioner_8x15_när_brickfältet_är_2x3_4x5_rutor()
+        {
+            var gl = new GrafikkommandonMock();
+            var kamera = new Kamera(new Skärmyta(20, 20), new Skärmposition(0, 0));
+            var definitioner = new Bricka[] {
+                new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(4, 5))
+            };
+            var brickstorlek = new Skärmyta(4, 5);
+            var kartbredd = 2;
+            var karta = new int[] { 0, 0, 0, 0, 0, 0 };
+            var konverterare = new Positionskonverterare(brickstorlek);
+            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+
+            Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(8, 15)));
+        }
     }
 }
