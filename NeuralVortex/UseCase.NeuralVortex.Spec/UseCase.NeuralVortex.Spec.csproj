@@ -52,7 +52,6 @@
     <Compile Include="FlyttaVarelserSpec.cs" />
     <Compile Include="GrafikMock.cs" />
     <Compile Include="HinderkartaMock.cs" />
-    <Compile Include="KameraMock.cs" />
     <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />
     <Compile Include="PositionSpec.cs" />
@@ -67,6 +66,7 @@
     <Compile Include="VisaSpelvärldSpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisaStatusSpec.cs" />
+    <Compile Include="Visning\KameraSpec.cs" />
     <Compile Include="Visning\SkärmpositionSpec.cs" />
     <Compile Include="Visning\SkärmytaSpec.cs" />
     <Compile Include="YtaSpec.cs" />

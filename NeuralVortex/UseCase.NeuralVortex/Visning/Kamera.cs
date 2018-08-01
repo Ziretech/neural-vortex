@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UseCase.NeuralVortex.Visning;
 
-namespace Adapter.OpenTK.Grafik
+namespace UseCase.NeuralVortex.Visning
 {
     public class Kamera : IKamera
     {

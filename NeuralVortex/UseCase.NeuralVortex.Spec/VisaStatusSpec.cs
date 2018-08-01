@@ -24,8 +24,8 @@ namespace UseCase.NeuralVortex.Spec
         //    Assert.That(hälsomätarram.HarVisatsPåPosition, Is.EqualTo(new Skärmposition(x, 0)));
         //}
 
-        // TODO VisaStatus visar ramen för hälsomätaren centrerad på skärmen
         // TODO [R] Kamera är systemlogik och inte adapterlogik. Den borde flyttas till UseCase. -> Behövs IKamera längre, eller borde interfacet tas bort?
-        // TODO kolla konstruktorargument
+        // TODO VisaStatus visar ramen för hälsomätaren centrerad på skärmen
+        // TODO VisaStatus kollar konstruktorargument
     }
 }

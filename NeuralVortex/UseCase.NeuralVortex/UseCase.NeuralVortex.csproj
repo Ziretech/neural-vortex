@@ -67,6 +67,7 @@
     <Compile Include="Spelvärld\ISpelvärld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Visning\IKamera.cs" />
+    <Compile Include="Visning\Kamera.cs" />
     <Compile Include="Visning\Rektangel.cs" />
     <Compile Include="Visning\Skärmområde.cs" />
     <Compile Include="Visning\Skärmposition.cs" />

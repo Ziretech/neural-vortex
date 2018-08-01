@@ -1,13 +1,11 @@
-﻿using Adapter.OpenTK.Grafik;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UseCase.NeuralVortex.Visning;
 
-namespace Adapter.OpenTK.Spec.Grafik
+namespace UseCase.NeuralVortex.Visning
 {
     [TestFixture]
     public class KameraSpec
