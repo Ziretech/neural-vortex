@@ -11,20 +11,21 @@ namespace Adapter.OpenTK.Grafik
     {
         private readonly IGrafikkommandon _gl;
         private readonly Skärmposition _texturPosition;
-        private readonly Skärmyta _dimensioner;
         private readonly Kamera _kamera;
 
         public Bricka(IGrafikkommandon gl, Kamera kamera, Skärmposition texturPosition, Skärmyta dimensioner)
         {
             _gl = gl;
             _texturPosition = texturPosition;
-            _dimensioner = dimensioner;
+            Dimensioner = dimensioner;
             _kamera = kamera;
         }
 
+        public Skärmyta Dimensioner { get; private set; }
+
         public void Visa(Skärmposition position)
         {
-            KopieraTexturrektangelTillRityta(_texturPosition, _kamera.Transformera(position), _dimensioner);
+            KopieraTexturrektangelTillRityta(_texturPosition, _kamera.Transformera(position), Dimensioner);
         }
 
         private void KopieraTexturrektangelTillRityta(Skärmposition texturPosition, Skärmposition brickansPosition, Skärmyta yta)

@@ -50,5 +50,15 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1), "Antal fyrkanter stämmer inte");
             Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(20, 35), "Position stämmer inte");
         }
+
+        [Test]
+        public void Har_dimensioner()
+        {
+            var kamera = new Kamera(new Skärmyta(100, 100), new Skärmposition(10, 5));
+            var glMock = new GrafikkommandonMock();
+            var bricka = new Bricka(glMock, kamera, new Skärmposition(0, 0), new Skärmyta(16, 16));
+
+            Assert.That(bricka.Dimensioner, Is.EqualTo(new Skärmyta(16, 16)));
+        }
     }
 }
