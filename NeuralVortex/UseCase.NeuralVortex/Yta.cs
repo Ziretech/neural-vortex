@@ -18,5 +18,21 @@
         {
             return $"{_bredd}x{_höjd}";
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var position = (Yta)obj;
+            return position.Bredd.Equals(Bredd) && position.Höjd.Equals(Höjd);
+        }
+
+        public override int GetHashCode()
+        {
+            return Bredd ^ Höjd;
+        }
     }
 }
