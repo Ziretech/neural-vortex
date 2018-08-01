@@ -72,8 +72,21 @@ namespace ConsoleApp
             var kamera = new Kamera(new Skärmyta(100, 100));
             var positionskonverterare = new Positionskonverterare(new Skärmyta(16, 16));
 
+            var radioaktivInsektBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(5 * 16, 0), new Skärmyta(16, 16));
+            var tomBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(15 * 16, 15 * 16), new Skärmyta(16, 16));
+            var takBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(2 * 16, 1 * 16), new Skärmyta(16, 16));
+            var kabel1Bricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 1 * 16), new Skärmyta(16, 16));
+            var kabel2Bricka = new Bricka(grafikkommandon, kamera, new Skärmposition(4 * 16, 1 * 16), new Skärmyta(16, 16));
+            var takMedRevaBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16));
+            var ammoBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 1 * 16), new Skärmyta(16, 16));
+            var huvudkaraktärBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 0 * 16), new Skärmyta(16, 16));
+            var medicinBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 2 * 16), new Skärmyta(16, 16));
+            var paradisBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 3 * 16), new Skärmyta(16, 16));
+            var hälsomätarram = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 32), new Skärmyta(80, 16));
+            var hälsomätargrönt = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 48), new Skärmyta(80, 16));
+
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, positionskonverterare);
-            var ucVisaStatus = new VisaStatus();
+            var ucVisaStatus = new VisaStatus(kamera, hälsomätarram);
 
             var karta = SkapaKarta();
             var hinderlista = new[] { 0 };
@@ -91,17 +104,6 @@ namespace ConsoleApp
             _fönster.Uppdaterare(openTKHanterare);
             _fönster.Visare(openTKHanterare);
             _fönster.Tangentbordsmottagare(kontrollhändelser);
-
-            var radioaktivInsektBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(5 * 16, 0), new Skärmyta(16, 16));
-            var tomBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(15 * 16, 15 * 16), new Skärmyta(16, 16));
-            var takBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(2 * 16, 1 * 16), new Skärmyta(16, 16));
-            var kabel1Bricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 1 * 16), new Skärmyta(16, 16));
-            var kabel2Bricka = new Bricka(grafikkommandon, kamera, new Skärmposition(4 * 16, 1 * 16), new Skärmyta(16, 16));
-            var takMedRevaBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16));
-            var ammoBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 1 * 16), new Skärmyta(16, 16));
-            var huvudkaraktärBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 0 * 16), new Skärmyta(16, 16));
-            var medicinBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 2 * 16), new Skärmyta(16, 16));
-            var paradisBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 3 * 16), new Skärmyta(16, 16));
 
             spelvärld.Huvudkaraktär = new Huvudkaraktär(2)
             {

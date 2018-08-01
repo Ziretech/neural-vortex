@@ -10,6 +10,7 @@ namespace UseCase.NeuralVortex.Visning
     {
         void CentreraKameraMot(Skärmposition position);
         Skärmområde Synlighetsområde { get; }
+        Skärmyta Dimensioner { get; }
     }
 
 }
