@@ -8,6 +8,7 @@ namespace UseCase.NeuralVortex.Visning
 {
     public interface IGrafik
     {
+        Skärmyta Dimensioner { get; }
         void Visa(Skärmposition position);
     }
 }
