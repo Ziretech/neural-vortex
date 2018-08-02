@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\SekvensFörflyttningSpec.cs" />
+    <Compile Include="AndelSpec.cs" />
     <Compile Include="DödaKritisktSkadadeMock.cs" />
     <Compile Include="DödaKritisktSkadadeSpec.cs" />
     <Compile Include="FlyttaVarelserMock.cs" />

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace UseCase.NeuralVortex.Visning
 {
-    public class Skärmyta : Yta
+    public interface IGradvisGrafik
     {
-        public Skärmyta(int bredd, int höjd) : base(bredd, höjd) { }
-
-        public Skärmyta(Yta yta) : base(yta) { }
+        void Visa(Skärmposition position, Andel andel);
     }
 }

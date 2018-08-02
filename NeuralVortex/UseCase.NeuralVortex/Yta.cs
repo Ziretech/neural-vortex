@@ -11,6 +11,12 @@
             _höjd = höjd;
         }
 
+        public Yta(Yta yta)
+        {
+            _bredd = yta.Bredd;
+            _höjd = yta.Höjd;
+        }
+
         public int Bredd => _bredd;
         public int Höjd => _höjd;
 

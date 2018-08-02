@@ -33,6 +33,9 @@ namespace UseCase.NeuralVortex
         public int Vänster => _vänster;
         public int Höger => _höger;
 
+        public Position Position => new Position(_vänster, _botten);
+        public Yta Yta => new Yta(_höger - _vänster, _topp - _botten);
+
         public override string ToString()
         {
             return $"({_vänster},{_botten})-({_höger},{_topp})";
@@ -65,5 +68,7 @@ namespace UseCase.NeuralVortex
                 || område.Höger > Höger
                 || område.Topp > Topp);
         }
+
+        // TODO: [R] Område borde internt använda position och yta istället och hellre beräkna Vänster, Botten, Höger, Topp därifrån.
     }
 }

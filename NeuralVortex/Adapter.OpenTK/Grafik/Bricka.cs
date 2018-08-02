@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCase.NeuralVortex;
 using UseCase.NeuralVortex.Visning;
 
 namespace Adapter.OpenTK.Grafik
 {
-    public class Bricka : IGrafik
+    public class Bricka : IGrafik, IGradvisGrafik
     {
         private readonly IGrafikkommandon _gl;
         private readonly Skärmposition _texturPosition;
@@ -21,11 +22,33 @@ namespace Adapter.OpenTK.Grafik
             _kamera = kamera;
         }
 
+        public Bricka(IGrafikkommandon gl, Skärmposition texturPosition, Skärmyta dimensioner)
+        {
+            _gl = gl;
+            _texturPosition = texturPosition;
+            Dimensioner = dimensioner;
+        }
+
         public Skärmyta Dimensioner { get; private set; }
 
         public void Visa(Skärmposition position)
         {
-            KopieraTexturrektangelTillRityta(_texturPosition, _kamera.Transformera(position), Dimensioner);
+            Visa(position, new Skärmområde(Dimensioner));
+        }
+
+        public void Visa(Skärmposition position, Andel andel)
+        {
+            var bredd = andel.Av(Dimensioner.Bredd);
+            if(bredd > 0)
+            {
+                Visa(position, new Skärmområde(new Skärmyta(bredd, Dimensioner.Höjd)));
+            }            
+        }
+
+        private void Visa(Skärmposition position, Skärmområde område)
+        {
+            var transformeradPosition = _kamera == null ? position : _kamera.Transformera(position);
+            KopieraTexturrektangelTillRityta(_texturPosition.Plus(område.Position), transformeradPosition, område.Yta);
         }
 
         private void KopieraTexturrektangelTillRityta(Skärmposition texturPosition, Skärmposition brickansPosition, Skärmyta yta)

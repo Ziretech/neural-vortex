@@ -1,5 +1,6 @@
 ﻿using Adapter.OpenTK.Grafik;
 using NUnit.Framework;
+using UseCase.NeuralVortex;
 using UseCase.NeuralVortex.Visning;
 
 namespace Adapter.OpenTK.Spec.Grafik
@@ -60,5 +61,49 @@ namespace Adapter.OpenTK.Spec.Grafik
 
             Assert.That(bricka.Dimensioner, Is.EqualTo(new Skärmyta(16, 16)));
         }
+
+        [TestCase(1, 2)]
+        [TestCase(16, 9)]
+        public void Utan_kamera_görs_ingen_transformation(int x, int y)
+        {
+            var glMock = new GrafikkommandonMock();
+            var bricka = new Bricka(glMock, new Skärmposition(4, 5), new Skärmyta(16, 16));
+            bricka.Visa(new Skärmposition(x, y));
+
+            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1), "Antal fyrkanter");
+            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(x, y));
+        }
+
+        [TestCase(1.0, 16, 16)]
+        [TestCase(0.5, 16, 8)]
+        [TestCase(0.5, 10, 5)]
+        public void Visar_del_av_bilden(double procent, int maxBredd, int bredd)
+        {
+            var glMock = new GrafikkommandonMock();
+            var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(maxBredd, 16));
+            bricka.Visa(new Skärmposition(0, 0), new Andel(procent));
+
+            Assert.That(glMock.Texturverifierare.Count, Is.EqualTo(1), "Antal fyrhörningar (textur)");
+            Assert.That(glMock.Texturverifierare[0].StämmerHörn1(0, 16), "Texturhörn 1");
+            Assert.That(glMock.Texturverifierare[0].StämmerHörn2(bredd, 0), "Texturhörn 2");
+
+            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1), "Antal fyrhörningar (bild)");
+            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(0, 0), "Bildhörn 1");
+            Assert.That(glMock.Hörnverifierare[0].StämmerHörn2(bredd, 16), "Bildhörn 2");
+        }
+
+        [Test]
+        public void Visar_inte_bilden_om_delen_som_ska_visas_är_mindre_än_1()
+        {
+            var glMock = new GrafikkommandonMock();
+            var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(16, 16));
+            bricka.Visa(new Skärmposition(0, 0), new Andel(1.0 / 16.0 - 0.01));
+
+            Assert.That(glMock.Texturverifierare.Count, Is.EqualTo(0));
+        }
+
+        // REFACTOR Borde Bricka verkligen känna till Kameran, eller är det upp till anroparen att först transformera koordinaterna innan Visa anropas?
+        // Ev. så skulle man kunna göra en metod i Kameran som tar emot visningsobjektet, transformerar och sedan anropar visa...
+        // REFACTOR Kolla över tester för Skärmområde, Spelvärldsområde och Område...
     }
 }

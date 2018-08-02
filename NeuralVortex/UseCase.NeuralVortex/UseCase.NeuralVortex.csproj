@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AI\IRiktningsgenerator.cs" />
     <Compile Include="AI\SekvensFörflyttning.cs" />
+    <Compile Include="Andel.cs" />
     <Compile Include="DödaKritisktSkadade.cs" />
     <Compile Include="FlyttaVarelser.cs" />
     <Compile Include="IDödaKritisktSkadade.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="UppdateraSpelvärld.cs" />
     <Compile Include="UtdelaSkada.cs" />
     <Compile Include="VisaStatus.cs" />
+    <Compile Include="Visning\IGradvisBricka.cs" />
     <Compile Include="Visning\IGrafik.cs" />
     <Compile Include="Spelvärld\Huvudkaraktär.cs" />
     <Compile Include="Spelvärld\ISpelvärld.cs" />
