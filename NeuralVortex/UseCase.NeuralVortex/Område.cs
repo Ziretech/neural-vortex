@@ -69,6 +69,6 @@ namespace UseCase.NeuralVortex
                 || område.Topp > Topp);
         }
 
-        // TODO: [R] Område borde internt använda position och yta istället och hellre beräkna Vänster, Botten, Höger, Topp därifrån.
+        // REFACTOR Område borde internt använda position och yta istället och hellre beräkna Vänster, Botten, Höger, Topp därifrån.
     }
 }

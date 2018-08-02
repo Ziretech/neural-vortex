@@ -86,7 +86,7 @@ namespace ConsoleApp
             var hälsomätargrönt = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 48), new Skärmyta(80, 16));
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, positionskonverterare);
-            var ucVisaStatus = new VisaStatus(kamera, hälsomätarram);
+            var ucVisaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätargrönt);
 
             var karta = SkapaKarta();
             var hinderlista = new[] { 0 };

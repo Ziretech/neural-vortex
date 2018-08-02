@@ -102,8 +102,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(glMock.Texturverifierare.Count, Is.EqualTo(0));
         }
 
-        // REFACTOR Borde Bricka verkligen känna till Kameran, eller är det upp till anroparen att först transformera koordinaterna innan Visa anropas?
-        // Ev. så skulle man kunna göra en metod i Kameran som tar emot visningsobjektet, transformerar och sedan anropar visa...
+        // REFACTOR Tag bort Kamera (och ansvaret att transformera) ur Bricka. Låt istället anroparen ha ansvaret. Undersök om det blir problem för Brickfält.
         // REFACTOR Kolla över tester för Skärmområde, Spelvärldsområde och Område...
     }
 }
