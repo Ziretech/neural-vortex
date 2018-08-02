@@ -27,5 +27,26 @@ namespace UseCase.NeuralVortex
         {
             return (int)(max * _andel);
         }
+
+        public override string ToString()
+        {
+            return $"{Math.Truncate(_andel * 100)}%";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var andel = (Andel)obj;
+            return (int)(andel._andel * 100.0) == (int)(_andel * 100.0);
+        }
+
+        public override int GetHashCode()
+        {
+            return _andel.GetHashCode();
+        }
     }
 }

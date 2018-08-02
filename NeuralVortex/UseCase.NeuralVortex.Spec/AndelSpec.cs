@@ -49,5 +49,35 @@ namespace UseCase.NeuralVortex.Spec
                 Assert.That(undantag.Message.ToLower(), Does.Contain("större än 1"));
             }
         }
+
+        [TestCase(1.0, "100%")]
+        [TestCase(0.8, "80%")]
+        [TestCase(0.3, "30%")]
+        [TestCase(0.0, "0%")]
+        [TestCase(0.12, "12%")]
+        [TestCase(0.123, "12%")]
+        [TestCase(0.12999, "12%")]
+        public void Representeras_som_värde_med_procent(double värde, string representation)
+        {
+            Assert.That(new Andel(värde).ToString(), Is.EqualTo(representation));
+        }
+
+        [TestCase(1.0, 1.0)]
+        [TestCase(0.8, 0.8)]
+        [TestCase(0.71, 0.71)]
+        [TestCase(0.0, 0.0)]
+        [TestCase(0.341, 0.342)]
+        public void Är_likadan_som_annan_andel_med_samma_värde(double värde1, double värde2)
+        {
+            Assert.That(new Andel(värde1), Is.EqualTo(new Andel(värde2)));
+        }
+
+        [TestCase(1.0, 0.9)]
+        [TestCase(0.4, 0.41)]
+        [TestCase(0.34, 0.339)]
+        public void Är_inte_likadan_som_annan_andel_med_annat_värde(double värde1, double värde2)
+        {
+            Assert.That(new Andel(värde1), Is.Not.EqualTo(new Andel(värde2)));
+        }
     }
 }
