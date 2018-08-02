@@ -23,6 +23,8 @@ namespace UseCase.NeuralVortex
             _andel = procent;
         }
 
+        public Andel(int del, int max) : this((double)del / max) { }
+
         public int Av(int max)
         {
             return (int)(max * _andel);

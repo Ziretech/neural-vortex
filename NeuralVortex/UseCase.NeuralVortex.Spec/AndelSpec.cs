@@ -22,6 +22,15 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(andel.Av(max), Is.EqualTo(värde));
         }
 
+        [TestCase(5, 10)]
+        [TestCase(10, 10)]
+        [TestCase(0, 10)]
+        public void Kan_skapas_som_andel_av_maxvärdet_via_konstruktor_som_tar_del_och_max(int del, int max)
+        {
+            var andel = new Andel(del, max);
+            Assert.That(andel.Av(max), Is.EqualTo(del));
+        }
+
         [Test]
         public void Gör_undantag_för_att_skapas_med_värde_mindre_än_0()
         {
@@ -33,7 +42,7 @@ namespace UseCase.NeuralVortex.Spec
             catch (ArgumentException undantag)
             {
                 Assert.That(undantag.Message.ToLower(), Does.Contain("mindre än 0"));
-            }            
+            }
         }
 
         [Test]
