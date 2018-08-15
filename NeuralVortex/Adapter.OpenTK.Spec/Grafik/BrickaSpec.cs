@@ -102,6 +102,21 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(glMock.Texturverifierare.Count, Is.EqualTo(0));
         }
 
+        [TestCase(0, 0, 0, 0, 0, 0)]
+        [TestCase(1, 2, 0, 0, 1, 2)]
+        [TestCase(1, 2, 3, 4, 4, 6)]
+        public void Kan_skapas_med_brickans_centrum_angivet(int centrumX, int centrumY, int visaX, int visaY, int resultatX, int resultatY)
+        {
+            var glMock = new GrafikkommandonMock();
+            var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(16, 16), new Skärmposition(centrumX, centrumY));
+            bricka.Visa(new Skärmposition(visaX, visaY));
+
+            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1));
+            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(resultatX, resultatY));
+        }
+
+        // FIXA Kontrollera argumenten till konstruktorn
+
         // REFACTOR Tag bort Kamera (och ansvaret att transformera) ur Bricka. Låt istället anroparen ha ansvaret. Undersök om det blir problem för Brickfält.
         // REFACTOR Kolla över tester för Skärmområde, Spelvärldsområde och Område...
     }

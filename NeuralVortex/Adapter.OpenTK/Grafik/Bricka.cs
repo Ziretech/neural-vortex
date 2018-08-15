@@ -13,6 +13,16 @@ namespace Adapter.OpenTK.Grafik
         private readonly IGrafikkommandon _gl;
         private readonly Skärmposition _texturPosition;
         private readonly Kamera _kamera;
+        private readonly Skärmposition _centrum;
+        public Skärmyta Dimensioner { get; private set; }
+
+        public Bricka(IGrafikkommandon gl, Skärmposition texturPosition, Skärmyta dimensioner, Skärmposition centrum)
+        {
+            _gl = gl;
+            _texturPosition = texturPosition;
+            Dimensioner = dimensioner;
+            _centrum = centrum;
+        }
 
         public Bricka(IGrafikkommandon gl, Kamera kamera, Skärmposition texturPosition, Skärmyta dimensioner)
         {
@@ -20,16 +30,11 @@ namespace Adapter.OpenTK.Grafik
             _texturPosition = texturPosition;
             Dimensioner = dimensioner;
             _kamera = kamera;
+            _centrum = new Skärmposition(0, 0);
         }
 
-        public Bricka(IGrafikkommandon gl, Skärmposition texturPosition, Skärmyta dimensioner)
-        {
-            _gl = gl;
-            _texturPosition = texturPosition;
-            Dimensioner = dimensioner;
-        }
+        public Bricka(IGrafikkommandon gl, Skärmposition texturPosition, Skärmyta dimensioner) : this(gl, texturPosition, dimensioner, new Skärmposition(0, 0)) { }
 
-        public Skärmyta Dimensioner { get; private set; }
 
         public void Visa(Skärmposition position)
         {
@@ -47,7 +52,8 @@ namespace Adapter.OpenTK.Grafik
 
         private void Visa(Skärmposition position, Skärmområde område)
         {
-            var transformeradPosition = _kamera == null ? position : _kamera.Transformera(position);
+            var centreradPosition = position.Plus(_centrum);
+            var transformeradPosition = _kamera == null ? centreradPosition : _kamera.Transformera(centreradPosition);
             KopieraTexturrektangelTillRityta(_texturPosition.Plus(område.Position), transformeradPosition, område.Yta);
         }
 

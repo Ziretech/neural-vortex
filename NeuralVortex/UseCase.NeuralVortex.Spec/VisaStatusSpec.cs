@@ -37,7 +37,7 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(hälsomätare.HarVisatsPåPosition, Is.EqualTo(new Skärmposition(0, 0)));
             Assert.That(hälsomätare.HarVisatsMedAndel, Is.EqualTo(new Andel(1.0)));
         }
-                
+        
         // FIXA VisaStatus visar hälsomätaren hur mycket hälsa huvudkaraktären har kvar
         // FIXA VisaStatus kollar konstruktorargument
 
