@@ -1,11 +1,13 @@
 ﻿using Adapter.OpenTK.Grafik;
 using NUnit.Framework;
+using System;
 using UseCase.NeuralVortex;
 using UseCase.NeuralVortex.Visning;
 
 namespace Adapter.OpenTK.Spec.Grafik
 {
     [TestFixture]
+    [TestOf(typeof(Bricka))]
     public class BrickaSpec
     {
         [Test]
@@ -115,7 +117,40 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(resultatX, resultatY));
         }
 
-        // FIXA Kontrollera argumenten till konstruktorn
+        private Bricka AnropaKonstruktor(int konstruktor, IGrafikkommandon glMock, Kamera kamera, Skärmposition texturPosition, Skärmyta dimensioner, Skärmposition centrum)
+        {
+            switch (konstruktor)
+            {
+                case 1:
+                    return new Bricka(glMock, texturPosition, dimensioner);
+                case 2:
+                    return new Bricka(glMock, kamera, texturPosition, dimensioner);
+                case 3:
+                    return new Bricka(glMock, texturPosition, dimensioner, centrum);
+                case 4:
+                    return new Bricka(glMock, kamera, texturPosition, dimensioner, centrum);
+            }
+            return null;
+        }
+                
+        [Test]
+        public void Gör_undantag_från_att_skapas_utan_obligatorisk_parameter([Range(1, 4)] int konstruktor, [Values("grafikkommando", "texturposition", "dimensioner")] string parameter)
+        {
+            var glMock = parameter == "grafikkommando" ? null : new GrafikkommandonMock();
+            var kamera = new Kamera(new Skärmyta(100, 100), new Skärmposition(10, 5));
+            var texturposition = parameter == "texturposition" ? null : new Skärmposition(0, 0);
+            var dimensioner = parameter == "dimensioner" ? null : new Skärmyta(16, 16);
+
+            try
+            {
+                AnropaKonstruktor(konstruktor, glMock, kamera, texturposition, dimensioner, new Skärmposition(0, 0));
+                Assert.Fail("Inget undantag gjordes.");
+            }
+            catch (ArgumentException undantag)
+            {
+                Assert.That(undantag.Message.ToLower(), Does.Contain(parameter));
+            }
+        }
 
         // REFACTOR Tag bort Kamera (och ansvaret att transformera) ur Bricka. Låt istället anroparen ha ansvaret. Undersök om det blir problem för Brickfält.
         // REFACTOR Kolla över tester för Skärmområde, Spelvärldsområde och Område...

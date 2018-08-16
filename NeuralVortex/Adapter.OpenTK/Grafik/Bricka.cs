@@ -16,24 +16,18 @@ namespace Adapter.OpenTK.Grafik
         private readonly Skärmposition _centrum;
         public Skärmyta Dimensioner { get; private set; }
 
-        public Bricka(IGrafikkommandon gl, Skärmposition texturPosition, Skärmyta dimensioner, Skärmposition centrum)
+        public Bricka(IGrafikkommandon gl, Kamera kamera, Skärmposition texturPosition, Skärmyta dimensioner, Skärmposition centrum)
         {
-            _gl = gl;
-            _texturPosition = texturPosition;
-            Dimensioner = dimensioner;
+            _gl = gl ?? throw new ArgumentException("Bricka kan inte skapas utan grafikkommando.");
+            _texturPosition = texturPosition ?? throw new ArgumentException("Bricka kan inte skapas utan texturposition.");
+            Dimensioner = dimensioner ?? throw new ArgumentException("Bricka kan inte skapas utan dimensioner.");
+            _kamera = kamera;
             _centrum = centrum;
         }
 
-        public Bricka(IGrafikkommandon gl, Kamera kamera, Skärmposition texturPosition, Skärmyta dimensioner)
-        {
-            _gl = gl;
-            _texturPosition = texturPosition;
-            Dimensioner = dimensioner;
-            _kamera = kamera;
-            _centrum = new Skärmposition(0, 0);
-        }
-
-        public Bricka(IGrafikkommandon gl, Skärmposition texturPosition, Skärmyta dimensioner) : this(gl, texturPosition, dimensioner, new Skärmposition(0, 0)) { }
+        public Bricka(IGrafikkommandon gl, Kamera kamera, Skärmposition texturPosition, Skärmyta dimensioner) : this(gl, kamera, texturPosition, dimensioner, new Skärmposition(0, 0)) { }
+        public Bricka(IGrafikkommandon gl, Skärmposition texturPosition, Skärmyta dimensioner) : this(gl, null, texturPosition, dimensioner, new Skärmposition(0, 0)) { }
+        public Bricka(IGrafikkommandon gl, Skärmposition texturPosition, Skärmyta dimensioner, Skärmposition centrum) : this(gl, null, texturPosition, dimensioner, centrum) { }
 
 
         public void Visa(Skärmposition position)
