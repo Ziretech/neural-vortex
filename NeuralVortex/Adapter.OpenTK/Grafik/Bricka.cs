@@ -70,5 +70,15 @@ namespace Adapter.OpenTK.Grafik
             _gl.Hörnkoordinat(brickansPosition.X, brickansPosition2.Y);
             _gl.AvslutaDefinitioner();
         }
+
+        public void VisaCenterBotten()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisaCenterBotten(Andel andel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

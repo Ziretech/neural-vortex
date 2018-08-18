@@ -220,5 +220,8 @@ namespace Adapter.OpenTK.Spec.Grafik
 
             Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(8, 15)));
         }
+
+        // FIXA Tester för att visa på center botten
+        // FIXA Tester för att visa på center botten med andel
     }
 }

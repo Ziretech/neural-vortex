@@ -21,7 +21,7 @@ namespace UseCase.NeuralVortex.Spec
             var kamera = new Kamera(new Skärmyta(skärmbredd, 100));
             var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare);
             visaStatus.Visa();
-            Assert.That(hälsomätarram.HarVisatsPåPosition, Is.EqualTo(new Skärmposition(x, 0)));
+            Assert.That(hälsomätarram.HarVisatsPåCenterBotten, Is.True);
         }
 
         [Test]
@@ -34,8 +34,7 @@ namespace UseCase.NeuralVortex.Spec
             var huvudkaraktär = new Huvudkaraktär();
             var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare/*, huvudkaraktär*/);
             visaStatus.Visa();
-            Assert.That(hälsomätare.HarVisatsPåPosition, Is.EqualTo(new Skärmposition(0, 0)));
-            Assert.That(hälsomätare.HarVisatsMedAndel, Is.EqualTo(new Andel(1.0)));
+            Assert.That(hälsomätare.HarVisatsPåCenterBottenMedAndel, Is.EqualTo(new Andel(1.0)));
         }
         
         // FIXA VisaStatus visar hälsomätaren hur mycket hälsa huvudkaraktären har kvar

@@ -112,7 +112,7 @@ namespace UseCase.NeuralVortex.Visning
         [TestCase(1, 1, 3, 8, 1, 1, 3, 8)]
         [TestCase(4, 7, 13, 2, 4, 7, 16, 8)]
         [TestCase(0, 0, 4, 4, 0, 0, 3, 3)]
-        public void Kameran_anger_sitt_synlighetsområde(int x, int y, int bredd, int höjd, int vänster, int botten, int höger, int topp)
+        public void Anger_sitt_synlighetsområde(int x, int y, int bredd, int höjd, int vänster, int botten, int höger, int topp)
         {
             var kamera = new Kamera(new Skärmyta(bredd, höjd), new Skärmposition(x, y));
             var synlighetsområde = kamera.Synlighetsområde;

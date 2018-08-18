@@ -152,6 +152,9 @@ namespace Adapter.OpenTK.Spec.Grafik
             }
         }
 
+        // FIXA Tester för att visa på center botten
+        // FIXA Tester för att visa på center botten med andel
+
         // REFACTOR Tag bort Kamera (och ansvaret att transformera) ur Bricka. Låt istället anroparen ha ansvaret. Undersök om det blir problem för Brickfält.
         // REFACTOR Kolla över tester för Skärmområde, Spelvärldsområde och Område...
     }

@@ -23,13 +23,16 @@ namespace UseCase.NeuralVortex
         public void Visa()
         {
             // FIXA Denna del av koden (UC) ska inte känna till bredder och pixlar!
-            var skärmbredd = _kamera.Dimensioner.Bredd;
-            var mätarbredd = _hälsomätarram.Dimensioner.Bredd;
-            var differens = skärmbredd - mätarbredd;
-            var position = new Skärmposition(differens / 2, 0);
-            _hälsomätarram.Visa(position);
+            //var position = _kamera.PositionVidBottenCentrum(_hälsomätarram);
+            //var skärmbredd = _kamera.Dimensioner.Bredd;
+            //var mätarbredd = _hälsomätarram.Dimensioner.Bredd;
+            //var differens = skärmbredd - mätarbredd;
+            //var position = new Skärmposition(differens / 2, 0);
+            //_hälsomätarram.Visa(position);
+            _hälsomätarram.VisaCenterBotten();
 
-            _hälsomätare.Visa(position, new Andel(.5));
+            //_hälsomätare.Visa(position, new Andel(.5));
+            _hälsomätare.VisaCenterBotten(new Andel(.5));
         }
     }
 }

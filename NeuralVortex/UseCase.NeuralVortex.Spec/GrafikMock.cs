@@ -6,6 +6,8 @@ namespace UseCase.NeuralVortex.Spec
     {
         public Skärmposition HarVisatsPåPosition { get; private set; }
         public Andel HarVisatsMedAndel { get; private set; }
+        public bool HarVisatsPåCenterBotten { get; private set; }
+        public Andel HarVisatsPåCenterBottenMedAndel { get; private set; }
 
         public GrafikMock(Skärmyta dimensioner = null)
         {
@@ -24,6 +26,16 @@ namespace UseCase.NeuralVortex.Spec
         {
             HarVisatsPåPosition = position;
             HarVisatsMedAndel = andel;
+        }
+
+        public void VisaCenterBotten()
+        {
+            HarVisatsPåCenterBotten = true;
+        }
+
+        public void VisaCenterBotten(Andel andel)
+        {
+            HarVisatsPåCenterBottenMedAndel = andel;
         }
     }
 }

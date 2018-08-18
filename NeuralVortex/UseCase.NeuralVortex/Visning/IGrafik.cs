@@ -10,5 +10,6 @@ namespace UseCase.NeuralVortex.Visning
     {
         Skärmyta Dimensioner { get; }
         void Visa(Skärmposition position);
+        void VisaCenterBotten();
     }
 }
