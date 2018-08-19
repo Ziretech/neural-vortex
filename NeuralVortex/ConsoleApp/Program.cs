@@ -85,7 +85,7 @@ namespace ConsoleApp
             var hälsomätarram = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 32), new Skärmyta(80, 16));
             var hälsomätargrönt = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 48), new Skärmyta(80, 16));
 
-            spelvärld.Huvudkaraktär = new Huvudkaraktär(2)
+            spelvärld.Huvudkaraktär = new Huvudkaraktär(4)
             {
                 Position = new Spelvärldsposition(1, 1),
                 Grafik = huvudkaraktärBricka

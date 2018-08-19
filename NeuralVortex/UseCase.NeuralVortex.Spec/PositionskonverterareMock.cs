@@ -15,5 +15,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             throw new NotImplementedException();
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }

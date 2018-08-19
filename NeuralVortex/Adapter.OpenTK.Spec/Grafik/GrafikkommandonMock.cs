@@ -136,5 +136,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         {
             throw new NotImplementedException();
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Adapter.OpenTK.Grafik;
+using NSubstitute;
 using NUnit.Framework;
 using System;
 using UseCase.NeuralVortex;
@@ -117,6 +118,40 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(resultatX, resultatY));
         }
 
+        [Test]
+        public void Visas_på_center_botten()
+        {
+            var gl = Substitute.For<IGrafikkommandon>();
+            var kamera = new Kamera(new Skärmyta(2, 2));
+            var bricka = new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(2, 1));
+            bricka.VisaCenterBotten();
+
+            Received.InOrder(() =>
+            {
+                gl.DefinieraFyrkanter();
+                gl.Hörnkoordinat(0, 0);
+                gl.Hörnkoordinat(2, 1);
+                gl.AvslutaDefinitioner();
+            });
+        }
+
+        [Test]
+        public void Visas_på_center_botten_med_andel()
+        {
+            var gl = Substitute.For<IGrafikkommandon>();
+            var kamera = new Kamera(new Skärmyta(2, 2));
+            var bricka = new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(2, 1));
+            bricka.VisaCenterBotten(new Andel(0.5));
+
+            Received.InOrder(() =>
+            {
+                gl.DefinieraFyrkanter();
+                gl.Hörnkoordinat(0, 0);
+                gl.Hörnkoordinat(1, 1);
+                gl.AvslutaDefinitioner();
+            });
+        }
+
         private Bricka AnropaKonstruktor(int konstruktor, IGrafikkommandon glMock, Kamera kamera, Skärmposition texturPosition, Skärmyta dimensioner, Skärmposition centrum)
         {
             switch (konstruktor)
@@ -151,9 +186,6 @@ namespace Adapter.OpenTK.Spec.Grafik
                 Assert.That(undantag.Message.ToLower(), Does.Contain(parameter));
             }
         }
-
-        // FIXA Tester för att visa på center botten
-        // FIXA Tester för att visa på center botten med andel
 
         // REFACTOR Tag bort Kamera (och ansvaret att transformera) ur Bricka. Låt istället anroparen ha ansvaret. Undersök om det blir problem för Brickfält.
         // REFACTOR Kolla över tester för Skärmområde, Spelvärldsområde och Område...

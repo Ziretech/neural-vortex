@@ -27,12 +27,12 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Visar_full_hälsomätare_när_huvudkaraktären_har_full_hälsa()
         {
-            var hälsomätarram = new GrafikMock(new Skärmyta(16, 16));
-            var hälsomätare = new GrafikMock(new Skärmyta(16, 16));
+            var hälsomätarram = Substitute.For<IGrafik>();
+            var hälsomätare = Substitute.For<IGradvisGrafik>();
             var huvudkaraktär = new Huvudkaraktär();
             var visaStatus = new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär);
             visaStatus.Visa();
-            Assert.That(hälsomätare.HarVisatsPåCenterBottenMedAndel, Is.EqualTo(new Andel(1.0)));
+            hälsomätare.Received().VisaCenterBotten(new Andel(1.0));
         }
 
         [TestCase(2, 0.5)]
@@ -41,13 +41,13 @@ namespace UseCase.NeuralVortex.Spec
         [TestCase(1, 0.0)]
         public void Visar_inte_full_hälsomätare_när_huvudkaraktären_har_tagit_skada(int maxhälsa, double andel)
         {
-            var hälsomätarram = new GrafikMock(new Skärmyta(16, 16));
-            var hälsomätare = new GrafikMock(new Skärmyta(16, 16));
+            var hälsomätarram = Substitute.For<IGrafik>();
+            var hälsomätare = Substitute.For<IGradvisGrafik>();
             var huvudkaraktär = new Huvudkaraktär(maxhälsa);
             huvudkaraktär.Skada();
             var visaStatus = new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär);
             visaStatus.Visa();
-            Assert.That(hälsomätare.HarVisatsPåCenterBottenMedAndel, Is.EqualTo(new Andel(andel)));
+            hälsomätare.Received().VisaCenterBotten(new Andel(andel));
         }
 
         [TestCase("hälsomätarram")]
@@ -68,9 +68,5 @@ namespace UseCase.NeuralVortex.Spec
                 Assert.That(undantag.Message.ToLower(), Does.Contain(parameter));
             }
         }
-
-        // REFACTOR Ta bort alla mockar i applikationen och använd NSubstitute istället.
-        // REFACTOR Behövs IKamera eller bör den tas bort?
-        // REFACTOR Gillar verkligen inte att IGrafik berättar om bredd/höjd, varför ska UC känna till det? Lämpa över beräkningarna till grafikadaptern istället.
     }
 }

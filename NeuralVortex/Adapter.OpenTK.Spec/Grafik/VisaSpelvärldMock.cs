@@ -15,5 +15,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         {
             VisaHarAnropats = true;
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }

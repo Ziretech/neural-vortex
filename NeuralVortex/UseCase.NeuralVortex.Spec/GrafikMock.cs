@@ -37,5 +37,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             HarVisatsPåCenterBottenMedAndel = andel;
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }

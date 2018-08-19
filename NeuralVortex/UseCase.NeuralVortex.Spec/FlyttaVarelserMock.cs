@@ -10,5 +10,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             FlyttadesAvTangent = tangent;
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }

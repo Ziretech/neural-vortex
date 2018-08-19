@@ -9,5 +9,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         {
             VäxlaBuffertHarAnropats = true;
         }
+
+        // REFACTOR använd NSubstitute istället
     }
 }

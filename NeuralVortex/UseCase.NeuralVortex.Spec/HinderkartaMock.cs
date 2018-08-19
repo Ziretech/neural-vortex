@@ -17,5 +17,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             return _hinder.Any(h => h.Equals(position));
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }

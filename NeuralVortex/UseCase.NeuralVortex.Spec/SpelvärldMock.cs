@@ -21,5 +21,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             BorttagenFiende.Add(fiende);
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }

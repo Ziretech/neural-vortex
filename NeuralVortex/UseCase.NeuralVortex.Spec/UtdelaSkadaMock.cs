@@ -8,5 +8,7 @@
         {
             UtdelaHarAnropats = true;
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }

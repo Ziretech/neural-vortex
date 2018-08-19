@@ -17,5 +17,7 @@ namespace UseCase.NeuralVortex.Spec
             DödaHarAnropats = true;
             return Fortsättning;
         }
+
+        // REFACTOR Använd NSubstitute istället
     }
 }
