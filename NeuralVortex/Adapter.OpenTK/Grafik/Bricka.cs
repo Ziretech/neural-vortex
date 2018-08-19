@@ -12,7 +12,7 @@ namespace Adapter.OpenTK.Grafik
     {
         private readonly IGrafikkommandon _gl;
         private readonly Skärmposition _texturPosition;
-        private readonly Kamera _kamera;
+        private readonly Kamera _kamera; // REFACTOR Lägga till Transformera till IKamera så att interfacet kan användas här istället? För att underlätta mockning i testerna.
         private readonly Skärmposition _centrum;
         public Skärmyta Dimensioner { get; private set; }
 

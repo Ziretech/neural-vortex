@@ -85,8 +85,14 @@ namespace ConsoleApp
             var hälsomätarram = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 32), new Skärmyta(80, 16));
             var hälsomätargrönt = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 48), new Skärmyta(80, 16));
 
+            spelvärld.Huvudkaraktär = new Huvudkaraktär(2)
+            {
+                Position = new Spelvärldsposition(1, 1),
+                Grafik = huvudkaraktärBricka
+            };
+
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, positionskonverterare);
-            var ucVisaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätargrönt);
+            var ucVisaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätargrönt, spelvärld.Huvudkaraktär);
 
             var karta = SkapaKarta();
             var hinderlista = new[] { 0 };
@@ -104,12 +110,6 @@ namespace ConsoleApp
             _fönster.Uppdaterare(openTKHanterare);
             _fönster.Visare(openTKHanterare);
             _fönster.Tangentbordsmottagare(kontrollhändelser);
-
-            spelvärld.Huvudkaraktär = new Huvudkaraktär(2)
-            {
-                Position = new Spelvärldsposition(1, 1),
-                Grafik = huvudkaraktärBricka
-            };
 
             var omgivningensBrickor = new Bricka[] {
                 tomBricka,

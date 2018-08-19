@@ -1,4 +1,5 @@
 ﻿using Adapter.OpenTK.Grafik;
+using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         [Test]
         public void Visar_brickfält_när_en_bricka_syns()
         {
-            var gl = new GrafikkommandonMock();
+            var gl = new GrafikkommandonMock(); // REFACTOR Använd NSubstitute istället för att mocka IGrafikkommandon
             var kamera = new Kamera(new Skärmyta(4, 4));
             var definitioner = new Bricka[] { new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4)) };
             var brickstorlek = new Skärmyta(4, 4);
@@ -190,7 +191,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         [Test]
         public void Har_dimensioner_4x4_när_brickfältet_är_en_4x4_ruta()
         {
-            var gl = new GrafikkommandonMock();
+            var gl = Substitute.For<IGrafikkommandon>();
             var kamera = new Kamera(new Skärmyta(20, 20), new Skärmposition(0, 0));
             var definitioner = new Bricka[] {
                 new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(4, 4))
@@ -207,7 +208,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         [Test]
         public void Har_dimensioner_8x15_när_brickfältet_är_2x3_4x5_rutor()
         {
-            var gl = new GrafikkommandonMock();
+            var gl = Substitute.For<IGrafikkommandon>();
             var kamera = new Kamera(new Skärmyta(20, 20), new Skärmposition(0, 0));
             var definitioner = new Bricka[] {
                 new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(4, 5))

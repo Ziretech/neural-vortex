@@ -10,22 +10,23 @@ namespace UseCase.NeuralVortex
 {
     public class Huvudkaraktär
     {
-        private int _hälsa;
-
         public Huvudkaraktär(int hälsa = 1)
         {
-            _hälsa = hälsa;
+            MaxHälsa = Hälsa = hälsa;
         }
 
         public IGrafik Grafik { get; set; }
 
         public Spelvärldsposition Position { get; set; }
 
-        public bool ÄrKritisktSkadad => _hälsa < 1;
+        public bool ÄrKritisktSkadad => Hälsa < 1;
+
+        public int Hälsa { get; private set; }
+        public int MaxHälsa { get; private set; }
 
         public void Skada()
         {
-            _hälsa -= 1;
+            Hälsa -= 1;
         }
     }
 }

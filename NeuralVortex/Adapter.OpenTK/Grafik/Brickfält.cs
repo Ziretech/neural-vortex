@@ -53,7 +53,7 @@ namespace Adapter.OpenTK.Grafik
 
         public void VisaCenterBotten()
         {
-            // TODO Implementera VisaCenterBotten för Brickfält
+            // Fixa Implementera VisaCenterBotten för Brickfält
             throw new NotImplementedException();
         }
     }

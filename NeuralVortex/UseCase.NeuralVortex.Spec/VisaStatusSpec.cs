@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,30 +17,45 @@ namespace UseCase.NeuralVortex.Spec
         [TestCase(80, 100, 10)]
         public void Visar_ramen_för_hälsomätaren_centrerad_på_skärmen(int mätarbredd, int skärmbredd, int x)
         {
-            var hälsomätarram = new GrafikMock(new Skärmyta(mätarbredd, 16));
-            var hälsomätare = new GrafikMock(new Skärmyta(16, 16));
+            var hälsomätarram = Substitute.For<IGrafik>();
+            var hälsomätare = Substitute.For<IGradvisGrafik>();
             var kamera = new Kamera(new Skärmyta(skärmbredd, 100));
-            var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare);
+            var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare, new Huvudkaraktär());
             visaStatus.Visa();
-            Assert.That(hälsomätarram.HarVisatsPåCenterBotten, Is.True);
+            hälsomätarram.Received().VisaCenterBotten();
         }
 
         [Test]
-        [Ignore("lägg till koppling för huvudkaraktär till VisaStatus")]
         public void Visar_full_hälsomätare_när_huvudkaraktären_har_full_hälsa()
         {
             var hälsomätarram = new GrafikMock(new Skärmyta(16, 16));
             var hälsomätare = new GrafikMock(new Skärmyta(16, 16));
             var kamera = new Kamera(new Skärmyta(16, 16));
             var huvudkaraktär = new Huvudkaraktär();
-            var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare/*, huvudkaraktär*/);
+            var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare, huvudkaraktär);
             visaStatus.Visa();
             Assert.That(hälsomätare.HarVisatsPåCenterBottenMedAndel, Is.EqualTo(new Andel(1.0)));
         }
-        
-        // FIXA VisaStatus visar hälsomätaren hur mycket hälsa huvudkaraktären har kvar
+
+        [TestCase(2, 0.5)]
+        [TestCase(3, 0.66)]
+        [TestCase(4, 0.75)]
+        [TestCase(1, 0.0)]
+        public void Visar_inte_full_hälsomätare_när_huvudkaraktären_har_tagit_skada(int maxhälsa, double andel)
+        {
+            var hälsomätarram = new GrafikMock(new Skärmyta(16, 16));
+            var hälsomätare = new GrafikMock(new Skärmyta(16, 16));
+            var kamera = new Kamera(new Skärmyta(16, 16));
+            var huvudkaraktär = new Huvudkaraktär(maxhälsa);
+            huvudkaraktär.Skada();
+            var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare, huvudkaraktär);
+            visaStatus.Visa();
+            Assert.That(hälsomätare.HarVisatsPåCenterBottenMedAndel, Is.EqualTo(new Andel(andel)));
+        }
+
         // FIXA VisaStatus kollar konstruktorargument
 
+        // REFACTOR Ta bort alla mockar i applikationen och använd NSubstitute istället.
         // REFACTOR Behövs IKamera eller bör den tas bort?
         // REFACTOR Gillar verkligen inte att IGrafik berättar om bredd/höjd, varför ska UC känna till det? Lämpa över beräkningarna till grafikadaptern istället.
     }

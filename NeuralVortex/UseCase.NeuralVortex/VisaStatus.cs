@@ -12,12 +12,14 @@ namespace UseCase.NeuralVortex
         private IGrafik _hälsomätarram;
         private IKamera _kamera;
         private IGradvisGrafik _hälsomätare;
+        private Huvudkaraktär _huvudkaraktär;
 
-        public VisaStatus(IKamera kamera, IGrafik hälsomätarram, IGradvisGrafik hälsomätare)
+        public VisaStatus(IKamera kamera, IGrafik hälsomätarram, IGradvisGrafik hälsomätare, Huvudkaraktär huvudkaraktär)
         {
             _kamera = kamera;
             _hälsomätarram = hälsomätarram;
             _hälsomätare = hälsomätare;
+            _huvudkaraktär = huvudkaraktär;
         }
 
         public void Visa()
@@ -32,7 +34,7 @@ namespace UseCase.NeuralVortex
             _hälsomätarram.VisaCenterBotten();
 
             //_hälsomätare.Visa(position, new Andel(.5));
-            _hälsomätare.VisaCenterBotten(new Andel(.5));
+            _hälsomätare.VisaCenterBotten(new Andel(_huvudkaraktär.Hälsa, _huvudkaraktär.MaxHälsa));
         }
     }
 }
