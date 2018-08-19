@@ -92,7 +92,7 @@ namespace ConsoleApp
             };
 
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, positionskonverterare);
-            var ucVisaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätargrönt, spelvärld.Huvudkaraktär);
+            var ucVisaStatus = new VisaStatus(hälsomätarram, hälsomätargrönt, spelvärld.Huvudkaraktär);
 
             var karta = SkapaKarta();
             var hinderlista = new[] { 0 };

@@ -10,13 +10,11 @@ namespace UseCase.NeuralVortex
     public class VisaStatus : IVisa
     {
         private IGrafik _hälsomätarram;
-        private IKamera _kamera;
         private IGradvisGrafik _hälsomätare;
         private Huvudkaraktär _huvudkaraktär;
 
-        public VisaStatus(IKamera kamera, IGrafik hälsomätarram, IGradvisGrafik hälsomätare, Huvudkaraktär huvudkaraktär)
+        public VisaStatus(IGrafik hälsomätarram, IGradvisGrafik hälsomätare, Huvudkaraktär huvudkaraktär)
         {
-            _kamera = kamera;
             _hälsomätarram = hälsomätarram;
             _hälsomätare = hälsomätare;
             _huvudkaraktär = huvudkaraktär;

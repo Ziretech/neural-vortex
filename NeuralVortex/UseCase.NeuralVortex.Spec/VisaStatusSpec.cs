@@ -19,8 +19,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             var hälsomätarram = Substitute.For<IGrafik>();
             var hälsomätare = Substitute.For<IGradvisGrafik>();
-            var kamera = new Kamera(new Skärmyta(skärmbredd, 100));
-            var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare, new Huvudkaraktär());
+            var visaStatus = new VisaStatus(hälsomätarram, hälsomätare, new Huvudkaraktär());
             visaStatus.Visa();
             hälsomätarram.Received().VisaCenterBotten();
         }
@@ -30,9 +29,8 @@ namespace UseCase.NeuralVortex.Spec
         {
             var hälsomätarram = new GrafikMock(new Skärmyta(16, 16));
             var hälsomätare = new GrafikMock(new Skärmyta(16, 16));
-            var kamera = new Kamera(new Skärmyta(16, 16));
             var huvudkaraktär = new Huvudkaraktär();
-            var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare, huvudkaraktär);
+            var visaStatus = new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär);
             visaStatus.Visa();
             Assert.That(hälsomätare.HarVisatsPåCenterBottenMedAndel, Is.EqualTo(new Andel(1.0)));
         }
@@ -45,10 +43,9 @@ namespace UseCase.NeuralVortex.Spec
         {
             var hälsomätarram = new GrafikMock(new Skärmyta(16, 16));
             var hälsomätare = new GrafikMock(new Skärmyta(16, 16));
-            var kamera = new Kamera(new Skärmyta(16, 16));
             var huvudkaraktär = new Huvudkaraktär(maxhälsa);
             huvudkaraktär.Skada();
-            var visaStatus = new VisaStatus(kamera, hälsomätarram, hälsomätare, huvudkaraktär);
+            var visaStatus = new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär);
             visaStatus.Visa();
             Assert.That(hälsomätare.HarVisatsPåCenterBottenMedAndel, Is.EqualTo(new Andel(andel)));
         }
