@@ -15,9 +15,9 @@ namespace UseCase.NeuralVortex
 
         public VisaStatus(IGrafik hälsomätarram, IGradvisGrafik hälsomätare, Huvudkaraktär huvudkaraktär)
         {
-            _hälsomätarram = hälsomätarram;
-            _hälsomätare = hälsomätare;
-            _huvudkaraktär = huvudkaraktär;
+            _hälsomätarram = hälsomätarram ?? throw new ArgumentException("VisaStatus kan inte skapas utan hälsomätarram.");
+            _hälsomätare = hälsomätare ?? throw new ArgumentException("VisaStatus kan inte skapas utan hälsomätare.");
+            _huvudkaraktär = huvudkaraktär ?? throw new ArgumentException("VisaStatus kan inte skapas utan huvudkaraktär");
         }
 
         public void Visa()

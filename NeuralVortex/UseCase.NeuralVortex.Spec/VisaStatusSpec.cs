@@ -9,7 +9,7 @@ using UseCase.NeuralVortex.Visning;
 
 namespace UseCase.NeuralVortex.Spec
 {
-    [TestFixture]
+    [TestFixture(TestOf = typeof(VisaStatus))]
     public class VisaStatusSpec
     {
         [TestCase(100, 100, 0)]
@@ -50,7 +50,24 @@ namespace UseCase.NeuralVortex.Spec
             Assert.That(hälsomätare.HarVisatsPåCenterBottenMedAndel, Is.EqualTo(new Andel(andel)));
         }
 
-        // FIXA VisaStatus kollar konstruktorargument
+        [TestCase("hälsomätarram")]
+        [TestCase("hälsomätare")]
+        [TestCase("huvudkaraktär")]
+        public void Gör_undantag_från_att_skapas_utan_obligatorisk_parameter(string parameter)
+        {
+            try
+            {
+                var hälsomätarram = parameter == "hälsomätarram" ? null : Substitute.For<IGrafik>();
+                var hälsomätare = parameter == "hälsomätare" ? null : Substitute.For<IGradvisGrafik>();
+                var huvudkaraktär = parameter == "huvudkaraktär" ? null : new Huvudkaraktär();
+                new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär);
+                Assert.Fail("Inget undantag gjordes.");
+            }
+            catch (ArgumentException undantag)
+            {
+                Assert.That(undantag.Message.ToLower(), Does.Contain(parameter));
+            }
+        }
 
         // REFACTOR Ta bort alla mockar i applikationen och använd NSubstitute istället.
         // REFACTOR Behövs IKamera eller bör den tas bort?
