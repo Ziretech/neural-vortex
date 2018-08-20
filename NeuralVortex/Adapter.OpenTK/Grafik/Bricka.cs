@@ -90,7 +90,8 @@ namespace Adapter.OpenTK.Grafik
             }
         }
 
-        // REFACTOR Bricka och liknande objekt borde inte ha någonting med Spelvärld (och därför Kamera) att göra, den borde bara rita ut sina rektanglar...
+        // VIKTIGT Bricka ska inte ha med Kamera att göra! UC konverterar innan anrop.
+        // Bricka och liknande objekt borde inte ha någonting med Spelvärld (och därför Kamera) att göra, den borde bara rita ut sina rektanglar...
         // Men vem hanterar konverteringen då? Bör man kolla över hur hela renderingen fungerar?
         // Just nu säger UC bara att ett (Grafikadapter) objekt ska visas, och sedan får den själv lita ut var och hur.
         // Men en annan approach är att låta grafikadaptern vara dummare och låta logiken finnas någon annanstans.
