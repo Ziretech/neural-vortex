@@ -72,18 +72,18 @@ namespace ConsoleApp
             var kamera = new Kamera(new Skärmyta(100, 100));
             var positionskonverterare = new Positionskonverterare(new Skärmyta(16, 16));
 
-            var radioaktivInsektBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(5 * 16, 0), new Skärmyta(16, 16));
-            var tomBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(15 * 16, 15 * 16), new Skärmyta(16, 16));
-            var takBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(2 * 16, 1 * 16), new Skärmyta(16, 16));
-            var kabel1Bricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 1 * 16), new Skärmyta(16, 16));
-            var kabel2Bricka = new Bricka(grafikkommandon, kamera, new Skärmposition(4 * 16, 1 * 16), new Skärmyta(16, 16));
-            var takMedRevaBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16));
-            var ammoBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 1 * 16), new Skärmyta(16, 16));
-            var huvudkaraktärBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(0 * 16, 0 * 16), new Skärmyta(16, 16));
-            var medicinBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 2 * 16), new Skärmyta(16, 16));
-            var paradisBricka = new Bricka(grafikkommandon, kamera, new Skärmposition(3 * 16, 3 * 16), new Skärmyta(16, 16));
-            var hälsomätarram = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 32), new Skärmyta(80, 16));
-            var hälsomätargrönt = new Bricka(grafikkommandon, kamera, new Skärmposition(80, 48), new Skärmyta(80, 16));
+            var radioaktivInsektBricka = new Bricka(grafikkommandon, new Skärmposition(5 * 16, 0), new Skärmyta(16, 16));
+            var tomBricka = new Bricka(grafikkommandon, new Skärmposition(15 * 16, 15 * 16), new Skärmyta(16, 16));
+            var takBricka = new Bricka(grafikkommandon, new Skärmposition(2 * 16, 1 * 16), new Skärmyta(16, 16));
+            var kabel1Bricka = new Bricka(grafikkommandon, new Skärmposition(3 * 16, 1 * 16), new Skärmyta(16, 16));
+            var kabel2Bricka = new Bricka(grafikkommandon, new Skärmposition(4 * 16, 1 * 16), new Skärmyta(16, 16));
+            var takMedRevaBricka = new Bricka(grafikkommandon, new Skärmposition(1 * 16, 1 * 16), new Skärmyta(16, 16));
+            var ammoBricka = new Bricka(grafikkommandon, new Skärmposition(0 * 16, 1 * 16), new Skärmyta(16, 16));
+            var huvudkaraktärBricka = new Bricka(grafikkommandon, new Skärmposition(0 * 16, 0 * 16), new Skärmyta(16, 16));
+            var medicinBricka = new Bricka(grafikkommandon, new Skärmposition(3 * 16, 2 * 16), new Skärmyta(16, 16));
+            var paradisBricka = new Bricka(grafikkommandon, new Skärmposition(3 * 16, 3 * 16), new Skärmyta(16, 16));
+            var hälsomätarram = new Bricka(grafikkommandon, new Skärmposition(80, 32), new Skärmyta(80, 16));
+            var hälsomätargrönt = new Bricka(grafikkommandon, new Skärmposition(80, 48), new Skärmyta(80, 16));
 
             spelvärld.Huvudkaraktär = new Huvudkaraktär(4)
             {
@@ -91,8 +91,10 @@ namespace ConsoleApp
                 Grafik = huvudkaraktärBricka
             };
 
+            var skärm = new Skärm();
+
             var ucVisaSpelvärld = new VisaSpelvärld(spelvärld, positionskonverterare);
-            var ucVisaStatus = new VisaStatus(hälsomätarram, hälsomätargrönt, spelvärld.Huvudkaraktär);
+            var ucVisaStatus = new VisaStatus(hälsomätarram, hälsomätargrönt, spelvärld.Huvudkaraktär, skärm);
 
             var karta = SkapaKarta();
             var hinderlista = new[] { 0 };
@@ -120,7 +122,7 @@ namespace ConsoleApp
                 paradisBricka
             };
 
-            spelvärld.MiljöGrafik = new Brickfält(kamera, positionskonverterare, omgivningensBrickor, karta.Bredd, karta.Indexar);
+            spelvärld.MiljöGrafik = new Brickfält(omgivningensBrickor, karta.Indexar, karta.Bredd, new Skärmyta(16, 16));
 
             var slumpgenerator = new Random();
             var väderstrecken = new List<Spelvärldsposition>

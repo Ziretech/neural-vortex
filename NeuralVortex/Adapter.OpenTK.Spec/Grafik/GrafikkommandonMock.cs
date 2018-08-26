@@ -137,6 +137,11 @@ namespace Adapter.OpenTK.Spec.Grafik
             throw new NotImplementedException();
         }
 
+        public void KopieraTexturrektangelTillRityta(int texturX, int texturY, int skärmX, int skärmY, int bredd, int höjd)
+        {
+            throw new NotImplementedException();
+        }
+
         // REFACTOR Använd NSubstitute istället
     }
 }

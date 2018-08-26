@@ -27,5 +27,6 @@ namespace Adapter.OpenTK.Grafik
         void AvslutaDefinitioner();
         void Texturkoordinat(int x, int y);
         void Hörnkoordinat(int x, int y);
+        void KopieraTexturrektangelTillRityta(int texturX, int texturY, int skärmX, int skärmY, int bredd, int höjd);
     }
 }

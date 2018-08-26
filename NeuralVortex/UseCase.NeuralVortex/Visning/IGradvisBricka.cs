@@ -9,6 +9,5 @@ namespace UseCase.NeuralVortex.Visning
     public interface IGradvisGrafik
     {
         void Visa(Skärmposition position, Andel andel);
-        void VisaCenterBotten(Andel andel);
     }
 }

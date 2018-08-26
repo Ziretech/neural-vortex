@@ -12,16 +12,21 @@ namespace UseCase.NeuralVortex.Spec
     [TestFixture(TestOf = typeof(VisaStatus))]
     public class VisaStatusSpec
     {
-        [TestCase(100, 100, 0)]
-        [TestCase(2, 4, 1)]
-        [TestCase(80, 100, 10)]
-        public void Visar_ramen_för_hälsomätaren_centrerad_på_skärmen(int mätarbredd, int skärmbredd, int x)
+        [Test]
+        public void Visar_ramen_för_hälsomätaren_centrerad_på_skärmen()
         {
             var hälsomätarram = Substitute.For<IGrafik>();
             var hälsomätare = Substitute.For<IGradvisGrafik>();
-            var visaStatus = new VisaStatus(hälsomätarram, hälsomätare, new Huvudkaraktär());
-            visaStatus.Visa();
-            hälsomätarram.Received().VisaCenterBotten();
+            var skärm = Substitute.For<ISkärm>();
+            var dimensioner = new Skärmyta(1, 2);
+            var beräknadPosition = new Skärmposition(3, 4);
+            hälsomätarram.Dimensioner.Returns(dimensioner);
+            skärm.PositionCentreradIBotten(dimensioner).Returns(beräknadPosition);
+
+            new VisaStatus(hälsomätarram, hälsomätare, new Huvudkaraktär(), skärm)
+                .Visa();
+
+            hälsomätarram.Received().Visa(beräknadPosition);
         }
 
         [Test]
@@ -29,10 +34,16 @@ namespace UseCase.NeuralVortex.Spec
         {
             var hälsomätarram = Substitute.For<IGrafik>();
             var hälsomätare = Substitute.For<IGradvisGrafik>();
-            var huvudkaraktär = new Huvudkaraktär();
-            var visaStatus = new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär);
-            visaStatus.Visa();
-            hälsomätare.Received().VisaCenterBotten(new Andel(1.0));
+            var skärm = Substitute.For<ISkärm>();
+            var dimensioner = new Skärmyta(1, 2);
+            var beräknadPosition = new Skärmposition(3, 4);
+            hälsomätarram.Dimensioner.Returns(dimensioner);
+            skärm.PositionCentreradIBotten(dimensioner).Returns(beräknadPosition);
+
+            new VisaStatus(hälsomätarram, hälsomätare, new Huvudkaraktär(), skärm)
+                .Visa();
+
+            hälsomätare.Received().Visa(beräknadPosition, new Andel(1.0));
         }
 
         [TestCase(2, 0.5)]
@@ -43,16 +54,24 @@ namespace UseCase.NeuralVortex.Spec
         {
             var hälsomätarram = Substitute.For<IGrafik>();
             var hälsomätare = Substitute.For<IGradvisGrafik>();
+            var skärm = Substitute.For<ISkärm>();
+            var dimensioner = new Skärmyta(1, 2);
+            var beräknadPosition = new Skärmposition(3, 4);
+            hälsomätarram.Dimensioner.Returns(dimensioner);
+            skärm.PositionCentreradIBotten(dimensioner).Returns(beräknadPosition);
             var huvudkaraktär = new Huvudkaraktär(maxhälsa);
             huvudkaraktär.Skada();
-            var visaStatus = new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär);
-            visaStatus.Visa();
-            hälsomätare.Received().VisaCenterBotten(new Andel(andel));
+
+            new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär, skärm)
+                .Visa();
+
+            hälsomätare.Received().Visa(beräknadPosition, new Andel(andel));
         }
 
         [TestCase("hälsomätarram")]
         [TestCase("hälsomätare")]
         [TestCase("huvudkaraktär")]
+        [TestCase("skärm")]
         public void Gör_undantag_från_att_skapas_utan_obligatorisk_parameter(string parameter)
         {
             try
@@ -60,7 +79,8 @@ namespace UseCase.NeuralVortex.Spec
                 var hälsomätarram = parameter == "hälsomätarram" ? null : Substitute.For<IGrafik>();
                 var hälsomätare = parameter == "hälsomätare" ? null : Substitute.For<IGradvisGrafik>();
                 var huvudkaraktär = parameter == "huvudkaraktär" ? null : new Huvudkaraktär();
-                new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär);
+                var skärm = parameter == "skärm" ? null : Substitute.For<ISkärm>();
+                new VisaStatus(hälsomätarram, hälsomätare, huvudkaraktär, skärm);
                 Assert.Fail("Inget undantag gjordes.");
             }
             catch (ArgumentException undantag)

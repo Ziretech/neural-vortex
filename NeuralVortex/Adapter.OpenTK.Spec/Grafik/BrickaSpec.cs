@@ -11,48 +11,37 @@ namespace Adapter.OpenTK.Spec.Grafik
     [TestOf(typeof(Bricka))]
     public class BrickaSpec
     {
-        [Test]
-        public void Visar_bild_0_0_16_16_på_position_0_0_på_skärmen()
+        [TestCase(0, 0)]
+        [TestCase(4, 9)]
+        [TestCase(1234, 9876)]
+        public void Visar_bild_med_rätt_texturpunkt(int x, int y)
         {
-            var glMock = new GrafikkommandonMock();
-            var bricka = new Bricka(glMock, new Kamera(new Skärmyta(1, 1)), new Skärmposition(0, 0), new Skärmyta(16, 16));
+            var gl = Substitute.For<IGrafikkommandon>();
+            var bricka = new Bricka(gl, new Skärmposition(x, y), new Skärmyta(1, 1));
             bricka.Visa(new Skärmposition(0, 0));
-
-            Assert.That(glMock.Texturverifierare.Count, Is.EqualTo(1));
-            Assert.That(glMock.Texturverifierare[0].StämmerHörn1(0, 16));
-            Assert.That(glMock.Texturverifierare[0].StämmerHörn2(16, 0));
-
-            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1));
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(0, 0));
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn2(16, 16));
+            gl.Received().KopieraTexturrektangelTillRityta(x, y, 0, 0, 1, 1);
         }
 
-        [Test]
-        public void Visar_bild_1_2_10_20_på_position_20_30_på_skärmen()
+        [TestCase(1, 1)]
+        [TestCase(16, 16)]
+        [TestCase(123, 789)]
+        public void Visar_bild_med_rätt_dimensioner(int bredd, int höjd)
         {
-            var glMock = new GrafikkommandonMock();
-            var bricka = new Bricka(glMock, new Kamera(new Skärmyta(1, 1)), new Skärmposition(1, 2), new Skärmyta(10, 20));
-            bricka.Visa(new Skärmposition(20, 30));
-
-            Assert.That(glMock.Texturverifierare.Count, Is.EqualTo(1));
-            Assert.That(glMock.Texturverifierare[0].StämmerHörn1(1, 22));
-            Assert.That(glMock.Texturverifierare[0].StämmerHörn2(11, 2));
-
-            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1));
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(20, 30));
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn2(30, 50));
+            var gl = Substitute.For<IGrafikkommandon>();
+            var bricka = new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(bredd, höjd));
+            bricka.Visa(new Skärmposition(0, 0));
+            gl.Received().KopieraTexturrektangelTillRityta(0, 0, 0, 0, bredd, höjd);
         }
 
-        [Test]
-        public void Visar_bild_på_20_35_när_brickan_är_vid_30_40_och_kameran_vid_10_5()
+        [TestCase(0, 0)]
+        [TestCase(1, 1)]
+        [TestCase(4, 6)]
+        public void Visar_bild_på_rätt_skärmposition(int x, int y)
         {
-            var kamera = new Kamera(new Skärmyta(100, 100), new Skärmposition(10, 5));
-            var glMock = new GrafikkommandonMock();
-            var bricka = new Bricka(glMock, kamera, new Skärmposition(0, 0), new Skärmyta(16, 16));
-            bricka.Visa(new Skärmposition(30, 40));
-
-            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1), "Antal fyrkanter stämmer inte");
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(20, 35), "Position stämmer inte");
+            var gl = Substitute.For<IGrafikkommandon>();
+            var bricka = new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(1, 1));
+            bricka.Visa(new Skärmposition(x, y));
+            gl.Received().KopieraTexturrektangelTillRityta(0, 0, x, y, 1, 1);
         }
 
         [Test]
@@ -60,125 +49,52 @@ namespace Adapter.OpenTK.Spec.Grafik
         {
             var kamera = new Kamera(new Skärmyta(100, 100), new Skärmposition(10, 5));
             var glMock = new GrafikkommandonMock();
-            var bricka = new Bricka(glMock, kamera, new Skärmposition(0, 0), new Skärmyta(16, 16));
+            var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(16, 16));
 
             Assert.That(bricka.Dimensioner, Is.EqualTo(new Skärmyta(16, 16)));
-        }
-
-        [TestCase(1, 2)]
-        [TestCase(16, 9)]
-        public void Utan_kamera_görs_ingen_transformation(int x, int y)
-        {
-            var glMock = new GrafikkommandonMock();
-            var bricka = new Bricka(glMock, new Skärmposition(4, 5), new Skärmyta(16, 16));
-            bricka.Visa(new Skärmposition(x, y));
-
-            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1), "Antal fyrkanter");
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(x, y));
         }
 
         [TestCase(1.0, 16, 16)]
         [TestCase(0.5, 16, 8)]
         [TestCase(0.5, 10, 5)]
-        public void Visar_del_av_bilden(double procent, int maxBredd, int bredd)
+        public void Visar_bilden_över_angiven_andel_av_skärmen(double procent, int maxBredd, int bredd)
         {
-            var glMock = new GrafikkommandonMock();
-            var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(maxBredd, 16));
+            var gl = Substitute.For<IGrafikkommandon>();
+            var bricka = new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(maxBredd, 16));
             bricka.Visa(new Skärmposition(0, 0), new Andel(procent));
+            gl.Received().KopieraTexturrektangelTillRityta(0, 0, 0, 0, bredd, 16);
+        }
 
-            Assert.That(glMock.Texturverifierare.Count, Is.EqualTo(1), "Antal fyrhörningar (textur)");
-            Assert.That(glMock.Texturverifierare[0].StämmerHörn1(0, 16), "Texturhörn 1");
-            Assert.That(glMock.Texturverifierare[0].StämmerHörn2(bredd, 0), "Texturhörn 2");
-
-            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1), "Antal fyrhörningar (bild)");
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(0, 0), "Bildhörn 1");
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn2(bredd, 16), "Bildhörn 2");
+        [TestCase(1.0, 16, 16)]
+        [TestCase(0.5, 16, 8)]
+        [TestCase(0.5, 10, 5)]
+        public void Visar_bilden_klippt_enligt_andel(double procent, int maxBredd, int bredd)
+        {
+            var gl = Substitute.For<IGrafikkommandon>();
+            var bricka = new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(maxBredd, 16));
+            bricka.Visa(new Skärmposition(0, 0), new Andel(procent));
+            gl.Received().KopieraTexturrektangelTillRityta(0, 0, 0, 0, bredd, 16);
         }
 
         [Test]
         public void Visar_inte_bilden_om_delen_som_ska_visas_är_mindre_än_1()
         {
-            var glMock = new GrafikkommandonMock();
-            var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(16, 16));
+            var gl = Substitute.For<IGrafikkommandon>();
+            var bricka = new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(16, 16));
             bricka.Visa(new Skärmposition(0, 0), new Andel(1.0 / 16.0 - 0.01));
-
-            Assert.That(glMock.Texturverifierare.Count, Is.EqualTo(0));
+            gl.DidNotReceive().DefinieraFyrkanter();
         }
 
-        [TestCase(0, 0, 0, 0, 0, 0)]
-        [TestCase(1, 2, 0, 0, 1, 2)]
-        [TestCase(1, 2, 3, 4, 4, 6)]
-        public void Kan_skapas_med_brickans_centrum_angivet(int centrumX, int centrumY, int visaX, int visaY, int resultatX, int resultatY)
-        {
-            var glMock = new GrafikkommandonMock();
-            var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(16, 16), new Skärmposition(centrumX, centrumY));
-            bricka.Visa(new Skärmposition(visaX, visaY));
-
-            Assert.That(glMock.Hörnverifierare.Count, Is.EqualTo(1));
-            Assert.That(glMock.Hörnverifierare[0].StämmerHörn1(resultatX, resultatY));
-        }
-
-        [Test]
-        public void Visas_på_center_botten()
-        {
-            var gl = Substitute.For<IGrafikkommandon>();
-            var kamera = new Kamera(new Skärmyta(2, 2));
-            var bricka = new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(2, 1));
-            bricka.VisaCenterBotten();
-
-            Received.InOrder(() =>
-            {
-                gl.DefinieraFyrkanter();
-                gl.Hörnkoordinat(0, 0);
-                gl.Hörnkoordinat(2, 1);
-                gl.AvslutaDefinitioner();
-            });
-        }
-
-        [Test]
-        public void Visas_på_center_botten_med_andel()
-        {
-            var gl = Substitute.For<IGrafikkommandon>();
-            var kamera = new Kamera(new Skärmyta(2, 2));
-            var bricka = new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(2, 1));
-            bricka.VisaCenterBotten(new Andel(0.5));
-
-            Received.InOrder(() =>
-            {
-                gl.DefinieraFyrkanter();
-                gl.Hörnkoordinat(0, 0);
-                gl.Hörnkoordinat(1, 1);
-                gl.AvslutaDefinitioner();
-            });
-        }
-
-        private Bricka AnropaKonstruktor(int konstruktor, IGrafikkommandon glMock, Kamera kamera, Skärmposition texturPosition, Skärmyta dimensioner, Skärmposition centrum)
-        {
-            switch (konstruktor)
-            {
-                case 1:
-                    return new Bricka(glMock, texturPosition, dimensioner);
-                case 2:
-                    return new Bricka(glMock, kamera, texturPosition, dimensioner);
-                case 3:
-                    return new Bricka(glMock, texturPosition, dimensioner, centrum);
-                case 4:
-                    return new Bricka(glMock, kamera, texturPosition, dimensioner, centrum);
-            }
-            return null;
-        }
-                
         [Test]
         public void Gör_undantag_från_att_skapas_utan_obligatorisk_parameter([Range(1, 4)] int konstruktor, [Values("grafikkommando", "texturposition", "dimensioner")] string parameter)
         {
-            var glMock = parameter == "grafikkommando" ? null : new GrafikkommandonMock();
-            var kamera = new Kamera(new Skärmyta(100, 100), new Skärmposition(10, 5));
+            var gl = parameter == "grafikkommando" ? null : new GrafikkommandonMock();
             var texturposition = parameter == "texturposition" ? null : new Skärmposition(0, 0);
             var dimensioner = parameter == "dimensioner" ? null : new Skärmyta(16, 16);
 
             try
             {
-                AnropaKonstruktor(konstruktor, glMock, kamera, texturposition, dimensioner, new Skärmposition(0, 0));
+                new Bricka(gl, texturposition, dimensioner);
                 Assert.Fail("Inget undantag gjordes.");
             }
             catch (ArgumentException undantag)

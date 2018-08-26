@@ -17,15 +17,15 @@ namespace Adapter.OpenTK.Grafik
         private readonly int _kartbredd;
         private readonly int _karthöjd;
         private readonly int[] _karta;
+        private readonly Skärmyta _brickstorlek;
 
-        public Brickfält(Kamera kamera, IPositionskonverterare konverterare, Bricka[] definitioner, int kartbredd, int[] karta)
+        public Brickfält(Bricka[] definitioner, int[] karta, int kartbredd, Skärmyta brickstorlek)
         {
-            _kamera = kamera;
             _definitioner = definitioner;
-            _kartbredd = kartbredd;
             _karta = karta;
+            _kartbredd = kartbredd;
+            _brickstorlek = brickstorlek;
             _karthöjd = karta.Count() / kartbredd;
-            _konverterare = konverterare;
         }
 
         public Skärmyta Dimensioner
@@ -39,22 +39,15 @@ namespace Adapter.OpenTK.Grafik
 
         public void Visa(Skärmposition position)
         {
-            var område = _konverterare.TillOmråde(_kamera.Synlighetsområde);
-
-            for(var y = område.Botten; y <= Math.Min(område.Topp, _karthöjd - 1); y++)
+            for(var y = 0; y < _karthöjd; y++)
             {
-                for (var x = område.Vänster; x <= Math.Min(område.Höger, _kartbredd - 1); x++)
+                for (var x = 0; x < _kartbredd; x++)
                 {
                     var kartindex = x + y * _kartbredd;
-                    _definitioner[_karta[kartindex]].Visa(_konverterare.TillPunkt(new Spelvärldsposition(x, y)));
+                    var relativPosition = new Skärmposition(x * _brickstorlek.Bredd, y * _brickstorlek.Höjd);
+                    _definitioner[_karta[kartindex]].Visa(position.Plus(relativPosition));
                 }
             }
-        }
-
-        public void VisaCenterBotten()
-        {
-            // Fixa Implementera VisaCenterBotten för Brickfält
-            throw new NotImplementedException();
         }
     }
 }

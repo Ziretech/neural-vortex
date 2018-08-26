@@ -63,6 +63,7 @@
     <Compile Include="Grafik\FyrkantVerifierare.cs" />
     <Compile Include="Grafik\GrafikHändelserSpec.cs" />
     <Compile Include="Grafik\GrafikkommandonMock.cs" />
+    <Compile Include="Grafik\SkärmSpec.cs" />
     <Compile Include="Grafik\VisaSpelvärldMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace UseCase.NeuralVortex.Visning
 {
-    public interface IGrafik
+    public interface ISkärm
     {
-        Skärmyta Dimensioner { get; }
-        void Visa(Skärmposition position);
+        Skärmposition PositionCentreradIBotten(Skärmyta dimensioner);
     }
 }

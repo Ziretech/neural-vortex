@@ -15,214 +15,195 @@ namespace Adapter.OpenTK.Spec.Grafik
     [TestFixture]
     public class BrickfältSpec
     {
-        [Test]
-        public void Visar_brickfält_när_en_bricka_syns()
+        [TestCase(0, 0)]
+        [TestCase(3, 3)]
+        [TestCase(12, 34)]
+        public void Visa_enda_brickan_i_1x1_brickfält_på_position(int x, int y)
         {
-            var gl = new GrafikkommandonMock(); // REFACTOR Använd NSubstitute istället för att mocka IGrafikkommandon
-            var kamera = new Kamera(new Skärmyta(4, 4));
-            var definitioner = new Bricka[] { new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4)) };
-            var brickstorlek = new Skärmyta(4, 4);
-            var kartbredd = 1;
+            var gl = Substitute.For<IGrafikkommandon>();
+            var brickstorlek = new Skärmyta(1, 1);
+            var definitioner = new Bricka[] { new Bricka(gl, new Skärmposition(0, 0), brickstorlek) };            
             var karta = new int[] { 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(definitioner, karta, 1, brickstorlek);
 
-            fält.Visa(new Skärmposition(0, 0));
+            fält.Visa(new Skärmposition(x, y));
 
-            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(1));
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0));
-            Assert.That(gl.Texturverifierare[0].StämmerHörn1(4, 4 + 4));
+            gl.Received().KopieraTexturrektangelTillRityta(0, 0, x, y, 1, 1);
         }
 
         [Test]
-        public void Visar_brickfält_när_två_brickor_på_bredden_syns()
+        public void Visa_andra_brickan_i_1x1_brickfält()
         {
-            var gl = new GrafikkommandonMock();
-            var kamera = new Kamera(new Skärmyta(8, 4));
+            var gl = Substitute.For<IGrafikkommandon>();
+            var brickstorlek = new Skärmyta(1, 1);
             var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
-            };
-            var brickstorlek = new Skärmyta(4, 4);
-            var kartbredd = 2;
-            var karta = new int[] { 0, 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+                new Bricka(gl, new Skärmposition(0, 0), brickstorlek),
+                new Bricka(gl, new Skärmposition(11, 22), brickstorlek) };
+            var karta = new int[] { 1 };
+            var fält = new Brickfält(definitioner, karta, 1, brickstorlek);
 
             fält.Visa(new Skärmposition(0, 0));
 
-            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(2), "antal polygoner");
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0), "1 hörn1");
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn2(4, 4), "1 hörn2");
-            Assert.That(gl.Hörnverifierare[1].StämmerHörn1(4, 0), "2 hörn1");
-            Assert.That(gl.Hörnverifierare[1].StämmerHörn2(8, 4), "2 hörn2");
+            gl.Received().KopieraTexturrektangelTillRityta(11, 22, 0, 0, 1, 1);
         }
 
         [Test]
-        public void Visar_brickfält_när_två_brickor_på_höjden_syns()
+        public void Visar_två_brickor_i_1x2_brickfält()
         {
-            var gl = new GrafikkommandonMock();
-            var kamera = new Kamera(new Skärmyta(4, 8));
+            var gl = Substitute.For<IGrafikkommandon>();
+            var brickstorlek = new Skärmyta(2, 2);
             var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
-            };
-            var brickstorlek = new Skärmyta(4, 4);
-            var kartbredd = 1;
-            var karta = new int[] { 0, 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+                new Bricka(gl, new Skärmposition(1, 2), brickstorlek),
+                new Bricka(gl, new Skärmposition(3, 4), brickstorlek) };
+            var karta = new int[] { 0, 1 };
+            var fält = new Brickfält(definitioner, karta, 1, brickstorlek);
 
             fält.Visa(new Skärmposition(0, 0));
 
-            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(2), "antal polygoner");
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0), "1 hörn1");
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn2(4, 4), "1 hörn2");
-            Assert.That(gl.Hörnverifierare[1].StämmerHörn1(0, 4), "2 hörn1");
-            Assert.That(gl.Hörnverifierare[1].StämmerHörn2(4, 8), "2 hörn2");
+            Received.InOrder(() =>
+            {
+                gl.KopieraTexturrektangelTillRityta(1, 2, 0, 0, 2, 2);
+                gl.KopieraTexturrektangelTillRityta(3, 4, 0, 2, 2, 2);
+            });
         }
 
         [Test]
-        public void Visar_brickfält_när_2x2_brickor_syns()
+        public void Visar_två_brickor_i_1x3_brickfält()
         {
-            var gl = new GrafikkommandonMock();
-            var kamera = new Kamera(new Skärmyta(8, 8));
+            var gl = Substitute.For<IGrafikkommandon>();
+            var brickstorlek = new Skärmyta(2, 2);
             var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
-            };
-            var brickstorlek = new Skärmyta(4, 4);
-            var kartbredd = 2;
-            var karta = new int[] { 0, 0, 0, 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+                new Bricka(gl, new Skärmposition(1, 2), brickstorlek),
+                new Bricka(gl, new Skärmposition(3, 4), brickstorlek) };
+            var karta = new int[] { 0, 1, 0 };
+            var fält = new Brickfält(definitioner, karta, 1, brickstorlek);
 
             fält.Visa(new Skärmposition(0, 0));
 
-            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(4), "antal polygoner");
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0), "bricka 1");
-            Assert.That(gl.Hörnverifierare[1].StämmerHörn1(4, 0), "bricka 2");
-            Assert.That(gl.Hörnverifierare[2].StämmerHörn1(0, 4), "bricka 3");
-            Assert.That(gl.Hörnverifierare[3].StämmerHörn1(4, 4), "bricka 4");
+            Received.InOrder(() =>
+            {
+                gl.KopieraTexturrektangelTillRityta(1, 2, 0, 0, 2, 2);
+                gl.KopieraTexturrektangelTillRityta(3, 4, 0, 2, 2, 2);
+                gl.KopieraTexturrektangelTillRityta(1, 2, 0, 4, 2, 2);
+            });
         }
+
+        [Test]
+        public void Visar_fyra_brickor_i_2x2_brickfält()
+        {
+            var gl = Substitute.For<IGrafikkommandon>();
+            var brickstorlek = new Skärmyta(4, 4);
+            var definitioner = new Bricka[] {
+                new Bricka(gl, new Skärmposition(1, 2), brickstorlek),
+                new Bricka(gl, new Skärmposition(3, 4), brickstorlek) };
+            var karta = new int[] { 0, 1, 0, 1 };
+            var fält = new Brickfält(definitioner, karta, 2, brickstorlek);
+
+            fält.Visa(new Skärmposition(0, 0));
+
+            Received.InOrder(() =>
+            {
+                gl.KopieraTexturrektangelTillRityta(1, 2, 0, 0, 4, 4);
+                gl.KopieraTexturrektangelTillRityta(3, 4, 4, 0, 4, 4);
+                gl.KopieraTexturrektangelTillRityta(1, 2, 0, 4, 4, 4);
+                gl.KopieraTexturrektangelTillRityta(3, 4, 4, 4, 4, 4);
+            });
+        }
+
+        // FIXA Testa konstruktorparametrar
+
 
         [Test]
         public void Visar_brickfält_där_typ_bestäms_av_kartan()
         {
-            var gl = new GrafikkommandonMock();
-            var kamera = new Kamera(new Skärmyta(8, 4));
+            var gl = Substitute.For<IGrafikkommandon>();
             var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4)),
-                new Bricka(gl, kamera, new Skärmposition(4 * 2, 4 * 1), new Skärmyta(4, 4))
+                new Bricka(gl, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4)),
+                new Bricka(gl, new Skärmposition(4 * 2, 4 * 1), new Skärmyta(4, 4))
             };
             var brickstorlek = new Skärmyta(4, 4);
             var kartbredd = 2;
             var karta = new int[] { 0, 1 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
 
             fält.Visa(new Skärmposition(0, 0));
 
-            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(2), "antal polygoner");
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0), "bricka 1");
-            Assert.That(gl.Texturverifierare[0].StämmerHörn1(4, 8), "bricka 2 - texturhörn 1");
-            Assert.That(gl.Texturverifierare[0].StämmerHörn2(8, 4), "bricka 2 - texturhörn 2");
-            Assert.That(gl.Hörnverifierare[1].StämmerHörn1(4, 0), "bricka 2");
-            Assert.That(gl.Texturverifierare[1].StämmerHörn1(8, 8), "bricka 2 - texturhörn 1");
-            Assert.That(gl.Texturverifierare[1].StämmerHörn2(12, 4), "bricka 2 - texturhörn 2");
+            Received.InOrder(() =>
+            {
+                gl.KopieraTexturrektangelTillRityta(4, 4, 0, 0, 4, 4);
+                gl.KopieraTexturrektangelTillRityta(8, 4, 4, 0, 4, 4);
+            });
         }
 
         [Test]
         public void Visar_brickfält_där_kameran_går_utanför_kartan()
         {
-            var gl = new GrafikkommandonMock();
+            var gl = Substitute.For<IGrafikkommandon>();
             var kamera = new Kamera(new Skärmyta(8, 8));
             var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
+                new Bricka(gl, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
             };
             var brickstorlek = new Skärmyta(4, 4);
             var kartbredd = 1;
             var karta = new int[] { 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
 
             fält.Visa(new Skärmposition(0, 0));
 
-            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(1), "antal polygoner");
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(0, 0), "bricka");
+            gl.Received().KopieraTexturrektangelTillRityta(4, 4, 0, 0, 4, 4);
         }
 
         [Test]
-        public void Visar_brickfält_förskjutet_när_kameran_flyttats()
-        {
-            var gl = new GrafikkommandonMock();
-            var kamera = new Kamera(new Skärmyta(8, 8), new Skärmposition(2, 2));
-            var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
-            };
-            var brickstorlek = new Skärmyta(4, 4);
-            var kartbredd = 1;
-            var karta = new int[] { 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
-
-            fält.Visa(new Skärmposition(0, 0));
-
-            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(1), "antal polygoner");
-            Assert.That(gl.Hörnverifierare[0].StämmerHörn1(-2, -2), "bricka");
-        }
-
-        [Test]
+        [Ignore("Tidigare tester")]
         public void Visar_inte_bricka_som_inte_syns()
         {
-            var gl = new GrafikkommandonMock();
+            var gl = Substitute.For<IGrafikkommandon>();
             var kamera = new Kamera(new Skärmyta(8, 8), new Skärmposition(4, 4));
             var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
+                new Bricka(gl, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
             };
             var brickstorlek = new Skärmyta(4, 4);
             var kartbredd = 1;
             var karta = new int[] { 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
 
             fält.Visa(new Skärmposition(0, 0));
 
-            Assert.That(gl.Hörnverifierare.Count, Is.EqualTo(0), "antal polygoner");
+            gl.DidNotReceive().KopieraTexturrektangelTillRityta(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>());
         }
 
         [Test]
+        [Ignore("Tidigare tester")]
         public void Har_dimensioner_4x4_när_brickfältet_är_en_4x4_ruta()
         {
             var gl = Substitute.For<IGrafikkommandon>();
             var kamera = new Kamera(new Skärmyta(20, 20), new Skärmposition(0, 0));
             var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(4, 4))
+                new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(4, 4))
             };
             var brickstorlek = new Skärmyta(4, 4);
             var kartbredd = 1;
             var karta = new int[] { 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
 
             Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(4, 4)));
         }
 
         [Test]
+        [Ignore("Tidigare tester")]
         public void Har_dimensioner_8x15_när_brickfältet_är_2x3_4x5_rutor()
         {
             var gl = Substitute.For<IGrafikkommandon>();
             var kamera = new Kamera(new Skärmyta(20, 20), new Skärmposition(0, 0));
             var definitioner = new Bricka[] {
-                new Bricka(gl, kamera, new Skärmposition(0, 0), new Skärmyta(4, 5))
+                new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(4, 5))
             };
             var brickstorlek = new Skärmyta(4, 5);
             var kartbredd = 2;
             var karta = new int[] { 0, 0, 0, 0, 0, 0 };
-            var konverterare = new Positionskonverterare(brickstorlek);
-            var fält = new Brickfält(kamera, konverterare, definitioner, kartbredd, karta);
+            var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
 
             Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(8, 15)));
         }
-
-        // FIXA Tester för att visa på center botten
-        // FIXA Tester för att visa på center botten med andel
     }
 }

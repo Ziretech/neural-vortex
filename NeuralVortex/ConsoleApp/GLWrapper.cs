@@ -41,6 +41,23 @@ namespace ConsoleApp
             GL.Vertex2(x, y);
         }
 
+        public void KopieraTexturrektangelTillRityta(int texturX, int texturY, int skärmX, int skärmY, int bredd, int höjd)
+        {
+            GL.Begin(PrimitiveType.Quads);
+            GL.TexCoord2(texturX, texturY + höjd);
+            GL.Vertex2(skärmX, skärmY);
+
+            GL.TexCoord2(texturX + bredd, texturY + höjd);
+            GL.Vertex2(skärmX + bredd, skärmY);
+
+            GL.TexCoord2(texturX + bredd, texturY);
+            GL.Vertex2(skärmX + bredd, skärmY + höjd);
+
+            GL.TexCoord2(texturX, texturY);
+            GL.Vertex2(skärmX, skärmY + höjd);
+            GL.End();
+        }
+
         public void NollställMatris()
         {
             GL.LoadIdentity();
