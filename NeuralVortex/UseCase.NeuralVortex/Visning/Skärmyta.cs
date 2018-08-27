@@ -11,5 +11,10 @@ namespace UseCase.NeuralVortex.Visning
         public Skärmyta(int bredd, int höjd) : base(bredd, höjd) { }
 
         public Skärmyta(Yta yta) : base(yta) { }
+
+        public Skärmyta MultipliceratMed(Yta yta)
+        {
+            return new Skärmyta(MultiplicerasMed(yta));
+        }
     }
 }

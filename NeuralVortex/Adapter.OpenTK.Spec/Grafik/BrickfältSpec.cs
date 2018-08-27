@@ -153,40 +153,33 @@ namespace Adapter.OpenTK.Spec.Grafik
             gl.Received().KopieraTexturrektangelTillRityta(4, 4, 0, 0, 4, 4);
         }
 
-        [Test]
-        [Ignore("Tidigare tester")]
-        public void Visar_inte_bricka_som_inte_syns()
+        [TestCase(4, 4)]
+        [TestCase(1, 2)]
+        public void Har_samma_dimensioner_som_rutan_när_det_bara_är_en_ruta(int x, int y)
         {
             var gl = Substitute.For<IGrafikkommandon>();
-            var kamera = new Kamera(new Skärmyta(8, 8), new Skärmposition(4, 4));
+            var brickstorlek = new Skärmyta(x, y);
             var definitioner = new Bricka[] {
-                new Bricka(gl, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
+                new Bricka(gl, new Skärmposition(0, 0), brickstorlek)
             };
-            var brickstorlek = new Skärmyta(4, 4);
-            var kartbredd = 1;
-            var karta = new int[] { 0 };
-            var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
+            var fält = new Brickfält(definitioner, new int[] { 0 }, 1, brickstorlek);
 
-            fält.Visa(new Skärmposition(0, 0));
-
-            gl.DidNotReceive().KopieraTexturrektangelTillRityta(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>());
+            Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(x, y)));
         }
 
         [Test]
-        [Ignore("Tidigare tester")]
-        public void Har_dimensioner_4x4_när_brickfältet_är_en_4x4_ruta()
+        [Ignore("Skärmyta behöver kunna multiplicera")]
+        public void Har_samma_dimensioner_som_rutans_storlek_multiplicerad_med_kartans_dimensioner()
         {
             var gl = Substitute.For<IGrafikkommandon>();
-            var kamera = new Kamera(new Skärmyta(20, 20), new Skärmposition(0, 0));
-            var definitioner = new Bricka[] {
-                new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(4, 4))
-            };
             var brickstorlek = new Skärmyta(4, 4);
-            var kartbredd = 1;
-            var karta = new int[] { 0 };
-            var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
+            var definitioner = new Bricka[] {
+                new Bricka(gl, new Skärmposition(0, 0), brickstorlek)
+            };
+            var karta = new int[6];
+            var fält = new Brickfält(definitioner, karta, 3, brickstorlek);
 
-            Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(4, 4)));
+            Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(12, 8)));
         }
 
         [Test]

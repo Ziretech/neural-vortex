@@ -58,5 +58,14 @@ namespace UseCase.NeuralVortex.Spec.Visning
             var annanYta = new Skärmyta(annanBredd, annanHöjd);
             Assert.That(yta.GetHashCode(), Is.Not.EqualTo(annanYta.GetHashCode()));
         }
+
+        [TestCase(1, 2, 3, 4, 3, 8)]
+        [TestCase(4, 3, 6, 2, 24, 6)]
+        public void Multipliceras_med_yta(int bredd1, int höjd1, int bredd2, int höjd2, int resultatbredd, int resultathöjd)
+        {
+            var yta = new Skärmyta(bredd1, höjd1);
+            var annanYta = new Skärmyta(bredd2, höjd2);
+            Assert.That(yta.MultipliceratMed(annanYta), Is.EqualTo(new Skärmyta(resultatbredd, resultathöjd)));
+        }
     }
 }

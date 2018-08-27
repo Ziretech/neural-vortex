@@ -40,5 +40,10 @@
         {
             return Bredd ^ Höjd;
         }
+
+        public Yta MultiplicerasMed(Yta yta)
+        {
+            return new Yta(_bredd * yta._bredd, _höjd * yta._höjd);
+        }
     }
 }
