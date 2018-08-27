@@ -48,7 +48,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         public void Har_dimensioner()
         {
             var kamera = new Kamera(new Skärmyta(100, 100), new Skärmposition(10, 5));
-            var glMock = new GrafikkommandonMock();
+            var glMock = Substitute.For<IGrafikkommandon>();
             var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(16, 16));
 
             Assert.That(bricka.Dimensioner, Is.EqualTo(new Skärmyta(16, 16)));
@@ -88,7 +88,7 @@ namespace Adapter.OpenTK.Spec.Grafik
         [Test]
         public void Gör_undantag_från_att_skapas_utan_obligatorisk_parameter([Range(1, 4)] int konstruktor, [Values("grafikkommando", "texturposition", "dimensioner")] string parameter)
         {
-            var gl = parameter == "grafikkommando" ? null : new GrafikkommandonMock();
+            var gl = parameter == "grafikkommando" ? null : Substitute.For<IGrafikkommandon>();
             var texturposition = parameter == "texturposition" ? null : new Skärmposition(0, 0);
             var dimensioner = parameter == "dimensioner" ? null : new Skärmyta(16, 16);
 
