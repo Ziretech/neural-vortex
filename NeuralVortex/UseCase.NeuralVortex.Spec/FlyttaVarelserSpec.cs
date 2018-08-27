@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,8 @@ namespace UseCase.NeuralVortex.Spec
         public void Hindrar_högerförflyttning_till_ruta_med_hinder()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 13) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(2, 13) });
+            var hinderkarta = Substitute.For<IHinderkarta>();
+            hinderkarta.Hindrar(new Spelvärldsposition(2, 13)).Returns(true);
             var flyttaVarelser = new FlyttaVarelser(spelvärld, hinderkarta);
 
             flyttaVarelser.Flytta(Tangent.Höger);
@@ -73,7 +75,8 @@ namespace UseCase.NeuralVortex.Spec
         public void Hindrar_vänsterförflyttning_till_ruta_med_hinder()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(1, 13) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(0, 13) });
+            var hinderkarta = Substitute.For<IHinderkarta>();
+            hinderkarta.Hindrar(new Spelvärldsposition(0, 13)).Returns(true);
             var flyttaVarelser = new FlyttaVarelser(spelvärld, hinderkarta);
 
             flyttaVarelser.Flytta(Tangent.Vänster);
@@ -85,7 +88,8 @@ namespace UseCase.NeuralVortex.Spec
         public void Hindrar_uppförflyttning_till_ruta_med_hinder()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(13, 1) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(13, 2) });
+            var hinderkarta = Substitute.For<IHinderkarta>();
+            hinderkarta.Hindrar(new Spelvärldsposition(13, 2)).Returns(true);
             var flyttaVarelser = new FlyttaVarelser(spelvärld, hinderkarta);
 
             flyttaVarelser.Flytta(Tangent.Upp);
@@ -97,7 +101,8 @@ namespace UseCase.NeuralVortex.Spec
         public void Hindrar_nerförflyttning_till_ruta_med_hinder()
         {
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(13, 1) } };
-            var hinderkarta = new HinderkartaMock(new Spelvärldsposition[] { new Spelvärldsposition(13, 0) });
+            var hinderkarta = Substitute.For<IHinderkarta>();
+            hinderkarta.Hindrar(new Spelvärldsposition(13, 0)).Returns(true);
             var flyttaVarelser = new FlyttaVarelser(spelvärld, hinderkarta);
 
             flyttaVarelser.Flytta(Tangent.Ner);
