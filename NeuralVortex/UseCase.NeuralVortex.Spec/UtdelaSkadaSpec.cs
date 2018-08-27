@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace UseCase.NeuralVortex.Spec
         [TestCase(3, 2, 2, 2)]
         public void Utdelar_skada_till_huvudkaraktären_när_den_står_bredvid_fienden(int x1, int y1, int x2, int y2)
         {
-            var spelvärld = new SpelvärldMock();
+            var spelvärld = Substitute.For<ISpelvärld>();
             spelvärld.Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(x1, y1) };
             spelvärld.Fienden = new[] { new Fiende { Position = new Spelvärldsposition(x2, y2) } };
             var utdelaSkada = new UtdelaSkada(spelvärld);
@@ -32,7 +33,7 @@ namespace UseCase.NeuralVortex.Spec
         [TestCase(1, 3, 2, 4)]
         public void Utdelar_inte_skada_till_huvudkaraktären_när_den_inte_står_bredvid_fienden(int x1, int y1, int x2, int y2)
         {
-            var spelvärld = new SpelvärldMock();
+            var spelvärld = Substitute.For<ISpelvärld>();
             spelvärld.Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(x1, y1) };
             spelvärld.Fienden = new[] { new Fiende { Position = new Spelvärldsposition(x2, y2) } };
             var utdelaSkada = new UtdelaSkada(spelvärld);
@@ -44,7 +45,7 @@ namespace UseCase.NeuralVortex.Spec
         [TestCase(1, 1, 1, 2, 4, 7)]
         public void Utdelar_skada_till_huvudkaraktären_när_den_står_bredvid_andra_fienden(int x, int y, int f1x, int f1y, int f2x, int f2y)
         {
-            var spelvärld = new SpelvärldMock();
+            var spelvärld = Substitute.For<ISpelvärld>();
             spelvärld.Huvudkaraktär = new Huvudkaraktär { Position = new Spelvärldsposition(x, y) };
             spelvärld.Fienden = new[] 
             {

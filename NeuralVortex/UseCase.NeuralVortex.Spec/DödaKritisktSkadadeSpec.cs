@@ -1,9 +1,11 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCase.NeuralVortex.Spelvärld;
 
 namespace UseCase.NeuralVortex.Spec
 {
@@ -13,7 +15,7 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Avslutar_inte_spelet_om_huvudkaraktären_saknas()
         {
-            var spelvärld = new SpelvärldMock();
+            var spelvärld = Substitute.For<ISpelvärld>();
             var dödaKritisktSkadade = new DödaKritisktSkadade(spelvärld);
             Assert.That(dödaKritisktSkadade.Döda(), Is.EqualTo(SpeletsFortsättning.Fortsätt));
         }
@@ -21,7 +23,8 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Avslutar_spelet_om_huvudkaraktären_är_kritiskt_skadad()
         {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär(0) };
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.Huvudkaraktär.Returns(new Huvudkaraktär(0));
             var dödaKritisktSkadade = new DödaKritisktSkadade(spelvärld);
             Assert.That(dödaKritisktSkadade.Döda(), Is.EqualTo(SpeletsFortsättning.Avsluta));
         }
@@ -29,8 +32,9 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Avslutar_inte_spelet_om_huvudkaraktären_inte_är_kritiskt_skadad()
         {
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär() };
-            var dödaKritisktSkadade = new DödaKritisktSkadade(new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär() });
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.Huvudkaraktär.Returns(new Huvudkaraktär());
+            var dödaKritisktSkadade = new DödaKritisktSkadade(spelvärld);
             Assert.That(dödaKritisktSkadade.Döda(), Is.EqualTo(SpeletsFortsättning.Fortsätt));
         }
 
@@ -38,37 +42,41 @@ namespace UseCase.NeuralVortex.Spec
         public void Dödar_fiende_som_är_kritiskt_skadad()
         {
             var kritisktSkadadFiende = new Fiende { ÄrKritisktSkadad = true };
-            var spelvärld = new SpelvärldMock { Fienden = new[] { kritisktSkadadFiende } };
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.Fienden.Returns(new[] { kritisktSkadadFiende });
             new DödaKritisktSkadade(spelvärld).Döda();
-            Assert.That(spelvärld.BorttagenFiende, Is.EquivalentTo(new [] { kritisktSkadadFiende }));
+            spelvärld.Received().DödaFiende(kritisktSkadadFiende);
         }
 
         [Test]
         public void Dödar_inte_fiende_som_inte_är_kritiskt_skadad()
         {
-            var spelvärld = new SpelvärldMock { Fienden = new[] { new Fiende() } };
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.Fienden.Returns(new[] { new Fiende() });
             new DödaKritisktSkadade(spelvärld).Döda();
-            Assert.That(spelvärld.BorttagenFiende.Any(), Is.False);
+            spelvärld.DidNotReceive().DödaFiende(Arg.Any<Fiende>());
         }
 
         [Test]
         public void Dödar_endst_kritiskt_skadad_fiende_av_två()
         {
             var kritisktSkadadFiende = new Fiende { ÄrKritisktSkadad = true };
-            var spelvärld = new SpelvärldMock { Fienden = new[] { new Fiende(), kritisktSkadadFiende } };
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.Fienden.Returns(new[] { new Fiende(), kritisktSkadadFiende });
             new DödaKritisktSkadade(spelvärld).Döda();
-            Assert.That(spelvärld.BorttagenFiende, Is.EquivalentTo(new[] { kritisktSkadadFiende }));
+            spelvärld.Received().DödaFiende(kritisktSkadadFiende);
         }
 
         [Test]
         public void Dödar_alla_kritiskt_skadade_fienden_av_fem()
         {
-            var spelvärld = new SpelvärldMock();
+            var spelvärld = Substitute.For<ISpelvärld>();
             var kritisktSkadadFiende1 = new Fiende { ÄrKritisktSkadad = true };
             var kritisktSkadadFiende2 = new Fiende { ÄrKritisktSkadad = true };
-            spelvärld.Fienden = new[] { new Fiende(), kritisktSkadadFiende1, new Fiende(), kritisktSkadadFiende2, new Fiende() };
+            spelvärld.Fienden.Returns(new[] { new Fiende(), kritisktSkadadFiende1, new Fiende(), kritisktSkadadFiende2, new Fiende() });
             new DödaKritisktSkadade(spelvärld).Döda();
-            Assert.That(spelvärld.BorttagenFiende, Is.EquivalentTo(new[] { kritisktSkadadFiende1, kritisktSkadadFiende2 }));
+            spelvärld.Received().DödaFiende(kritisktSkadadFiende1);
+            spelvärld.Received().DödaFiende(kritisktSkadadFiende2);
         }
 
         [Test]

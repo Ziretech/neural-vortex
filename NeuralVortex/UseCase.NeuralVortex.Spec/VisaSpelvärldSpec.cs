@@ -15,7 +15,7 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange
             var konverterare = new Positionskonverterare(new Skärmyta(1, 1));
-            var visaSpelvärld = new VisaSpelvärld(new SpelvärldMock(), konverterare);
+            var visaSpelvärld = new VisaSpelvärld(Substitute.For<ISpelvärld>(), konverterare);
 
             // Act
             visaSpelvärld.Visa();
@@ -30,7 +30,8 @@ namespace UseCase.NeuralVortex.Spec
             // Arrange
             var huvudkaraktärensGrafik = Substitute.For<IGrafik>();
             var konverterare = new Positionskonverterare(new Skärmyta(1, 1));
-            var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = new Spelvärldsposition(1, 2) } };
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.Huvudkaraktär.Returns(new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = new Spelvärldsposition(1, 2) });
             var visaSpelvärld = new VisaSpelvärld(spelvärld, konverterare);
 
             // Act
@@ -45,7 +46,8 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange
             var miljögrafik = Substitute.For<IGrafik>();
-            var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik };
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.MiljöGrafik.Returns(miljögrafik);
             var visaSpelvärld = new VisaSpelvärld(spelvärld, Substitute.For<IPositionskonverterare>());
 
             // Act
@@ -60,17 +62,15 @@ namespace UseCase.NeuralVortex.Spec
         {
             // Arrange
             var fiendegrafik = Substitute.For<IGrafik>();
-            var spelvärld = new SpelvärldMock
-            {
-                Fienden = new List<Fiende>
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.Fienden.Returns(new List<Fiende>
                     {
                         new Fiende
                         {
                             Grafik = fiendegrafik,
                             Position = new Spelvärldsposition(2, 3)
                         }
-                    }
-            };
+                    });
             var konverterare = Substitute.For<IPositionskonverterare>();
             konverterare.TillPunkt(new Spelvärldsposition(2, 3)).Returns(new Skärmposition(20, 30));
             var visaSpelvärld = new VisaSpelvärld(spelvärld, konverterare);
@@ -88,7 +88,9 @@ namespace UseCase.NeuralVortex.Spec
             // Arrange
             var grafik = Substitute.For<IGrafik>();
             var huvudkaraktär = new Huvudkaraktär { Grafik = grafik, Position = new Spelvärldsposition(1, 2) };
-            var spelvärld = new SpelvärldMock { MiljöGrafik = grafik, Huvudkaraktär = huvudkaraktär };
+            var spelvärld = Substitute.For<ISpelvärld>();
+            spelvärld.MiljöGrafik.Returns(grafik);
+            spelvärld.Huvudkaraktär.Returns(huvudkaraktär);
             var konverterare = Substitute.For<IPositionskonverterare>();
             konverterare.TillPunkt(new Spelvärldsposition(1, 2)).Returns(new Skärmposition(8, 16));
             var visaSpelvärld = new VisaSpelvärld(spelvärld, konverterare);
