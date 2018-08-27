@@ -28,12 +28,12 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Utdelar_skada()
         {
-            var utdelaSkada = new UtdelaSkadaMock();
+            var utdelaSkada = Substitute.For<IUtdelaSkada>();
             var uppdateraSpelvärld = new UppdateraSpelvärld(null, utdelaSkada, null);
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
-            Assert.That(utdelaSkada.UtdelaHarAnropats, Is.True);
+            utdelaSkada.Received().Utdela();
         }
 
         [Test]
