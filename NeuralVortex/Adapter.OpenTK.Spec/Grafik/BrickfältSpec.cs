@@ -110,9 +110,6 @@ namespace Adapter.OpenTK.Spec.Grafik
             });
         }
 
-        // FIXA Testa konstruktorparametrar
-
-
         [Test]
         public void Visar_brickfält_där_typ_bestäms_av_kartan()
         {
@@ -181,6 +178,57 @@ namespace Adapter.OpenTK.Spec.Grafik
             var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
 
             Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(fältbredd, fälthöjd)));
+        }
+
+        [TestCase("brickdefinition")]
+        [TestCase("karta")]
+        [TestCase("brickstorlek")]
+        public void Gör_undantag_för_att_skapas_utan_brickdefinition(string parameter)
+        {
+            var definition = new Bricka[] { new Bricka(Substitute.For<IGrafikkommandon>(), new Skärmposition(0, 0), new Skärmyta(1, 1)) };
+            try
+            {
+                new Brickfält(
+                    parameter == "brickdefinition" ? null : definition, 
+                    parameter == "karta" ? null : new int[1], 
+                    1, 
+                    parameter == "brickstorlek" ? null : new Skärmyta(4, 4));
+                Assert.Fail("Inget undantag gjordes.");
+            }
+            catch (ArgumentException undantag)
+            {
+                Assert.That(undantag.Message.ToLower(), Does.Contain(parameter));
+            }
+        }
+
+        [Test]
+        public void Gör_undantag_för_att_skapas_med_kartbredd_mindre_än_1()
+        {
+            var definition = new Bricka[] { new Bricka(Substitute.For<IGrafikkommandon>(), new Skärmposition(0, 0), new Skärmyta(1, 1)) };
+            try
+            {
+                new Brickfält(definition, new int[1], 0, new Skärmyta(4, 4));
+                Assert.Fail("Inget undantag gjordes.");
+            }
+            catch (ArgumentException undantag)
+            {
+                Assert.That(undantag.Message.ToLower(), Does.Contain("kartbredd"));
+            }
+        }
+
+        [Test]
+        public void Gör_undantag_för_att_skapas_med_karta_utan_element()
+        {
+            var definition = new Bricka[] { new Bricka(Substitute.For<IGrafikkommandon>(), new Skärmposition(0, 0), new Skärmyta(1, 1)) };
+            try
+            {
+                new Brickfält(definition, new int[0], 1, new Skärmyta(4, 4));
+                Assert.Fail("Inget undantag gjordes.");
+            }
+            catch (ArgumentException undantag)
+            {
+                Assert.That(undantag.Message.ToLower(), Does.Contain("kartelement"));
+            }
         }
     }
 }

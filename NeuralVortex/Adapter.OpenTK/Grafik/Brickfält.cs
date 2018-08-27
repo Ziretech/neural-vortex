@@ -11,8 +11,6 @@ namespace Adapter.OpenTK.Grafik
 {
     public class Brickfält : IGrafik
     {
-        private readonly Kamera _kamera;
-        private readonly IPositionskonverterare _konverterare;
         private readonly Bricka[] _definitioner;
         private readonly int[] _karta;
         private readonly Skärmyta _brickstorlek;
@@ -20,9 +18,17 @@ namespace Adapter.OpenTK.Grafik
 
         public Brickfält(Bricka[] definitioner, int[] karta, int kartbredd, Skärmyta brickstorlek)
         {
-            _definitioner = definitioner;
-            _karta = karta;
-            _brickstorlek = brickstorlek;
+            _definitioner = definitioner ?? throw new ArgumentException("Brickfält kan inte skapas utan brickdefinition.");
+            _karta = karta ?? throw new ArgumentException("Brickfält kan inte skapas utan karta.");
+            _brickstorlek = brickstorlek ?? throw new ArgumentException("Brickfält kan inte skapas utan brickstorlek.");
+            if(kartbredd < 1)
+            {
+                throw new ArgumentException("Brickfält kan inte ha en kartbredd mindre än 1.");
+            }
+            if(_karta.Count() < 1)
+            {
+                throw new ArgumentException("Brickfält måste ha en minst ett kartelement.");
+            }
             _kartstorlek = new Skärmyta(kartbredd, karta.Count() / kartbredd);
         }
 
