@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 using System.Collections.Generic;
 using UseCase.NeuralVortex.Spelvärld;
 using UseCase.NeuralVortex.Visning;
@@ -27,7 +28,7 @@ namespace UseCase.NeuralVortex.Spec
         public void VisaSpelvärld_borde_visa_huvudkaraktären_på_den_position_som_bestäms_av_kameran()
         {
             // Arrange
-            var huvudkaraktärensGrafik = new GrafikMock();
+            var huvudkaraktärensGrafik = Substitute.For<IGrafik>();
             var konverterare = new Positionskonverterare(new Skärmyta(1, 1));
             var spelvärld = new SpelvärldMock { Huvudkaraktär = new Huvudkaraktär { Grafik = huvudkaraktärensGrafik, Position = new Spelvärldsposition(1, 2) } };
             var visaSpelvärld = new VisaSpelvärld(spelvärld, konverterare);
@@ -36,15 +37,14 @@ namespace UseCase.NeuralVortex.Spec
             visaSpelvärld.Visa();
 
             // Assert
-            Assert.That(huvudkaraktärensGrafik.HarVisatsPåPosition.X, Is.EqualTo(1));
-            Assert.That(huvudkaraktärensGrafik.HarVisatsPåPosition.Y, Is.EqualTo(2));
+            huvudkaraktärensGrafik.Received().Visa(new Skärmposition(1, 2));
         }
 
         [Test]
         public void VisaSpelvärld_borde_visa_miljö()
         {
             // Arrange
-            var miljögrafik = new GrafikMock();
+            var miljögrafik = Substitute.For<IGrafik>();
             var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik };
             var visaSpelvärld = new VisaSpelvärld(spelvärld, new PositionskonverterareMock());
 
@@ -52,15 +52,16 @@ namespace UseCase.NeuralVortex.Spec
             visaSpelvärld.Visa();
 
             // Assert
-            Assert.That(miljögrafik.HarVisatsPåPosition, Is.Not.Null);
+            miljögrafik.Received().Visa(Arg.Any<Skärmposition>());
         }
 
         [Test]
         public void VisaSpelvärld_borde_visa_fienden()
         {
             // Arrange
-            var fiendegrafik = new GrafikMock();
-            var spelvärld = new SpelvärldMock {
+            var fiendegrafik = Substitute.For<IGrafik>();
+            var spelvärld = new SpelvärldMock
+            {
                 Fienden = new List<Fiende>
                     {
                         new Fiende
@@ -76,15 +77,14 @@ namespace UseCase.NeuralVortex.Spec
             visaSpelvärld.Visa();
 
             // Assert
-            Assert.That(fiendegrafik.HarVisatsPåPosition.X, Is.EqualTo(2));
-            Assert.That(fiendegrafik.HarVisatsPåPosition.Y, Is.EqualTo(3));
+            fiendegrafik.Received().Visa(new Skärmposition(2, 3));
         }
 
         [Test]
         public void Huvudkaraktären_borde_visas_ovanpå_miljön()
         {
             // Arrange
-            var grafik = new GrafikMock();
+            var grafik = Substitute.For<IGrafik>();
             var huvudkaraktär = new Huvudkaraktär { Grafik = grafik, Position = new Spelvärldsposition(1, 2) };
             var spelvärld = new SpelvärldMock { MiljöGrafik = grafik, Huvudkaraktär = huvudkaraktär };
             var visaSpelvärld = new VisaSpelvärld(spelvärld, new PositionskonverterareMock());
@@ -93,8 +93,7 @@ namespace UseCase.NeuralVortex.Spec
             visaSpelvärld.Visa();
 
             // Assert
-            Assert.That(grafik.HarVisatsPåPosition, Is.EqualTo(new Skärmposition(1, 2)));
-            // Eftersom de använder gemensam grafik, borde den enligt mocken visats på huvudkaraktärens position sist, annars felaktigt miljöns position (0, 0)
+            grafik.Received().Visa(new Skärmposition(1, 2));
         }
     }
 }
