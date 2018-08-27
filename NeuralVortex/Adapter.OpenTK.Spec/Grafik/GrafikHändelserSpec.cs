@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCase.NeuralVortex;
 
 namespace Adapter.OpenTK.Spec.Grafik
 {
@@ -15,8 +16,8 @@ namespace Adapter.OpenTK.Spec.Grafik
         [Test]
         public void Visning_tömmer_ritytan()
         {
-            var visaSpelvärld = new VisaMock();
-            var visaStatus = new VisaMock();
+            var visaSpelvärld = Substitute.For<IVisa>();
+            var visaStatus = Substitute.For<IVisa>();
             var grafikkommandon = Substitute.For<IGrafikkommandon>();
             var buffertväxlare = Substitute.For<IBuffertväxlare>();
             var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
@@ -28,8 +29,8 @@ namespace Adapter.OpenTK.Spec.Grafik
         [Test]
         public void Visning_växlar_skärmbuffert()
         {
-            var visaSpelvärld = new VisaMock();
-            var visaStatus = new VisaMock();
+            var visaSpelvärld = Substitute.For<IVisa>();
+            var visaStatus = Substitute.For<IVisa>();
             var grafikkommandon = Substitute.For<IGrafikkommandon>();
             var buffertväxlare = Substitute.For<IBuffertväxlare>();
             var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
@@ -41,27 +42,27 @@ namespace Adapter.OpenTK.Spec.Grafik
         [Test]
         public void Visar_spelvärld()
         {
-            var visaSpelvärld = new VisaMock();
-            var visaStatus = new VisaMock();
+            var visaSpelvärld = Substitute.For<IVisa>();
+            var visaStatus = Substitute.For<IVisa>();
             var grafikkommandon = Substitute.For<IGrafikkommandon>();
             var buffertväxlare = Substitute.For<IBuffertväxlare>();
             var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
             grafikhändelser.Visa(null, null);
 
-            Assert.That(visaSpelvärld.VisaHarAnropats, Is.True);
+            visaSpelvärld.Received().Visa();
         }
 
         [Test]
         public void Visar_status()
         {
-            var visaSpelvärld = new VisaMock();
-            var visaStatus = new VisaMock();
+            var visaSpelvärld = Substitute.For<IVisa>();
+            var visaStatus = Substitute.For<IVisa>();
             var grafikkommandon = Substitute.For<IGrafikkommandon>();
             var buffertväxlare = Substitute.For<IBuffertväxlare>();
             var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
             grafikhändelser.Visa(null, null);
 
-            Assert.That(visaStatus.VisaHarAnropats, Is.True);
+            visaStatus.Received().Visa();
         }
     }
 }
