@@ -60,7 +60,6 @@
     <Compile Include="AI\SekvensFörflyttningSpec.cs" />
     <Compile Include="AndelSpec.cs" />
     <Compile Include="DödaKritisktSkadadeSpec.cs" />
-    <Compile Include="FlyttaVarelserMock.cs" />
     <Compile Include="FlyttaVarelserSpec.cs" />
     <Compile Include="GrafikMock.cs" />
     <Compile Include="HinderkartaMock.cs" />

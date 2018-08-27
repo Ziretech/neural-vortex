@@ -17,12 +17,12 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Flyttar_varelser()
         {
-            var flyttaVarelser = new FlyttaVarelserMock();
+            var flyttaVarelser = Substitute.For<IFlyttaVarelser>();
             var uppdateraSpelvärld = new UppdateraSpelvärld(flyttaVarelser, null, null);
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
-            Assert.That(flyttaVarelser.FlyttadesAvTangent, Is.EqualTo(Tangent.Upp));
+            flyttaVarelser.Received().Flytta(Tangent.Upp);
         }
 
         [Test]
