@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,18 +39,19 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Dödar_kritiskt_skadade()
         {
-            var dödaKritisktSkadade = new DödaKritisktSkadadeMock();
+            var dödaKritisktSkadade = Substitute.For<IDödaKritisktSkadade>();
             var uppdateraSpelvärld = new UppdateraSpelvärld(null, null, dödaKritisktSkadade);
 
             uppdateraSpelvärld.Uppdatera(Tangent.Upp);
 
-            Assert.That(dödaKritisktSkadade.DödaHarAnropats, Is.True);
+            dödaKritisktSkadade.Received().Döda();
         }
 
         [Test]
         public void Avslutar_spelet_om_dödar_kritiskt_skadade_avslutar_spelet()
         {
-            var dödaKritisktSkadade = new DödaKritisktSkadadeMock { Fortsättning = SpeletsFortsättning.Avsluta };
+            var dödaKritisktSkadade = Substitute.For<IDödaKritisktSkadade>();
+            dödaKritisktSkadade.Döda().Returns(SpeletsFortsättning.Avsluta);
             var uppdateraSpelvärld = new UppdateraSpelvärld(null, null, dödaKritisktSkadade);
 
             var avslutning = uppdateraSpelvärld.Uppdatera(Tangent.Upp);
@@ -60,7 +62,8 @@ namespace UseCase.NeuralVortex.Spec
         [Test]
         public void Fortsätter_spelet_om_dödar_kritiskt_skadade_inte_avslutar_spelet()
         {
-            var dödaKritisktSkadade = new DödaKritisktSkadadeMock { Fortsättning = SpeletsFortsättning.Fortsätt };
+            var dödaKritisktSkadade = Substitute.For<IDödaKritisktSkadade>();
+            dödaKritisktSkadade.Döda().Returns(SpeletsFortsättning.Fortsätt);
             var uppdateraSpelvärld = new UppdateraSpelvärld(null, null, dödaKritisktSkadade);
 
             var avslutning = uppdateraSpelvärld.Uppdatera(Tangent.Upp);
