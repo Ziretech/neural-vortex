@@ -32,9 +32,7 @@ namespace Adapter.OpenTK.Grafik
         {
             get
             {
-                //var hörnet = _konverterare.TillPunkt(new Spelvärldsposition(_kartbredd, _karthöjd));
-                //return new Skärmyta(hörnet.X, hörnet.Y);
-                return _brickstorlek;
+                return _brickstorlek.MultipliceratMed(new Skärmyta(_kartbredd, _karthöjd));
             }
         }
 

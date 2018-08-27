@@ -167,36 +167,20 @@ namespace Adapter.OpenTK.Spec.Grafik
             Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(x, y)));
         }
 
-        [Test]
-        [Ignore("Skärmyta behöver kunna multiplicera")]
-        public void Har_samma_dimensioner_som_rutans_storlek_multiplicerad_med_kartans_dimensioner()
+        [TestCase(4, 4, 6, 3, 12, 8)]
+        [TestCase(8, 8, 50, 5, 40, 80)]
+        public void Har_samma_dimensioner_som_rutans_storlek_multiplicerad_med_kartans_dimensioner(
+            int brickbredd, int brickhöjd, int antal, int kartbredd, int fältbredd, int fälthöjd)
         {
             var gl = Substitute.For<IGrafikkommandon>();
-            var brickstorlek = new Skärmyta(4, 4);
+            var brickstorlek = new Skärmyta(brickbredd, brickhöjd);
             var definitioner = new Bricka[] {
                 new Bricka(gl, new Skärmposition(0, 0), brickstorlek)
             };
-            var karta = new int[6];
-            var fält = new Brickfält(definitioner, karta, 3, brickstorlek);
-
-            Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(12, 8)));
-        }
-
-        [Test]
-        [Ignore("Tidigare tester")]
-        public void Har_dimensioner_8x15_när_brickfältet_är_2x3_4x5_rutor()
-        {
-            var gl = Substitute.For<IGrafikkommandon>();
-            var kamera = new Kamera(new Skärmyta(20, 20), new Skärmposition(0, 0));
-            var definitioner = new Bricka[] {
-                new Bricka(gl, new Skärmposition(0, 0), new Skärmyta(4, 5))
-            };
-            var brickstorlek = new Skärmyta(4, 5);
-            var kartbredd = 2;
-            var karta = new int[] { 0, 0, 0, 0, 0, 0 };
+            var karta = new int[antal];
             var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
 
-            Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(8, 15)));
+            Assert.That(fält.Dimensioner, Is.EqualTo(new Skärmyta(fältbredd, fälthöjd)));
         }
     }
 }
