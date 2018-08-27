@@ -1,4 +1,5 @@
 ﻿using Adapter.OpenTK.Grafik;
+using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var visaSpelvärld = new VisaMock();
             var visaStatus = new VisaMock();
             var grafikkommandon = new GrafikkommandonMock();
-            var buffertväxlare = new BuffertväxlareMock();
+            var buffertväxlare = Substitute.For<IBuffertväxlare>();
             var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
             grafikhändelser.Visa(null, null);
 
@@ -30,11 +31,11 @@ namespace Adapter.OpenTK.Spec.Grafik
             var visaSpelvärld = new VisaMock();
             var visaStatus = new VisaMock();
             var grafikkommandon = new GrafikkommandonMock();
-            var buffertväxlare = new BuffertväxlareMock();
+            var buffertväxlare = Substitute.For<IBuffertväxlare>();
             var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
             grafikhändelser.Visa(null, null);
 
-            Assert.That(buffertväxlare.VäxlaBuffertHarAnropats, Is.True);
+            buffertväxlare.Received().VäxlaBuffert();
         }
 
         [Test]
@@ -43,7 +44,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var visaSpelvärld = new VisaMock();
             var visaStatus = new VisaMock();
             var grafikkommandon = new GrafikkommandonMock();
-            var buffertväxlare = new BuffertväxlareMock();
+            var buffertväxlare = Substitute.For<IBuffertväxlare>();
             var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
             grafikhändelser.Visa(null, null);
 
@@ -56,7 +57,7 @@ namespace Adapter.OpenTK.Spec.Grafik
             var visaSpelvärld = new VisaMock();
             var visaStatus = new VisaMock();
             var grafikkommandon = new GrafikkommandonMock();
-            var buffertväxlare = new BuffertväxlareMock();
+            var buffertväxlare = Substitute.For<IBuffertväxlare>();
             var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
             grafikhändelser.Visa(null, null);
 

@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="Grafik\BrickaSpec.cs" />
     <Compile Include="Grafik\BrickfältSpec.cs" />
-    <Compile Include="Grafik\BuffertväxlareMock.cs" />
     <Compile Include="Grafik\FyrkantVerifierare.cs" />
     <Compile Include="Grafik\GrafikHändelserSpec.cs" />
     <Compile Include="Grafik\GrafikkommandonMock.cs" />
