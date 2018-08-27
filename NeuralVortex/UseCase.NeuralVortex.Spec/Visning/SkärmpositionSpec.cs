@@ -83,9 +83,9 @@ namespace UseCase.NeuralVortex.Spec.Visning
             Assert.That(new Skärmposition(p1x, p1y).GetHashCode(), Is.EqualTo(new Skärmposition(p2x, p2y).GetHashCode()));
         }
 
-        [TestCase(1, 2, "1x2")]
-        [TestCase(13, 24, "13x24")]
-        public void Beskriver_sig_med_XxY(int x, int y, string beskrivning)
+        [TestCase(1, 2, "1,2")]
+        [TestCase(13, 24, "13,24")]
+        public void Beskriver_sig_med_X_komma_Y(int x, int y, string beskrivning)
         {
             Assert.That(new Skärmposition(x, y).ToString(), Is.EqualTo(beskrivning));
         }

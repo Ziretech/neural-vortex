@@ -44,7 +44,7 @@ namespace UseCase.NeuralVortex.Visning
 
         public override string ToString()
         {
-            return $"{X}x{Y}";
+            return $"{X},{Y}";
         }
     }
 }
