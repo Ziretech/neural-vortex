@@ -46,7 +46,7 @@ namespace UseCase.NeuralVortex.Spec
             // Arrange
             var miljögrafik = Substitute.For<IGrafik>();
             var spelvärld = new SpelvärldMock { MiljöGrafik = miljögrafik };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new PositionskonverterareMock());
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, Substitute.For<IPositionskonverterare>());
 
             // Act
             visaSpelvärld.Visa();
@@ -71,13 +71,15 @@ namespace UseCase.NeuralVortex.Spec
                         }
                     }
             };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new PositionskonverterareMock());
+            var konverterare = Substitute.For<IPositionskonverterare>();
+            konverterare.TillPunkt(new Spelvärldsposition(2, 3)).Returns(new Skärmposition(20, 30));
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, konverterare);
 
             // Act
             visaSpelvärld.Visa();
 
             // Assert
-            fiendegrafik.Received().Visa(new Skärmposition(2, 3));
+            fiendegrafik.Received().Visa(new Skärmposition(20, 30));
         }
 
         [Test]
@@ -87,13 +89,15 @@ namespace UseCase.NeuralVortex.Spec
             var grafik = Substitute.For<IGrafik>();
             var huvudkaraktär = new Huvudkaraktär { Grafik = grafik, Position = new Spelvärldsposition(1, 2) };
             var spelvärld = new SpelvärldMock { MiljöGrafik = grafik, Huvudkaraktär = huvudkaraktär };
-            var visaSpelvärld = new VisaSpelvärld(spelvärld, new PositionskonverterareMock());
+            var konverterare = Substitute.For<IPositionskonverterare>();
+            konverterare.TillPunkt(new Spelvärldsposition(1, 2)).Returns(new Skärmposition(8, 16));
+            var visaSpelvärld = new VisaSpelvärld(spelvärld, konverterare);
 
             // Act
             visaSpelvärld.Visa();
 
             // Assert
-            grafik.Received().Visa(new Skärmposition(1, 2));
+            grafik.Received().Visa(new Skärmposition(8, 16));
         }
     }
 }

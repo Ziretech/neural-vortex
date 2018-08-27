@@ -61,7 +61,6 @@
     <Compile Include="AndelSpec.cs" />
     <Compile Include="DödaKritisktSkadadeSpec.cs" />
     <Compile Include="FlyttaVarelserSpec.cs" />
-    <Compile Include="PositionskonverterareMock.cs" />
     <Compile Include="PositionskonverterareSpec.cs" />
     <Compile Include="PositionSpec.cs" />
     <Compile Include="SpelvärldMock.cs" />
