@@ -5,12 +5,15 @@ namespace UseCase.NeuralVortex
 {
     public class Område
     {
-        protected readonly int _topp;
-        protected readonly int _botten;
-        protected readonly int _vänster;
-        protected readonly int _höger;
+        private readonly Position _position;
+        private readonly Yta _yta;
 
-        public Område(Position position, Yta yta) : this(position.X, position.Y, position.X + yta.Bredd, position.Y + yta.Höjd) { }
+        public Område(Position position, Yta yta)
+        {
+
+            _position = position;
+            _yta = yta;
+        }
 
         public Område(int vänster, int botten, int höger, int topp)
         {
@@ -22,23 +25,21 @@ namespace UseCase.NeuralVortex
             {
                 throw new ArgumentException($"Område kan inte ha värdet för botten ({botten}) högre än värdet för topp ({topp}).");
             }
-            _topp = topp;
-            _botten = botten;
-            _vänster = vänster;
-            _höger = höger;
+            _position = new Position(vänster, botten);
+            _yta = new Yta(höger - vänster, topp - botten);
         }
 
-        public int Topp => _topp;
-        public int Botten => _botten;
-        public int Vänster => _vänster;
-        public int Höger => _höger;
+        public int Topp => _position.Y + _yta.Höjd;
+        public int Botten => _position.Y;
+        public int Vänster => _position.X;
+        public int Höger => _position.X + _yta.Bredd;
 
-        public Position Position => new Position(_vänster, _botten);
-        public Yta Yta => new Yta(_höger - _vänster, _topp - _botten);
+        public Position Position => _position;
+        public Yta Yta => _yta;
 
         public override string ToString()
         {
-            return $"({_vänster},{_botten})-({_höger},{_topp})";
+            return $"({Vänster},{Botten})-({Höger},{Topp})";
         }
 
         public override bool Equals(object obj)
@@ -50,15 +51,13 @@ namespace UseCase.NeuralVortex
 
             var område = (Område)obj;
             return
-                område._vänster.Equals(_vänster) &&
-                område._botten.Equals(_botten) &&
-                område._höger.Equals(_höger) &&
-                område._topp.Equals(_topp);
+                område._position.Equals(_position) &&
+                område._yta.Equals(_yta);
         }
 
         public override int GetHashCode()
         {
-            return _vänster ^ _botten ^ _höger ^ _topp;
+            return _position.GetHashCode() ^ _yta.GetHashCode();
         }
 
         public bool Omsluter(Område område)
@@ -68,7 +67,5 @@ namespace UseCase.NeuralVortex
                 || område.Höger > Höger
                 || område.Topp > Topp);
         }
-
-        // REFACTOR Område borde internt använda position och yta istället och hellre beräkna Vänster, Botten, Höger, Topp därifrån.
     }
 }
