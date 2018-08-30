@@ -47,7 +47,6 @@ namespace Adapter.OpenTK.Spec.Grafik
         [Test]
         public void Har_dimensioner()
         {
-            var kamera = new Kamera(new Skärmyta(100, 100), new Skärmposition(10, 5));
             var glMock = Substitute.For<IGrafikkommandon>();
             var bricka = new Bricka(glMock, new Skärmposition(0, 0), new Skärmyta(16, 16));
 
@@ -103,7 +102,6 @@ namespace Adapter.OpenTK.Spec.Grafik
             }
         }
 
-        // REFACTOR Tag bort Kamera (och ansvaret att transformera) ur Bricka. Låt istället anroparen ha ansvaret. Undersök om det blir problem för Brickfält.
         // REFACTOR Kolla över tester för Skärmområde, Spelvärldsområde och Område...
     }
 }

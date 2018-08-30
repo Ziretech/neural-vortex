@@ -132,24 +132,6 @@ namespace Adapter.OpenTK.Spec.Grafik
             });
         }
 
-        [Test]
-        public void Visar_brickfält_där_kameran_går_utanför_kartan()
-        {
-            var gl = Substitute.For<IGrafikkommandon>();
-            var kamera = new Kamera(new Skärmyta(8, 8));
-            var definitioner = new Bricka[] {
-                new Bricka(gl, new Skärmposition(4 * 1, 4 * 1), new Skärmyta(4, 4))
-            };
-            var brickstorlek = new Skärmyta(4, 4);
-            var kartbredd = 1;
-            var karta = new int[] { 0 };
-            var fält = new Brickfält(definitioner, karta, kartbredd, brickstorlek);
-
-            fält.Visa(new Skärmposition(0, 0));
-
-            gl.Received().KopieraTexturrektangelTillRityta(4, 4, 0, 0, 4, 4);
-        }
-
         [TestCase(4, 4)]
         [TestCase(1, 2)]
         public void Har_samma_dimensioner_som_rutan_när_det_bara_är_en_ruta(int x, int y)
