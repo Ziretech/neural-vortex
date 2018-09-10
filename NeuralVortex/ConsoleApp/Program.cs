@@ -104,7 +104,7 @@ namespace ConsoleApp
             var ucUtdelaSkada = new UtdelaSkada(spelvärld);
             var ucDödaKritisktSkadade = new DödaKritisktSkadade(spelvärld);
             var ucUppdateraSpelvärld = new UppdateraSpelvärld(ucFlyttaVarelser, ucUtdelaSkada, ucDödaKritisktSkadade);
-            var openTKHanterare = new GrafikHändelser(grafikkommandon, tileset, _fönster, ucVisaSpelvärld, kamera, ucVisaStatus);
+            var openTKHanterare = new GrafikHändelser(grafikkommandon, tileset, _fönster, ucVisaSpelvärld, kamera, ucVisaStatus, skärm);
             var kontrollhändelser = new KontrollHändelser(ucUppdateraSpelvärld, _fönster);
 
             _fönster.Laddare(openTKHanterare);

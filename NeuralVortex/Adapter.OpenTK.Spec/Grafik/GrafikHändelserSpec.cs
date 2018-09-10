@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UseCase.NeuralVortex;
+using UseCase.NeuralVortex.Visning;
 
 namespace Adapter.OpenTK.Spec.Grafik
 {
@@ -20,7 +21,8 @@ namespace Adapter.OpenTK.Spec.Grafik
             var visaStatus = Substitute.For<IVisa>();
             var grafikkommandon = Substitute.For<IGrafikkommandon>();
             var buffertväxlare = Substitute.For<IBuffertväxlare>();
-            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
+            var skärm = Substitute.For<ISkärm>();
+            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus, skärm);
             grafikhändelser.Visa(null, null);
 
             grafikkommandon.Received().TömRityta();
@@ -33,7 +35,8 @@ namespace Adapter.OpenTK.Spec.Grafik
             var visaStatus = Substitute.For<IVisa>();
             var grafikkommandon = Substitute.For<IGrafikkommandon>();
             var buffertväxlare = Substitute.For<IBuffertväxlare>();
-            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
+            var skärm = Substitute.For<ISkärm>();
+            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus, skärm);
             grafikhändelser.Visa(null, null);
 
             buffertväxlare.Received().VäxlaBuffert();
@@ -46,7 +49,8 @@ namespace Adapter.OpenTK.Spec.Grafik
             var visaStatus = Substitute.For<IVisa>();
             var grafikkommandon = Substitute.For<IGrafikkommandon>();
             var buffertväxlare = Substitute.For<IBuffertväxlare>();
-            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
+            var skärm = Substitute.For<ISkärm>();
+            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus, skärm);
             grafikhändelser.Visa(null, null);
 
             visaSpelvärld.Received().Visa();
@@ -59,10 +63,26 @@ namespace Adapter.OpenTK.Spec.Grafik
             var visaStatus = Substitute.For<IVisa>();
             var grafikkommandon = Substitute.For<IGrafikkommandon>();
             var buffertväxlare = Substitute.For<IBuffertväxlare>();
-            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus);
+            var skärm = Substitute.For<ISkärm>();
+            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, null, visaStatus, skärm);
             grafikhändelser.Visa(null, null);
 
             visaStatus.Received().Visa();
+        }
+
+        [Test]
+        public void Uppdaterar_skärmens_storlek_med_en_faktor_4()
+        {
+            var visaSpelvärld = Substitute.For<IVisa>();
+            var visaStatus = Substitute.For<IVisa>();
+            var grafikkommandon = Substitute.For<IGrafikkommandon>();
+            var buffertväxlare = Substitute.For<IBuffertväxlare>();
+            var kamera = new Kamera(new Skärmyta(10, 10));
+            var skärm = Substitute.For<ISkärm>();
+            var grafikhändelser = new GrafikHändelser(grafikkommandon, null, buffertväxlare, visaSpelvärld, kamera, visaStatus, skärm);
+            grafikhändelser.ÄndraStorlek(16, 20);
+
+            skärm.Received().ÄndraStorlek(new Skärmyta(4, 5));
         }
     }
 }

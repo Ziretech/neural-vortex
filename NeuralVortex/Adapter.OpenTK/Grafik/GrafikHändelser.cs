@@ -17,8 +17,9 @@ namespace Adapter.OpenTK.Grafik
         private IVisa _visaStatus;
         private Kamera _kamera;
         private double _scaleFactor;
+        private readonly ISkärm _skärm;
 
-        public GrafikHändelser(IGrafikkommandon grafikkommandon, IBild tileset, IBuffertväxlare buffertväxlare, IVisa visaSpelvärld, Kamera kamera, IVisa visaStatus)
+        public GrafikHändelser(IGrafikkommandon grafikkommandon, IBild tileset, IBuffertväxlare buffertväxlare, IVisa visaSpelvärld, Kamera kamera, IVisa visaStatus, ISkärm skärm)
         {
             _gl = grafikkommandon;
             _tileset = tileset;
@@ -27,6 +28,7 @@ namespace Adapter.OpenTK.Grafik
             _visaStatus = visaStatus;
             _kamera = kamera;
             _scaleFactor = 4.0;
+            _skärm = skärm;
         }
 
         public void Ladda(object avsändare, EventArgs händelse)
@@ -54,13 +56,15 @@ namespace Adapter.OpenTK.Grafik
 
         public void ÄndraStorlek(int bredd, int höjd)
         {
-            _kamera.Dimensioner = new Skärmyta((int)(bredd / _scaleFactor), (int)(höjd / _scaleFactor));
+            var yta = new Skärmyta((int)(bredd / _scaleFactor), (int)(höjd / _scaleFactor));
+            _kamera.Dimensioner = yta;
+            _skärm.ÄndraStorlek(yta);
 
             _gl.VäljProjektionmatris();
             _gl.NollställMatris();
             _gl.OrtogonalProjektion(0.0, bredd / _scaleFactor, 0.0, höjd / _scaleFactor, 0.0, 4.0);
             _gl.VäljModellmatris();
-            _gl.Visningsområde(0, 0, bredd, höjd);            
+            _gl.Visningsområde(0, 0, bredd, höjd);
         }        
     }
 }
