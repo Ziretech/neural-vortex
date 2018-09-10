@@ -101,7 +101,5 @@ namespace Adapter.OpenTK.Spec.Grafik
                 Assert.That(undantag.Message.ToLower(), Does.Contain(parameter));
             }
         }
-
-        // REFACTOR Kolla över tester för Skärmområde, Spelvärldsområde och Område...
     }
 }

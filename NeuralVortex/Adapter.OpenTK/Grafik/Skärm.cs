@@ -9,9 +9,17 @@ namespace Adapter.OpenTK.Grafik
 {
     public class Skärm : ISkärm
     {
+        private Skärmyta _skärmyta;
+
         public Skärmposition PositionCentreradIBotten(Skärmyta dimensioner)
         {
-            return new Skärmposition(0, 0);
+            int x = (_skärmyta.Bredd - dimensioner.Bredd) / 2;
+            return new Skärmposition(x, 0);
+        }
+
+        public void ÄndraStorlek(Skärmyta skärmyta)
+        {
+            _skärmyta = skärmyta;
         }
     }
 }

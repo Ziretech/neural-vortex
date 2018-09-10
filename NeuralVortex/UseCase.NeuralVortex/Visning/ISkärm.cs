@@ -9,5 +9,6 @@ namespace UseCase.NeuralVortex.Visning
     public interface ISkärm
     {
         Skärmposition PositionCentreradIBotten(Skärmyta dimensioner);
+        void ÄndraStorlek(Skärmyta skärmyta);
     }
 }
